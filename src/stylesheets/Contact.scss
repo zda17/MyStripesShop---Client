@@ -1,0 +1,41 @@
+@import './NavBar.scss';
+.apply-btn {
+    background: $dark-blue;
+    color: white;
+    padding: 10px;
+    font-family: $font;
+    font-size: 18px;
+    border-radius: 5px;
+    width: 90px;
+    margin-left: 0px;
+}
+.apply-btn:hover {
+    cursor: pointer;
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+h1 {
+    font-family: $font;
+    font-weight: 500;
+    color:$dark-blue;
+}
+
+.main-container{
+    display:flex;
+    flex-direction: column;
+    max-width: 700px;
+    text-align: center;
+    padding:10px;
+    margin:auto;
+    .contactForm textarea{
+        resize: none;
+        width: 86%;
+        height:100px;
+    }
+    .contactForm{
+        padding-top:30px;
+        padding-bottom:20px;
+    }
+    .name-email input{
+        width:40%;
+    }
+}

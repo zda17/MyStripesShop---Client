@@ -1,0 +1,40 @@
+body {
+	width: 100%;
+	height: 100%;
+}
+
+.content-wrap {
+	width: 100%;
+	height: 100%;
+	padding-bottom: 0px;
+}
+
+.featured-collections {
+	padding-top: 50px;
+	header {
+		margin-bottom: 40px;
+		text-align: center;
+		// "New Arrivals" Header
+		.sub-heading {
+			font-size: 13px;
+			font-family: "ITC Avant Garde Gothic",sans-serif;
+			font-weight: 600;
+			font-style: normal;
+			color: #3d2d27;
+			transition: color 0.2s ease-in-out;
+			letter-spacing: 0.2em;
+		}
+	}
+}
+
+.products {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	> article {
+		// Image stylings in Image.scss
+		.name-and-price {
+			text-align: center;
+		}
+	}
+}

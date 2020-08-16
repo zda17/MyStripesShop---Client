@@ -1,0 +1,63 @@
+.Login {
+    background-color: transparent;
+    height: 80px;
+}
+
+.Login-H {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.Login-SH {
+    padding-top: 40px;
+    font-size: 12px;
+}
+
+.loginInfo {
+    font-family: "ITC Avant Garde Gothic",sans-serif;
+    width: 100%;
+    height: auto;
+    align-items: center;
+}
+
+.loginForm {
+    width: 100%;
+    height: auto;
+    align-items: center;
+
+    .loginItem {
+        display: block;
+
+        label {
+            cursor: default;
+            width: 100%;
+            height: auto;
+            text-align: center;
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 350px;
+            margin: 5px;
+            font-size: 16px;
+
+            border: {
+                color: black;
+                radius: 5px;
+            }
+        }
+        
+    }
+
+    p {
+        color: red;
+    }
+
+    button {
+        padding: 10px;
+        margin: 10px;
+        font-size: 16px;
+    }
+}

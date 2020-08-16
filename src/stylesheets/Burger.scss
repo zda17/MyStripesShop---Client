@@ -1,0 +1,98 @@
+ $primary-color: rgb(95, 171, 117); 
+ $color:  #1f7bc5;
+ $dark-blue: rgb(0, 38, 72);
+ $dark-blue-line: rgba(0, 38, 72, 0.5);
+ $font: "ITC Avant Garde Gothic",sans-serif;
+
+
+  /* Positioning/Sizing of burger icon */
+  .bm-burger-button {
+    position: absolute;
+    z-index: 0 !important;
+    width: 36px;
+    height: 30px;
+    right: 25px;
+    top: 48px;
+  }
+
+  .bm-icon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+
+  /* Color of burger icon bars */
+  .bm-burger-bars {
+    background: black;
+  }
+  
+  /* Color of burger icon bars on hover*/
+  .bm-burger-bars-hover {
+    background: $primary-color;
+  }
+  
+  /* Sizing of clickable cross button */
+  .bm-cross-button {
+    height: 24px;
+    width: 24px;
+  }
+  
+  /* Color of close button cross */
+  .bm-cross {
+    background: #bdc3c7;
+  }
+  
+  /* Sidebar wrapper styles */
+  .bm-menu-wrap {
+    position: fixed;
+    height: 100%;
+  }
+  
+  /* General sidebar styles */
+  .bm-menu {
+    background: $color;
+    padding: 2em 0em 0;
+    font-size: 1.15em;
+  }
+
+  /* Sidebar item div */
+  .bm-item-list {
+    padding: 0 15px;
+  }
+  
+  /* Individual item */
+  .bm-item {
+    display: inline-block;
+    font-size: 30px;
+    font-family: 'Lucida Console', Monaco, monospace;
+    padding: 20px 10px;
+    color: $dark-blue;
+    font-family: $font;
+    text-decoration: none;
+    border-bottom: 0.5px solid $dark-blue-line;
+  }
+
+  .bm-item:hover {
+    color: $primary-color;
+  }
+
+  /* Insta icon styles */
+  .insta {
+    position: absolute;
+    bottom: 10px;
+    left: 46%;
+  }
+
+  .insta-icon {
+    height: 20px;
+    width: 20px;
+  }
+
+  .line {
+    position: fixed;
+    border: 0.5px solid $dark-blue-line;
+    bottom: 48px;
+    display: inline-block;
+    width: 222px;
+    margin: 0 5px 0 12px;
+  }

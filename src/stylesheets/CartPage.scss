@@ -1,0 +1,52 @@
+@import './UserInfoForm.scss';
+
+.cart-page-container {
+    margin: 50px;
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .cart-info-wrapper {
+        display: flex;
+        justify-content: space-around;
+        padding-bottom: 30px;
+        border-bottom: 0.5px solid rgba(0, 38, 72, 0.5);
+        .cart-items-list, .quantity-list, .item-price-times-quantity {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 0;
+            .cart-item {
+                border-bottom: none;
+            }
+            li {
+                padding: 5px 5px;
+            }
+        }
+        .quantity-list {
+            li {
+                margin-bottom: 35px;
+            }
+        }
+    }
+
+    .checkout-total-wrapper {
+        display: block;
+        text-align: right;
+        .usd {
+            font-size: 14px;
+        }
+        .checkout-btn {
+            margin: 8px;
+            background: $dark-blue;
+            color: white;
+            padding: 10px;
+            font-family: $font;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        .checkout-btn:hover {
+            cursor: pointer;
+            box-shadow: 0 0 11px rgba(33,33,33,.2);
+        }
+    }
+}

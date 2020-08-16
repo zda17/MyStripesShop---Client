@@ -1,0 +1,41 @@
+$mainFont: 'Montserrat';
+$mainFontColor:#1e2b43;
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    background-color:#1D67A8;
+    color:$mainFontColor;
+    padding: 34px 0;
+    position: relative;
+    bottom:0;
+    .about{
+        width:280px;
+        padding: 0 24px;
+        text-align: left;
+        justify-content: center;
+        font-family: $mainFont;
+    }
+    .contactUs{
+        padding: 0 24px;
+        width:160px;
+        text-align: left;
+        justify-content: center;
+        .footerHead {
+            margin-bottom: 0;
+        }
+        ul {
+            padding: 0;
+            li {
+                list-style-type: none;
+                a {
+                    text-align: center;
+                    justify-content: center;
+                    text-decoration: none;
+                    color:$mainFontColor;
+                    font-family: $mainFont;
+                }
+            }
+        }
+    }
+}

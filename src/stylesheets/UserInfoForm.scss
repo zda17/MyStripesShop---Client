@@ -1,0 +1,148 @@
+@import './NavBar.scss';
+
+form {
+    display: flex;
+    flex-direction: column;
+    h3 {
+        margin: 18px 20px 5px 20px;
+        font-size: 18px;
+        font-family: $font;
+        font-weight: 500;
+    }
+    input[type=text], select {
+        border: 1px solid $dark-blue;
+        border-radius: 3px;
+        margin: 8px 20px;
+        padding: 10px;
+    }
+    select:invalid {
+        color: gray;
+    }
+    input[type=text]:focus {
+        border: 2px;
+    }
+    .name-div {
+        display: flex;
+        flex-direction: column;
+    }
+    .button-div {
+        // text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .ship-btn {
+            margin: 20px;
+            background: $dark-blue;
+            color: white;
+            padding: 10px;
+            font-family: $font;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        .back-btn {
+            margin: 20px;
+        }
+        .fa-angle-double-left {
+            padding: 10px;
+        }
+        .ship-btn:hover {
+            cursor: pointer;
+            box-shadow: 0 0 11px rgba(33,33,33,.2);
+        }
+    }
+}
+
+.user-info-filled-container {
+    width: 800px;
+    .user-contact-ship-info {
+        background: white;
+        border: 1px solid $dark-blue;
+        border-radius: 5px;
+        padding: 15px;
+        .contact-div, .ship-div {
+            display: flex;
+            justify-content: space-between;
+            .back-to-form:hover {
+                cursor: pointer;
+            }
+        }
+        .contact-div {
+            .user-email {
+                width: 51%;
+                text-align: left;
+            }
+        }
+        .ship-div {
+            .user-ship-info {
+                width: 50%;
+                word-wrap: normal;
+            }
+        }
+    }
+    .shipping-methods {
+        background: white;
+        border: 1px solid $dark-blue;
+        border-radius: 5px;
+        padding: 15px;
+        display: inline-block;
+        form {
+            input {
+                position: relative;
+                top: 2px;
+            }
+        }
+    }
+
+    .button-div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .back-btn {
+            margin: 20px;
+        }
+        .fa-angle-double-left {
+            padding: 10px;
+        }
+        .back-btn:hover, .pay-btn:hover {
+            cursor: pointer;
+        }
+        .pay-btn {
+            margin: 20px;
+            background: $dark-blue;
+            color: white;
+            padding: 10px;
+            font-family: $font;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+    }
+
+}
+
+
+@media screen and (min-width: 800px) {
+    form {
+        .name-div {
+            flex-direction: row;
+            justify-content: space-between;
+            .name {
+                width: 46%;
+            }
+            .first-name {
+                margin-right: 5px;
+            }
+            .last-name {
+                margin-left: 2px;
+            }
+            .country-select {
+                margin-right: 0px;
+            }
+            .state-select {
+                margin: 8px 7px;
+            }
+            .zip {
+                margin-left: 0px;
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+#ShopSection {
+	padding-top: 20px;
+	header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		.sub-heading {
+			font-size: 19px;
+		}
+	}
+}

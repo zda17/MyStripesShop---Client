@@ -1,0 +1,228 @@
+@import './NavBar.scss';
+
+.slide-pane__header {
+    background-color: $dark-blue;
+    color: white;
+    
+}
+
+.slide-pane__close {
+    svg {
+        color: rgb(179, 179, 179);
+    }
+
+    svg:hover {
+        color: white;
+    }
+}
+
+.slide-pane__title {
+  letter-spacing: 4px;
+}
+
+.slide-pane__content {
+  display: block;
+  padding: 0px;
+  overflow-x: hidden;
+}
+
+.cart-pane {
+    background-color: $color;
+
+    input[type="submit"] {
+      width: 80%;
+      position: relative;
+      height: 26px;
+      display: block;
+      bottom: 0px;
+      border: none;
+      background-color: #3d2d27;
+      color: #ffefca;
+      margin: 20px auto 20px auto;
+      cursor: pointer;
+    
+      font: {
+        size: 14px;
+        weight: bold;
+      }
+    }
+
+}
+
+.cart-item {
+    display: flex;
+    width: 400px;
+    height: fit-content;
+    border-bottom: 0.5px solid rgba(0, 38, 72, 0.5);
+    line-height: 10px;
+
+    .cart-image {
+        position: relative;
+        float: left;
+        width: 33%;
+        
+    }
+
+    .cart-info {
+        text-align: left;
+        float: left;
+        padding-left: 10px;
+        margin: 10px 0px;
+        width: 67%;
+        height: 100%;
+        font-size: 12px;
+
+        h2 {
+          height: auto;
+          width: 90%;
+          word-spacing: normal;
+          word-break: break-word;
+          line-height: 16px;
+        }
+    }
+
+
+    .cart-remove {
+        color: rgb(29, 17, 17);
+        position:relative;
+        text-align: center;
+        transition: 1.5s;
+        cursor: pointer;
+        -webkit-transition:1.5s;
+        background: none;
+        border: none;
+        margin-left: 50px;
+    }
+
+    .cart-remove:hover {  background-color: transparent;  border-bottom: none; color: #000000;} 
+
+    .cart-remove:hover:before{ 
+        transition-delay: .5s; 
+        width: 100% !important;
+        transition: 1.0s;
+    }
+
+    .cart-remove:before{
+        width: 0%;
+        height:100%;  
+        z-index: 3;   
+        content:'';  
+        position: absolute;  
+        bottom:-1px;   
+        left:0;  
+        box-sizing: border-box;  
+        transition: 1.0s;
+        border-bottom: 1px solid #000000;
+    }
+
+    .cart-options {
+      width: fit-content;
+      height: fit-content;
+    }
+
+}
+
+//For quantity selectors--------------------------------------------
+//SOURCE: https://codepen.io/mystroken/pen/Moraab
+
+$block: '.quantity-input';
+$border: 0 solid #dbdbdb;
+$border-radius: 0px;
+$color--primary: #f3f3f3;
+$modifier--text-color: #888;
+
+
+#{$block} {
+    margin: 20px 0px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vw;
+  width: 33vw;
+  max-width: 125px;
+  max-height: 40px;
+  background-color: white;
+  
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border-radius: $border-radius;
+  
+  &:focus {
+    background: red;
+  }
+}
+
+#{$block}__modifier,
+#{$block}__screen {
+  user-select: none;
+  outline: none;
+}
+
+#{$block}__modifier {
+  width: 33.33%;
+  height: 100%;
+  font-size: 18px;
+  
+  background: $color--primary;
+  color: $modifier--text-color;
+  border: $border;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(#fff, .6);
+  
+  cursor: pointer;
+  
+  &:hover {
+    background: darken($color--primary, 10%);
+    color: darken($modifier--text-color, 20%)
+  }
+  
+  &--left {
+    border-radius: $border-radius 0 0 $border-radius;
+  }
+  
+  &--right {
+    border-radius: 0 $border-radius $border-radius 0;
+  }
+}
+
+#{$block}__screen {
+  width: 33.33%;
+  height: 100%;
+  font-size: 18px;
+  
+  border: 0;
+  border-top: $border;
+  border-bottom: $border;
+  text-align: center;
+}
+
+//-------------------------------------------------------------------------------------------------------
+
+@media screen and (max-width: 374px) {
+  .cart-item {
+    height: fit-content;
+
+    .cart-image {
+      width: 25%;
+    }
+
+    .cart-info {
+      width: 75%;
+      font-size: 3.2vw;
+  
+        h2 {
+        width: 60%;
+        }
+    }
+
+    .cart-remove {
+      margin-left: 10vw;
+    }
+  }
+
+    #{$block}__screen {
+        font-size: 4vw;
+    }
+    #{$block}__modifier {
+      font-size: 4vw;
+  }
+}

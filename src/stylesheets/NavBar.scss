@@ -1,0 +1,116 @@
+$color:  #1f7bc5;
+$hover-color: rgb(95, 171, 117); 
+$dark-blue: rgb(0, 38, 72);
+$font: "ITC Avant Garde Gothic",sans-serif;
+
+
+nav {
+    background-color: $color;
+    margin-bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .cart, .search {
+        font-size: 45px;
+        color: black;
+        padding: 10px;
+    }
+
+    .search {
+        font-size: 43px;
+    }
+
+    .cart:hover, .search:hover {
+        color: $hover-color;
+        cursor: pointer;
+    }
+
+    .nav-cart-wrapper {
+        width: 185px;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 30px;
+    }
+
+    .logo-wrapper-desktop {
+        width: 185px;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .logo-wrapper-mobile {
+        width: 125px;
+        height: auto;
+        padding: 8px;
+    }
+
+    .logo {
+        width: 150px;
+    }
+
+    .nav-item-wrapper {
+        width: 185px;
+        display: flex;
+        justify-content: flex-start;
+
+        .top-menu {
+            display: flex;
+            padding-left: 20px;
+            li {
+                list-style-type: none;
+                padding: 15px;
+                font-size: 26px;
+                // font-weight: bold;
+                a {
+                    text-decoration: none;
+                    color: $dark-blue;
+                    font-family: $font;
+                }
+                a:hover {
+                    color: $hover-color;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+.tagline {
+    background-color: $dark-blue;
+    height: 50px;
+    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h4 {
+        color: white;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 1199px) {
+    nav {
+        display: block;
+        .logo {
+            width: 100px;
+        }
+        .cart {
+            position: absolute;
+            right: 73px;
+            top: 29px;
+        }
+        .search {
+            position: absolute;
+            right: 129px;
+            top: 29px;
+        }
+        .nav-cart-wrapper {
+            width: 192px;
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 30px;
+        }
+    }
+}

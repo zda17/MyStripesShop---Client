@@ -1,0 +1,62 @@
+.Button {
+	text-decoration: none;
+	position: relative;
+	display: inline-block;
+	padding: 14px 28px;
+	line-height: normal;
+	font-size: 12px;
+	text-align: center;
+	letter-spacing: 0.1rem;
+	font-family: "ITC Avant Garde Gothic",sans-serif;
+	font-weight: 600;
+	font-style: normal;
+	z-index: 0;
+}
+
+// Mens/Womens Banner Buttons
+.Button_Banner {
+	color: #ffefca;
+	background-color: #3d2d27;
+	margin: 8px;
+	white-space: nowrap;
+	width: 100%;
+	max-width: 245px;
+	flex: 1 1 0;
+}
+
+// Mens/Womens Tab Buttons
+.tab-button-container {
+	// Each button
+	.tab-item {
+		font-size: 22px;
+		position: relative;
+		padding: 0;
+		overflow: visible;
+		background: none;
+		border: none;
+		outline: none;
+		border-radius: 0;
+		cursor: pointer;
+		letter-spacing: 0.2em;
+	}
+	// Set Margin only on Women's button
+	.tab-item + .tab-item {
+		margin-left: 28px;
+	}
+	// Underline for active tab
+	.tab-item::after {
+		position: relative;
+		display: block;
+		content: '';
+		bottom: 1px;
+		left: 0;
+		height: 1px;
+		width: 0;
+		background:#3d2d27;
+		transition: width 0.25s ease-in-out
+	}
+	// Transition width for underline when active
+	.tab-item.is-active::after {
+		width: calc(100% - 0.2em);
+	}
+}

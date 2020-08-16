@@ -1,0 +1,81 @@
+@import './NavBar.scss';
+
+.checkout-container {
+    .cart-display {
+        margin-top: 40px;
+        h1 {
+            text-align: center;
+            color: $dark-blue;
+        }
+    }
+}
+    
+.discount-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 5px 0 10px;
+    padding: 30px 0;
+    border-bottom: 0.5px solid rgba(0, 38, 72, 0.5);
+    .discount-input {
+        padding: 12px;
+        width: 275px;
+        font-size: 16px;
+    }
+    .apply-btn {
+        background: $dark-blue;
+        color: white;
+        padding: 10px;
+        font-family: $font;
+        font-size: 16px;
+        border-radius: 5px;
+        width: 90px;
+        margin-left: 0px;
+    }
+    .apply-btn:hover {
+        cursor: pointer;
+        box-shadow: 0 0 11px rgba(33,33,33,.2);
+    }
+}
+
+.checkout-prices-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    border-bottom: 0.5px solid rgba(0, 38, 72, 0.5);
+    .checkout-price-titles, .checkout-price-amounts {
+        list-style-type: none;
+        padding: 0;
+        margin-bottom: 0;
+        li {
+            padding: 5px 0;
+        }
+    }
+    .checkout-price-amounts {
+        text-align: right;
+        font-weight: bold;
+    }
+}
+
+.checkout-total-wrapper {
+    display: flex;
+    justify-content: space-between;
+    .usd {
+        font-size: 14px;
+    }
+}
+
+
+@media screen and (min-width: 800px) {
+    .checkout-container {
+        display: flex;
+        justify-content: space-around;
+    }
+    .user-checkout-info {
+        margin: 35px 20px;
+        min-width: 500px;
+        padding-left: 50px;
+        border-left: 0.5px solid $dark-blue;
+    }
+}
