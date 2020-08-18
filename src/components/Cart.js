@@ -4,7 +4,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 //assets
 import { CartContext } from '../utils/CartContext';
-import localStorage from '../utils/localStorage';
 
 //routes
 
@@ -15,7 +14,7 @@ import Image from "../components/Image";
 //stlye
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import "../stylesheets/Cart.scss";
-import axios from '../utils/axios';
+import NumberBubble from './NumberBubble';
 
 
 export const HandleQuantity = ({ product }) => {
@@ -31,14 +30,9 @@ export const HandleQuantity = ({ product }) => {
     );
 
     if (itemInCart) {
-      let basePrice = itemInCart.price / itemInCart.quantity;
+      let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
       itemInCart.quantity++;
-      itemInCart.price = basePrice * itemInCart.quantity;
-      axios.patch('/carts/lineitem', {
-        UUID: localStorage.getItem(),
-        product_sku: itemInCart.sku,
-        quantity: itemInCart.quantity
-      });
+      itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
     }
     setCart(newCart);
   }
@@ -54,22 +48,11 @@ export const HandleQuantity = ({ product }) => {
 
     if (itemInCart) {
       if (itemInCart.quantity > 1) {
-        let basePrice = itemInCart.price / itemInCart.quantity;
+        let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
         --itemInCart.quantity;
-        itemInCart.price = basePrice * itemInCart.quantity;
+        itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
         setCart(newCart);
-        axios.patch('/carts/lineitem', {
-          UUID: localStorage.getItem(),
-          product_sku: itemInCart.sku,
-          quantity: itemInCart.quantity
-        });
-      } else {
-        axios.delete('/carts/lineitem', {
-          UUID: localStorage.getItem(),
-          product_sku: itemInCart.sku
-        });
-        setCart(cart.filter(lineItem => lineItem.sku !== nameAttr));
-      }
+      } else setCart(cart.filter(lineItem => lineItem.sku !== nameAttr));
     }
   }
 
@@ -92,9 +75,10 @@ export const HandleQuantity = ({ product }) => {
 }
 
 //cart item component to insert into cart pane
-export const CartItem = ({ displayQuantity }) => {
+export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice, numBub }) => {
 
   const { cart, setCart } = useContext(CartContext);
+  console.log(cart);
 
   const location = useLocation();
 
@@ -135,12 +119,13 @@ export const CartItem = ({ displayQuantity }) => {
               imgDivClass='img-div-cart-page'
               imgClass='product-img'
               product={product}
+              numBub={numBub && product.quantity}
             />
           </div>
           <div className="cart-info">
             <h2><strong>{product.name}</strong></h2>
             <span><p>{getSize(product.size)} ~ {product.color.toUpperCase()}</p></span>
-            <span>${product.price}</span><span className="cart-remove" name={product.sku} onClick={remove}>Remove</span>
+            <span>${displayTotalProdPrice ? product.totalProductPrice : product.price}</span>{displayRemove && <span className="cart-remove" name={product.sku} onClick={remove}>Remove</span>}
             {displayQuantity &&
               <HandleQuantity
                 product={product}
@@ -172,7 +157,7 @@ export const Cart = () => {
 
   //gets total price
   function getTotalPrice() {
-    return cart.reduce((sum, { price }) => sum + price, 0);
+    return cart.reduce((sum, { totalProductPrice }) => sum + totalProductPrice, 0);
   };
 
   let totalPrice = getTotalPrice();
@@ -212,6 +197,8 @@ export const Cart = () => {
       >
         <CartItem
           displayQuantity={true}
+          displayRemove={true}
+          displayTotalProdPrice={false}
         />
         <input type="submit" value={"CHECKOUT ~ $" + totalPrice} onClick={goToCheckout} />
       </SlidingPane>

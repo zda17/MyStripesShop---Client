@@ -1,4 +1,5 @@
 @import './UserInfoForm.scss';
+@import './Cart.scss';
 
 .cart-page-container {
     margin: 50px;
@@ -11,20 +12,15 @@
         justify-content: space-around;
         padding-bottom: 30px;
         border-bottom: 0.5px solid rgba(0, 38, 72, 0.5);
+        
         .cart-items-list, .quantity-list, .item-price-times-quantity {
             list-style-type: none;
             padding: 0;
             margin-bottom: 0;
             .cart-item {
                 border-bottom: none;
-            }
-            li {
-                padding: 5px 5px;
-            }
-        }
-        .quantity-list {
-            li {
-                margin-bottom: 35px;
+                height: 160px;
+                margin: 10px 0;
             }
         }
     }
@@ -50,3 +46,17 @@
         }
     }
 }
+
+.cart-page-article-item, .cart-page-article {
+    height: 160px;
+}
+.cart-page-article {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .quantity-input {
+        margin: 0;
+    }
+}
+
+

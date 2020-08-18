@@ -6,22 +6,15 @@ import '../../stylesheets/CheckoutForm.scss'
 import { CartContext } from '../../utils/CartContext';
 
 
-const CheckoutForm = ({ userInfo, success, fail }) => {
+const CheckoutForm = ({ success, fail }) => {
     const { cart, cartUUID, setCartUUID, total } = useContext(CartContext);
     if (!cartUUID) {
         setCartUUID(localStorage.getItem('UUID'))
-    };;
+    };
+    console.log(cart, cartUUID, total);
     const centsTotal = total * 100;
     const stripe = useStripe();
     const elements = useElements();
-
-    const createProductSkusAndQuantities = () => {
-        const product_skus_and_quantities = [];
-        cart.forEach((item, index) => {
-            product_skus_and_quantities[index] = [item.sku, `${item.quantity}`];
-        })
-        return product_skus_and_quantities;
-    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -34,22 +27,9 @@ const CheckoutForm = ({ userInfo, success, fail }) => {
         if (!error) {
             const { id } = paymentMethod;
             try {
-                const payment = await axios.post('/checkout', { id, amount: centsTotal, uuid: cartUUID });
-
-                const product_skus_and_quantities = createProductSkusAndQuantities(); 
-
-                const orderData = {
-                    email: userInfo.email,
-                    address: userInfo.address,
-                    state: 'OK',
-                    product_skus_and_quantities,
-                    amount_cents: centsTotal,
-                    uuid: cartUUID
-                };
-
-                const order = await axios.post('/orders', { orderData });
-
-                success(order.id, payment.id);
+                const { data } = await axios.post('/checkout', { id, amount: centsTotal, uuid: cartUUID });
+                console.log(data);
+                success();
             } catch (error) {
                 console.log(error.message);
                 fail();
@@ -75,22 +55,14 @@ const CheckoutForm = ({ userInfo, success, fail }) => {
 
 const stripePromise = loadStripe("pk_test_51HELKHG3yT4fkVPvmTSvWinnxraM8XWMvM34GcLQd0v4S5i4nXNxwW0U1MmvKV6S1raTKk2zt1zvZwbGYKj7k4C100La8TJxQN")
 
-const Payment = ({ userInfo }) => {
+const Payment = () => {
 
     const { total } = useContext(CartContext);
 
     const [status, setStatus] = useState();
-    const [orderNumber, setOrderNumber] = useState();
-    const [paymentConfirmation, setPaymentConfirmation] = useState();
 
     if (status === "success") {
-        return (
-            <div>
-                <p>Payment of <span className="payment_special">${total}</span> successful!</p>
-                <p>Payment Confirmation: <span className="payment_special">${paymentConfirmation}</span></p>
-                <p>Order Number: <span className="payment_special">${orderNumber}</span></p>
-            </div>
-        )
+        return <div>Payment of ${total} successful!</div>
     }
 
     return (
@@ -99,12 +71,7 @@ const Payment = ({ userInfo }) => {
             <h4>All transactions are secure and encrypted.</h4>
             <Elements stripe={stripePromise}>
                 <CheckoutForm
-                    userInfo={userInfo}
-                    success={(order, payment) => { 
-                        setStatus("success");
-                        setOrderNumber(order);
-                        setPaymentConfirmation(payment);
-                    }}
+                    success={() => { setStatus("success") }}
                     fail={() => { setStatus("fail") }}
                 />
             </Elements>

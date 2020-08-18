@@ -21,7 +21,7 @@ const Costs = () => {
 
     const calculateSubtotal = () => {
         if (cart[0]) {
-            setSubtotal(cart.map(product => product.price).reduce((prev, next) => prev + next));
+            setSubtotal(cart.map(product => product.totalProductPrice).reduce((prev, next) => prev + next));
             console.log(subtotal);
         }
     };
@@ -107,9 +107,10 @@ const Checkout = () => {
             <section className='cart-display'>
                 <h1>Order Summary</h1>
                 <CartItem
-                // remove 'remove button' from here
-                // made displayQuantity false; will add a number icon to show quantity (user shouldn't be able to change quantity here)
+                    displayRemove={false}
                     displayQuantity={false}
+                    displayTotalProdPrice={true}
+                    numBub={true}
                 />
                 <Costs />
                 {/* {userShipInfo && <Index />} */}
