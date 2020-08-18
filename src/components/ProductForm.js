@@ -56,7 +56,10 @@ const ProductForm = (props) => {
         };
 
         //creates duplicate
-        let newCart = [...cart];
+        let newCart = []; 
+        if (cart){
+            newCart = [...cart]
+        }
 
         //looks for product in that size and color
         const product = products.find(
@@ -84,6 +87,8 @@ const ProductForm = (props) => {
             }
             //sets cart and opens pane
             setCart(newCart);
+            console.log(newCart);
+            localStorage.setUserCart(newCart);
             setIsPaneOpen(true);
         }
     };

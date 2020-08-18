@@ -1,22 +1,45 @@
 @import './UserInfoForm.scss';
 @import './Cart.scss';
+@import './Burger.scss';
 
 .cart-page-container {
     margin: 50px;
-    h2 {
+    h1 {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 50px;
+        font-weight: bold;
+        font-size: 28px;
+        font-family: "ITC Avant Garde Gothic",sans-serif;
+    }
+    .horizontal-line, .horizontal-line-bottom {
+        color: $dark-blue-line;
+        position: relative;
+        top: 65px;
+        width: 80%;
+    }
+    .horizontal-line-bottom {
+        top: 5px;
     }
     .cart-info-wrapper {
         display: flex;
         justify-content: space-around;
         padding-bottom: 30px;
-        border-bottom: 0.5px solid rgba(0, 38, 72, 0.5);
-        
+        // border-bottom: 0.5px solid rgba(0, 38, 72, 0.5);
+        // border-top: 0.5px solid rgba(0, 38, 72, 0.5);
         .cart-items-list, .quantity-list, .item-price-times-quantity {
             list-style-type: none;
             padding: 0;
             margin-bottom: 0;
+            #product {
+                margin-left: 23px;
+                margin-bottom: 20px;
+            }
+            #quantity {
+                margin-left: 15px;
+            }
+            #total {
+                margin-right: 11px;
+            }
             .cart-item {
                 border-bottom: none;
                 height: 160px;
@@ -28,6 +51,7 @@
     .checkout-total-wrapper {
         display: block;
         text-align: right;
+        margin: 50px 130px;
         .usd {
             font-size: 14px;
         }

@@ -4,6 +4,8 @@ import './stylesheets/Buttons.scss';
 import { Route, Switch } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { MyContext } from '../src/utils/Context';
+import { CartContext } from '../src/utils/CartContext';
+import localStorage from './utils/localStorage';
 
 
 //components
@@ -26,12 +28,20 @@ import CartPage from "./routes/CartPage";
 function App() {
 
   const { menuOpenState, setMenuOpenState } = useContext(MyContext)
+  const { cart, setCart } = useContext(CartContext)
 
   useEffect(() => {
     document.body.onclick = function () {
       menuOpenState && setMenuOpenState(!menuOpenState);
     }
   }, [menuOpenState, setMenuOpenState]);
+
+  useEffect(() => {
+    if (cart) {
+      let newCart = localStorage.getUserCart();
+      setCart(newCart);
+    }
+  }, []);
 
 
   return (
