@@ -75,24 +75,12 @@ const ProductForm = (props) => {
 
             //if exists increment quantity and set new price. else push new line item
             if (itemInCart) {
-                let basePrice = itemInCart.price / itemInCart.quantity;
+                let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
                 itemInCart.quantity++;
-                itemInCart.price = basePrice * itemInCart.quantity;
-                axios.patch('/carts/lineitem', {
-                    UUID: localStorage.getItem(),
-                    product_sku: itemInCart.product_sku,
-                    quantity: itemInCart.quantity
-                });
+                itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
             } else {
-                const lineItem = { base_sku: product.base_sku, sku: product.sku, name: product.name, price: (product.price_cents / 100), color: values.color, size: values.size, photo_url: product.photo_url, quantity: 1, quantity_available: product.quantity_available };
+                const lineItem = { base_sku: product.base_sku, sku: product.sku, name: product.name, price: (product.price_cents / 100), totalProductPrice: (product.price_cents / 100), color: values.color, size: values.size, photo_url: product.photo_url, quantity: 1, quantity_available: product.quantity_available };
                 newCart.push(lineItem);
-                axios.post('/carts/lineitem', {
-                    line_item: {
-                        quantity: lineItem.quantity,
-                        product_sku: lineItem.sku,
-                        cart_id: localStorage.getItem()
-                    }
-                });
             }
             //sets cart and opens pane
             setCart(newCart);

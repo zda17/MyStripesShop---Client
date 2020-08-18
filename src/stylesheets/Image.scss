@@ -30,6 +30,12 @@ $autoHeight: auto;
     padding: $padding;
     margin: 20px 20px;
     display: inline-block;
+    position: relative;
+    z-index: -1;
+    a {
+        text-decoration: none;
+        color: black;
+    }
 }
 
 .product-img {
