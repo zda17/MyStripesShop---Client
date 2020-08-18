@@ -4,6 +4,7 @@ import UserInfoForm from '../components/Checkout/UserInfoForm';
 import '../stylesheets/Checkout.scss';
 import { CartItem } from '../components/Cart';
 import { CartContext } from '../utils/CartContext';
+import { Link } from 'react-router-dom';
 
 // Calculate costs and manage state for subtotal, shipping, taxes, coupon, and total
 const Costs = () => {
@@ -112,6 +113,12 @@ const Checkout = () => {
                     displayTotalProdPrice={true}
                     numBub={true}
                 />
+                <div className='button-div'>
+                    <Link to='/Cart' className='back-btn'>
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        Return to cart
+                    </Link>
+                </div>
                 <Costs />
                 {/* {userShipInfo && <Index />} */}
             </section>
