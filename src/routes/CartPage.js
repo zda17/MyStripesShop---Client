@@ -25,10 +25,11 @@ export default function CartPage() {
     return (
         <>
             <section className='cart-page-container'>
-                <h2>CART</h2>
+                <h1>CART</h1>
+                <hr className='horizontal-line'></hr>
                 <section className='cart-info-wrapper'>
                     <ul className='cart-items-list'>
-                        <li>PRODUCT</li>
+                        <li id='product'>PRODUCT</li>
                         <article className='cart-page-article-item'>
                             <CartItem
                                 displayQuantity={false}
@@ -38,7 +39,7 @@ export default function CartPage() {
                         </article>
                     </ul>
                     <ul className='quantity-list'>
-                        <li>QUANTITY</li>
+                        <li id='quantity'>QUANTITY</li>
                         {cart.map(product =>
                             <li>
                                 <article className='cart-page-article quantity-box'>
@@ -50,7 +51,7 @@ export default function CartPage() {
                         )}
                     </ul>
                     <ul className='item-price-times-quantity'>
-                        <li>TOTAL</li>
+                        <li id='total'>TOTAL</li>
                         {cart.map(product =>
                             <article className='cart-page-article'>
                                 <p className='total-prod-price'>${product.totalProductPrice}</p>
@@ -58,6 +59,7 @@ export default function CartPage() {
                         )}
                     </ul>
                 </section>
+                <hr className='horizontal-line-bottom'></hr>
                 <section className='checkout-total-wrapper'>
                     <h3 className='checkout-total-title'>CART TOTAL: ${totalPrice}<span className='usd'> (USD)</span></h3>
                     <h4>Shipping & taxes calculated at checkout</h4>
