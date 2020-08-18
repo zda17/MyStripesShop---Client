@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import SlidingPane from "react-sliding-pane";
 import { useHistory, useLocation } from 'react-router-dom';
+import localStorage from '../utils/localStorage';
 
 //assets
 import { CartContext } from '../utils/CartContext';
@@ -35,6 +36,7 @@ export const HandleQuantity = ({ product }) => {
       itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
     }
     setCart(newCart);
+    localStorage.setUserCart(newCart);
   }
 
   //minus 1 from quanitity
@@ -52,7 +54,12 @@ export const HandleQuantity = ({ product }) => {
         --itemInCart.quantity;
         itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
         setCart(newCart);
-      } else setCart(cart.filter(lineItem => lineItem.sku !== nameAttr));
+        localStorage.setUserCart(newCart);
+      } else {
+        let filteredCart = cart.filter(lineItem => lineItem.sku !== nameAttr);
+        setCart(filteredCart);
+        localStorage.setUserCart(filteredCart);
+      };
     }
   }
 
@@ -80,12 +87,12 @@ export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice
   const { cart, setCart } = useContext(CartContext);
   console.log(cart);
 
-  const location = useLocation();
-
   //removes cart item based on sku.
   const remove = (e) => {
-    const nameAttr = e.target.getAttribute("name")
-    setCart(cart.filter(lineItem => lineItem.sku !== nameAttr));
+    const nameAttr = e.target.getAttribute("name");
+    let filteredCart = cart.filter(lineItem => lineItem.sku !== nameAttr);
+    setCart(filteredCart);
+    localStorage.setUserCart(filteredCart);
   };
 
   //converts size abbr to word
@@ -111,28 +118,34 @@ export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice
   return (
     <>
       {/*lists all items in cart*/}
-      {cart.map((product, index) => (
-        <div className="cart-item" key={index}>
-          <div className="cart-image">
-            <Image
-              to={"/Products/" + product.base_sku}
-              imgDivClass='img-div-cart-page'
-              imgClass='product-img'
-              product={product}
-              numBub={numBub && product.quantity}
-            />
-          </div>
-          <div className="cart-info">
-            <h2><strong>{product.name}</strong></h2>
-            <span><p>{getSize(product.size)} ~ {product.color.toUpperCase()}</p></span>
-            <span>${displayTotalProdPrice ? product.totalProductPrice : product.price}</span>{displayRemove && <span className="cart-remove" name={product.sku} onClick={remove}>Remove</span>}
-            {displayQuantity &&
-              <HandleQuantity
-                product={product}
-              />}
-          </div>
-        </div>
-      ))}
+      {cart &&
+        <>
+          {
+            cart.map((product, index) => (
+              <div className="cart-item" key={index}>
+                <div className="cart-image">
+                  <Image
+                    to={"/Products/" + product.base_sku}
+                    imgDivClass='img-div-cart-page'
+                    imgClass='product-img'
+                    product={product}
+                    numBub={numBub && product.quantity}
+                  />
+                </div>
+                <div className="cart-info">
+                  <h2><strong>{product.name}</strong></h2>
+                  <span><p>{getSize(product.size)} ~ {product.color.toUpperCase()}</p></span>
+                  <span>${displayTotalProdPrice ? product.totalProductPrice : product.price}</span>{displayRemove && <span className="cart-remove" name={product.sku} onClick={remove}>Remove</span>}
+                  {displayQuantity &&
+                    <HandleQuantity
+                      product={product}
+                    />}
+                </div>
+              </div>
+            ))
+          }
+        </>
+      }
     </>
   );
 }
@@ -157,10 +170,12 @@ export const Cart = () => {
 
   //gets total price
   function getTotalPrice() {
-    return cart.reduce((sum, { totalProductPrice }) => sum + totalProductPrice, 0);
+    if (cart) {
+      return cart.reduce((sum, { totalProductPrice }) => sum + totalProductPrice, 0);
+    }
   };
 
-  let totalPrice = getTotalPrice();
+  let totalPrice = getTotalPrice() || 0;
 
   // useHistory for changing routes
   const history = useHistory();
