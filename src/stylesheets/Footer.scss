@@ -8,7 +8,9 @@ footer {
     color:$mainFontColor;
     padding: 34px 0;
     position: relative;
-    bottom:0;
+    flex:1;
+    width:100%;
+    max-height: auto;
     .about{
         width:280px;
         padding: 0 24px;
