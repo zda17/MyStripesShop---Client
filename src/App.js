@@ -47,7 +47,7 @@ function App() {
   return (
     <div className="App">
     <Router>
-      <div className="Wrap">
+      <main className='App'>
         <NavBar />
         <Switch>
           <Route exact path="/">
@@ -87,6 +87,10 @@ function App() {
         </Switch>
         </div>
         <Footer />
+<<<<<<< HEAD
+=======
+      </main>
+>>>>>>> fdc013831e35949d6bbdeb141b42c48a3f1576e5
     </Router>
     </div>
   );
