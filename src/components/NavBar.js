@@ -69,8 +69,8 @@ const NavBar = () => {
     }, []);
 
     return (
-        <>
-            <nav>
+        <nav>
+            <section className='nav'>
                 {windowWidth <= 1199 ?
                     <BurgerMenu />
                     :
@@ -87,11 +87,11 @@ const NavBar = () => {
                         <Cart />
                     </div>
                 </div>
-            </nav>
-            <div className='tagline'>
+            </section>
+            <section className='tagline'>
                 <h4>COMMUNITY CONSCIOUS CLOTHING</h4>
-            </div>
-        </>
+            </section>
+        </nav>
     )
 }
 

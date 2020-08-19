@@ -55,7 +55,7 @@ const Login = (props) => {
     };
 
     return(
-        <>
+        <section>
             <Header
                 title="Login"
                 description="Please enter your e-mail and password:"
@@ -92,7 +92,7 @@ const Login = (props) => {
                     <button type="submit">Login</button>
                 </form>
             </div>
-        </>
+        </section>
     );
 };
 
