@@ -45,7 +45,7 @@ function App() {
 
 
   return (
-
+    <div className="App">
     <Router>
       <main className='App'>
         <NavBar />
@@ -85,11 +85,10 @@ function App() {
             {/* Error page? */}
           </Route>
         </Switch>
-
         <Footer />
       </main>
     </Router>
-
+    </div>
   );
 }
 
