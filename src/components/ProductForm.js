@@ -12,6 +12,7 @@ import localStorage from '../utils/localStorage';
 import { v4 as uuid } from 'uuid';
 // api to create cart if needed
 import axios from '../utils/axios';
+import { Link } from 'react-router-dom';
 
 const ProductForm = (props) => {
 
@@ -56,8 +57,8 @@ const ProductForm = (props) => {
         };
 
         //creates duplicate
-        let newCart = []; 
-        if (cart){
+        let newCart = [];
+        if (cart) {
             newCart = [...cart]
         }
 
@@ -189,7 +190,7 @@ const ProductForm = (props) => {
 
                     {/*sizes you can pick*/}
                     <div id="Sizes" className="Sizes">
-                    
+
                     </div>
 
                     {/*ADDS TO CART*/}
@@ -198,6 +199,13 @@ const ProductForm = (props) => {
                         value="ADD TO CART"
                     />
 
+                    {/*VIEW CART*/}
+                    <div className='button-div'>
+                        <Link to='/Cart' className='cart-btn'>
+                            VIEW CART
+                            <i className="fa fa-shopping-cart cart" aria-hidden="true"></i><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </form>
