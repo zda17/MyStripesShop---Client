@@ -84,7 +84,7 @@ label {
       @each $name, $value in $colors {
         &.#{$name} {
           display: block;
-          background: $value;
+          //background: $value;//
           width: 48px;
           height: 48px;
 
@@ -94,7 +94,7 @@ label {
             height: 2px;
             display: none;
             position: relative;
-            border-bottom: 2px solid $value;
+            //border-bottom: 2px solid $value;//
           }
         
         }
