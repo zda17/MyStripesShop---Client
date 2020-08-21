@@ -26,7 +26,6 @@ form {
         flex-direction: column;
     }
     .button-div {
-        // text-align: center;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -41,6 +40,10 @@ form {
         }
         .back-btn {
             margin: 20px;
+            color: $dark-blue;
+        }
+        .back-btn:hover {
+            color: $darker-blue;
         }
         .fa-angle-double-left {
             padding: 10px;

@@ -1,5 +1,6 @@
 @import './NavBar.scss';
 
+
 .checkout-container {
     .cart-display {
         .cart-item {
@@ -12,19 +13,44 @@
         }
         .button-div {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            .back-btn {
-                margin: 20px;
+            .cart-btn {
+                margin: 20px 0;
+                color: $dark-blue;
             }
             .fa-angle-double-left {
                 padding: 10px;
             }
-            .back-btn:hover, .pay-btn:hover {
+            .cart-btn:hover {
                 cursor: pointer;
+                color: $darker-blue;
             }
         }
+    }
+}
 
+.empty-cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 50px;
+    .fa-angle-double-left {
+        padding: 10px 8px 10px 0;
+    }
+    .shop-btn {
+        background: $dark-blue;
+        color: white;
+        padding: 5px 12px 5px 10px;
+        font-family: $font;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        margin-left: 0px;
+        text-decoration: none;
+    }
+    .shop-btn:hover {
+        cursor: pointer;
     }
 }
     
@@ -54,7 +80,6 @@
     }
     .apply-btn:hover {
         cursor: pointer;
-        box-shadow: 0 0 11px rgba(33,33,33,.2);
     }
 }
 
