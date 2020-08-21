@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import SlidingPane from "react-sliding-pane";
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import localStorage from '../utils/localStorage';
 
 //assets
@@ -84,7 +84,7 @@ export const HandleQuantity = ({ product }) => {
 //cart item component to insert into cart pane
 export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice, numBub }) => {
 
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, setCart, setTotal } = useContext(CartContext);
   console.log(cart);
 
   //removes cart item based on sku.
@@ -93,6 +93,7 @@ export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice
     let filteredCart = cart.filter(lineItem => lineItem.sku !== nameAttr);
     setCart(filteredCart);
     localStorage.setUserCart(filteredCart);
+    setTotal(0);
   };
 
   //converts size abbr to word
@@ -148,6 +149,27 @@ export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice
       }
     </>
   );
+}
+
+export const EmptyCart = () => {
+  const { isPaneOpen, setIsPaneOpen } = useContext(CartContext);
+
+  const history = useHistory();
+
+  const goShop = () => {
+    isPaneOpen && setIsPaneOpen(false);
+    history.push('/Products/All');
+  }
+
+  return (
+    <section className='empty-cart'>
+      <h3>Cart is empty.</h3>
+      <button type='button' onClick={goShop} className='shop-btn'>
+        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+        GO SHOP
+      </button>
+    </section>
+  )
 }
 
 
@@ -215,7 +237,11 @@ export const Cart = () => {
           displayRemove={true}
           displayTotalProdPrice={false}
         />
-        <input type="submit" value={"CHECKOUT ~ $" + totalPrice} onClick={goToCheckout} />
+        {cart[0] ?
+          <input type="submit" value={"CHECKOUT ~ $" + totalPrice} onClick={goToCheckout} />
+          :
+          <EmptyCart />
+        }
       </SlidingPane>
       {/*responsive pane*/}
 
