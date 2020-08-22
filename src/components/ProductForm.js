@@ -23,29 +23,14 @@ const ProductForm = (props) => {
     products.map(product => colorObject.hasOwnProperty(product.color_name) ? null : colorObject[product.color_name] = product.color_hex);
     const colors = Object.entries(colorObject);
     console.log(colorObject);
-    //
 
     const sizes = [];
     //sizes.splice(0, sizes.length);
     products.map(product => sizes.includes(product.size) ? null : sizes.push(product.size));
-    //
 
     //creates react-hook-form and components
     const { handleSubmit, register, errors, reset } = useForm();
     const { cart, setCart, setIsPaneOpen, setCartUUID } = useContext(CartContext);
-
-    /*used to reset colors and sizes
-    const [resetButton, setResetButton] = useState(false);
-
-    const resetOptions = () => {
-        //resets button
-        setResetButton(!resetButton);
-        //re-maps all colors and sizes to base_sku product
-        //products.map(product => colors.includes(product.color) ? null : colors.push(product.color));
-        //products.map(product => sizes.includes(product.size) ? null : sizes.push(product.size));
-        //console.log(colors);
-        //console.log(sizes);
-    }*/
 
 
     //add to cart button
@@ -103,13 +88,8 @@ const ProductForm = (props) => {
         //prints value selected
         console.log(e.target.value);
 
-        //shows reset button
-        if (e.target.value && !resetButton) {
-            setResetButton(!resetButton);
-        }
-
         //filters to all sizes of value selected
-        const productsSelected = products.filter(product => (e.target.value === product.color) || (e.target.value === product.size));
+        const productsSelected = products.filter(product => (e.target.value === product.color));
 
         //deletes all elements and maps new ones??
         colors.splice(0, colors.length);
@@ -145,14 +125,6 @@ const ProductForm = (props) => {
             <div className="ProductOptions">
                 <div className="ProductSelect">
 
-                    {/*RESET BUTTON
-                    <input
-                        className={resetButton ? "selected" : null}
-                        type="reset"
-                        onClick={() => resetOptions()}
-                        value="RESET"
-                    />*/}
-
                     <Header
                         title="COLOR"
                         headerClass="Other-Header"
@@ -161,14 +133,33 @@ const ProductForm = (props) => {
                         subHClass="No-Sub"
                     />
 
-                    {/*Colors*/}
+                    {/*Maps all Colors -- color[0]=name color[1]=hex*/}
                     <div id="Colors" className="Colors">
                         <ul>
                             {errors.color && (<p>COLOR IS REQUIRED.</p>)}
-                            {colors.map(color => (
-                                <li className={color[0] + "label"}>
+                            
+                            {colors.map((color, id) => (
+                                <li key={id}>
                                     <input type="radio" name="color" id={color[0]} value={color[0]} ref={register({ required: true })} />
-                                    <label className={color[0]} htmlFor={color[0]}><span className={color[0]} style={{ background: color[1] }}></span><span className={color[0] + "__selector"} /></label>
+                                    <label className={color[0]} htmlFor={color[0]}>
+                                        <span 
+                                            className="Selector-Block" 
+                                            style={{
+                                                background: color[1],
+                                                width: '48px',
+                                                height: '48px',
+                                                display: 'block' 
+                                            }}/>
+                                        <span 
+                                            className="__selector"
+                                            style={{
+                                                borderBottom: 'solid 2px'+ color[1],
+                                                height: '2px',
+                                                width: '48px',
+                                                paddingTop: '4px',
+                                                position: 'relative'
+                                            }}/>
+                                    </label>
                                 </li>
                             ))}
                         </ul>
@@ -186,11 +177,15 @@ const ProductForm = (props) => {
                     {/*sizes you can pick*/}
                     <div id="Sizes" className="Sizes">
                         <ul>
-                            {errors.size && (<p>SIZE IS REQUIRED.</p>)}{/*Need to make better with scss*/}
+                            {errors.size && (<p>SIZE IS REQUIRED.</p>)}
                             {sizes.map((size, index) => (
                                 <li className={size} key={index}> {/*<--prop used for showing out of order (not made yet)*/}
                                     <input type="radio" name="size" id={size} value={size} ref={register({ required: true })} />
-                                    <label htmlFor={size}><span className={size}>{size}</span></label>
+                                    <label htmlFor={size}>
+                                        <span className={size}>
+                                            {size}
+                                        </span>
+                                    </label>
                                 </li>
                             ))}
                         </ul>
