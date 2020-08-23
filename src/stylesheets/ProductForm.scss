@@ -1,3 +1,5 @@
+@import './NavBar.scss';
+
 $sizes: (
     x-small: XS,
     small: S,
@@ -9,6 +11,7 @@ $sizes: (
 );
 
 $primaryColor: #1f7bc5;
+$dark-blue: #1d3650;
 
 * {
     box-sizing: border-box;
