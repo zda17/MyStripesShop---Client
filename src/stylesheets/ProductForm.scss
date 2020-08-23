@@ -10,9 +10,6 @@ $sizes: (
     xxx-large: XXXL,
 );
 
-$primaryColor: #1f7bc5;
-$dark-blue: #1d3650;
-
 * {
     box-sizing: border-box;
 }
@@ -156,7 +153,7 @@ $dark-blue: #1d3650;
         display: block;
         border: none;
         border-radius: 5px;
-        background-color: $primaryColor;
+        background-color: $color;
         color: white;
         margin: 12px auto;
         cursor: pointer;
@@ -179,7 +176,7 @@ $dark-blue: #1d3650;
       min-height: 36px;
       display: none;
       border: none;
-      background-color: $primaryColor;
+      background-color: $color;
       color: white;
       margin: 5px auto;
       cursor: pointer;
