@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import UserInfoForm from '../components/Checkout/UserInfoForm';
 import '../stylesheets/Checkout.scss';
-import { CartItem } from '../components/Cart';
+import { CartItem, EmptyCart } from '../components/Cart';
 import { CartContext } from '../utils/CartContext';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +12,8 @@ const Costs = () => {
 
     useEffect(() => {
         !isPaneOpen && window.scrollTo(0, 0);
-    }, [])
+        calculateTotal();
+    }, [cart])
 
 
     const [subtotal, setSubtotal] = useState(0);
@@ -23,7 +24,6 @@ const Costs = () => {
     const calculateSubtotal = () => {
         if (cart[0]) {
             setSubtotal(cart.map(product => product.totalProductPrice).reduce((prev, next) => prev + next));
-            console.log(subtotal);
         }
     };
 
@@ -43,10 +43,9 @@ const Costs = () => {
         // - Check provided discount code against discount_codes in DB
     }
 
-    function calculateTotal() {
+    const calculateTotal = () => {
         setTotal((subtotal + shipping + taxes) - coupon);
     };
-
 
     useEffect(() => {
         if (cart) {
@@ -64,7 +63,7 @@ const Costs = () => {
         if (subtotal && taxes) {
             calculateTotal();
         };
-    }, [subtotal, taxes]);
+    }, [subtotal, taxes, total]);
 
     const { register, handleSubmit } = useForm();
 
@@ -104,28 +103,34 @@ const Checkout = () => {
     const [userShipInfo, setUserShipInfo] = useState(false);
 
     return (
-        <div className="checkout-container">
-            <section className='cart-display'>
-                <h1>Order Summary</h1>
-                <CartItem
-                    displayRemove={false}
-                    displayQuantity={false}
-                    displayTotalProdPrice={true}
-                    numBub={true}
-                />
-                <div className='button-div'>
-                    <Link to='/Cart' className='back-btn'>
-                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                        Return to cart
-                    </Link>
-                </div>
-                <Costs />
-                {/* {userShipInfo && <Index />} */}
-            </section>
-            <section className='user-checkout-info'>
-                <UserInfoForm />
-            </section>
-        </div>
+        <>
+            {cart[0] ?
+                <section className="checkout-container">
+                    <section className='cart-display'>
+                        <h1>Order Summary</h1>
+                        <CartItem
+                            displayRemove={false}
+                            displayQuantity={false}
+                            displayTotalProdPrice={true}
+                            numBub={true}
+                        />
+                        <div className='button-div'>
+                            <Link to='/Cart' className='cart-btn'>
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                Return to cart
+                        </Link>
+                        </div>
+                        <Costs />
+                        {/* {userShipInfo && <Index />} */}
+                    </section>
+                    <section className='user-checkout-info'>
+                        <UserInfoForm />
+                    </section>
+                </section>
+                :
+                <EmptyCart />
+            }
+        </>
     );
 };
 

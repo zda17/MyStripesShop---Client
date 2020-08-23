@@ -1,3 +1,5 @@
+@import './NavBar.scss';
+
 $colors: (
   darkBlue: #1d3650,
   blue: #1f7bc5,
@@ -168,6 +170,7 @@ label {
 .ProductSelect {
   align-items: center;
   text-align: center;
+  margin-bottom: 50px;
 
   //add to cart button
     input[type="submit"] {
@@ -176,9 +179,10 @@ label {
         min-height: 36px;
         display: block;
         border: none;
+        border-radius: 5px;
         background-color: $primaryColor;
         color: white;
-        margin: 5px auto;
+        margin: 12px auto;
         cursor: pointer;
         background-image: url('../utils/images/add\ 1.png');
         background-repeat: no-repeat;
@@ -205,7 +209,7 @@ label {
       margin: 5px auto;
       cursor: pointer;
       padding: 10px 15px;
-
+      
 
       font: {
           size: 18px;
@@ -216,8 +220,36 @@ label {
   input.selected {
     display: block;
   } 
-
+  .button-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .cart-btn {
+        margin: 10px;
+        background: $dark-blue;
+        color: white;
+        padding: 0px 10px;
+        font-family: $font;
+        font-size: 14px;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .fa-shopping-cart {
+        padding: 10px 6px 10px 8px;
+    }
+    .fa-angle-double-right {
+      font-size: 15px;
+    }
+    .cart-btn:hover {
+        cursor: pointer;
+    }
+  }
 }
+
+
 
 
   .none {
