@@ -30,8 +30,9 @@ export const HandleQuantity = ({ product }) => {
       (item) => nameAttr === item.sku
     );
 
-    if (itemInCart) {
+    if (itemInCart && (itemInCart.quantity < itemInCart.quantity_available)) {
       let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
+
       itemInCart.quantity++;
       itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
     }
