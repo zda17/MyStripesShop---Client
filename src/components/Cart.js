@@ -17,10 +17,17 @@ import "react-sliding-pane/dist/react-sliding-pane.css";
 import "../stylesheets/Cart.scss";
 import NumberBubble from './NumberBubble';
 
-
 export const HandleQuantity = ({ product }) => {
 
   const { cart, setCart } = useContext(CartContext);
+
+  const [outOfStock, setOutOfStock] = useState(false);
+
+  const submitEmail = () => {
+    // function to save email for sending updates on products
+    console.log('save that email!');
+  }
+
   //adds 1 to quantity
   const increment = (e) => {
     const nameAttr = e.target.getAttribute("name")
@@ -35,6 +42,10 @@ export const HandleQuantity = ({ product }) => {
 
       itemInCart.quantity++;
       itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
+    }
+    if (itemInCart.quantity >= itemInCart.quantity_available) {
+      console.log('out of stock!');
+      setOutOfStock(true);
     }
     setCart(newCart);
     localStorage.setUserCart(newCart);
@@ -77,6 +88,12 @@ export const HandleQuantity = ({ product }) => {
                 </button>
         </div>
       </div>
+      {outOfStock &&
+        <div className='out-stock-wrapper'>
+          <p className='out-of-stock'>Oops! Out of stock. Enter your email to be the first to know when it's back in stock.</p>
+          <input type='text' placeholder="email@email.com"></input><span><button type='button' onClick={submitEmail}>>></button></span>
+        </div>
+      }
     </>
   )
 

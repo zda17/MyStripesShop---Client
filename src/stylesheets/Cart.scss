@@ -49,6 +49,23 @@
 
 }
 
+.out-stock-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  // flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  background-color: white;
+  margin: 10px 0;
+  .out-of-stock {
+    font-size: 12px;
+    color: red;
+    margin: 5px;
+    line-height: 110%;
+  }
+}
+
 .cart-item {
     display: flex;
     width: 400px;
