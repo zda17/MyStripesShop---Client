@@ -14,7 +14,7 @@ $color:  #1f7bc5;
 	.admin-tab-item {
         font-size: 13px;
         width: 92px;
-        height: 116px;
+        height: 106px;
         position: relative;
         float: none;
 		padding: 15px;
@@ -27,6 +27,12 @@ $color:  #1f7bc5;
 		cursor: pointer;
         letter-spacing: 0.1em;
         font-weight: bold;
+
+        img {
+            position: absolute;
+            right: 30%;
+            bottom: 35%;
+        }
 
         span {
             position: absolute;
