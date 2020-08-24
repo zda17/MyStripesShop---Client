@@ -30,8 +30,9 @@ export const HandleQuantity = ({ product }) => {
       (item) => nameAttr === item.sku
     );
 
-    if (itemInCart) {
+    if (itemInCart && (itemInCart.quantity < itemInCart.quantity_available)) {
       let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
+
       itemInCart.quantity++;
       itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
     }
@@ -135,7 +136,7 @@ export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice
                 </div>
                 <div className="cart-info">
                   <h2><strong>{product.name}</strong></h2>
-                  <span><p>{getSize(product.size)} ~ {product.color.toUpperCase()}</p></span>
+                  <span><p>{getSize(product.size)} ~ {product.color_name.toUpperCase()}</p></span>
                   <span>${displayTotalProdPrice ? product.totalProductPrice : product.price}</span>{displayRemove && <span className="cart-remove" name={product.sku} onClick={remove}>Remove</span>}
                   {displayQuantity &&
                     <HandleQuantity
