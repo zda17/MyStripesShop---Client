@@ -41,6 +41,18 @@ $color:  #1f7bc5;
             left: 0%;
         }
 
+        .tab-number {
+            position: absolute;
+            bottom: 35%;
+            width: 100%;
+            left: 0%;
+
+            font: {
+                weight: bold;
+                size: 42px;
+            }
+        }
+
 	}
 	// Set Margin on next tab
 	.admin-tab-item + .admin-tab-item {
