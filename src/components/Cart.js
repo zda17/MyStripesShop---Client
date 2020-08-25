@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import SlidingPane from "react-sliding-pane";
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import localStorage from '../utils/localStorage';
 
 //assets
@@ -15,12 +15,16 @@ import Image from "../components/Image";
 //stlye
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import "../stylesheets/Cart.scss";
-import NumberBubble from './NumberBubble';
-
 
 export const HandleQuantity = ({ product }) => {
 
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, setCart, isPaneOpen, outOfStock, setOutOfStock, currProduct, setCurrProduct } = useContext(CartContext);
+
+  const submitEmail = () => {
+    // function to save email for sending updates on products
+    console.log('save that email!');
+  }
+
   //adds 1 to quantity
   const increment = (e) => {
     const nameAttr = e.target.getAttribute("name")
@@ -32,9 +36,14 @@ export const HandleQuantity = ({ product }) => {
 
     if (itemInCart && (itemInCart.quantity < itemInCart.quantity_available)) {
       let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
-
       itemInCart.quantity++;
       itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
+      setOutOfStock(false);
+      setCurrProduct('');
+    } else if (itemInCart.quantity + 1 > itemInCart.quantity_available) {
+      console.log('out of stock!');
+      setOutOfStock(true);
+      setCurrProduct(itemInCart.sku);
     }
     setCart(newCart);
     localStorage.setUserCart(newCart);
@@ -48,6 +57,7 @@ export const HandleQuantity = ({ product }) => {
     const itemInCart = newCart.find(
       (item) => nameAttr === item.sku
     );
+    setOutOfStock(false);
 
     if (itemInCart) {
       if (itemInCart.quantity > 1) {
@@ -64,6 +74,19 @@ export const HandleQuantity = ({ product }) => {
     }
   }
 
+  const location = useLocation();
+
+  const outOfStockMsg = product => {
+    return (
+      <form action='mailto:shanscirg7@gmail.com' method="post" encType="text/plain" id={product.sku} className={location.pathname !== '/Cart' && isPaneOpen ? 'out-stock-wrapper' : 'out-stock-wrapper-cart-page'}>
+        <label htmlFor="email" className='out-of-stock'>You're snatching up our last {product.quantity_available > 1 ? product.quantity_available + ' ' + product.name + 's' : product.name}! Enter your email to be the first to know when we restock.</label>
+        <input type="email" id="email" name="email" placeholder="email@gmail.com"></input>
+        <input type="submit" value=">>"></input>
+        <input type="button" value="No thanks!" onClick={() => setOutOfStock(false)}></input>
+      </form>
+    )
+  }
+
   return (
     <>
       <div className="cart-options">
@@ -77,6 +100,9 @@ export const HandleQuantity = ({ product }) => {
                 </button>
         </div>
       </div>
+      {outOfStock && currProduct === product.sku && 
+        outOfStockMsg(product)
+      }
     </>
   )
 
@@ -116,35 +142,36 @@ export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice
     }
   }
 
-
   return (
     <>
       {/*lists all items in cart*/}
       {cart &&
         <>
           {
-            cart.map((product, index) => (
-              <div className="cart-item" key={index}>
-                <div className="cart-image">
-                  <Image
-                    to={"/Products/" + product.base_sku}
-                    imgDivClass='img-div-cart-page'
-                    imgClass='product-img'
-                    product={product}
-                    numBub={numBub && product.quantity}
-                  />
-                </div>
-                <div className="cart-info">
-                  <h2><strong>{product.name}</strong></h2>
-                  <span><p>{getSize(product.size)} ~ {product.color_name.toUpperCase()}</p></span>
-                  <span>${displayTotalProdPrice ? product.totalProductPrice : product.price}</span>{displayRemove && <span className="cart-remove" name={product.sku} onClick={remove}>Remove</span>}
-                  {displayQuantity &&
-                    <HandleQuantity
+            cart.map((product, index) => {
+              return (
+                <div className="cart-item" key={index}>
+                  <div className="cart-image">
+                    <Image
+                      to={"/Products/" + product.base_sku}
+                      imgDivClass='img-div-cart-page'
+                      imgClass='product-img'
                       product={product}
-                    />}
+                      numBub={numBub && product.quantity}
+                    />
+                  </div>
+                  <div className="cart-info">
+                    <h2><strong>{product.name}</strong></h2>
+                    <span><p>{getSize(product.size)} ~ {product.color_name.toUpperCase()}</p></span>
+                    <span>${displayTotalProdPrice ? product.totalProductPrice : product.price}</span>{displayRemove && <span className="cart-remove" name={product.sku} onClick={remove}>Remove</span>}
+                    {displayQuantity &&
+                      <HandleQuantity
+                        product={product}
+                      />}
+                  </div>
                 </div>
-              </div>
-            ))
+              )
+            })
           }
         </>
       }

@@ -32,7 +32,7 @@ const ProductForm = (props) => {
 
     //creates react-hook-form and components
     const { handleSubmit, register, errors, reset } = useForm();
-    const { cart, setCart, setIsPaneOpen, setCartUUID } = useContext(CartContext);
+    const { cart, setCart, setIsPaneOpen, setCartUUID, setOutOfStock, setCurrProduct } = useContext(CartContext);
 
 
     //add to cart button
@@ -58,7 +58,7 @@ const ProductForm = (props) => {
         );
 
         //if no product exists
-        if (!product) {
+        if (!product || product.quantity_available === 0) {
             console.log("OUT OF STOCK!");
             oos = "OUT OF STOCK!";
         } else {
@@ -70,13 +70,27 @@ const ProductForm = (props) => {
 
             //if exists increment quantity and set new price. else push new line item
             if (itemInCart) {
-                let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
-                itemInCart.quantity++;
-                itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
+                if (itemInCart.quantity < itemInCart.quantity_available) {
+                    let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
+                    itemInCart.quantity++;
+                    itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
+                    setOutOfStock(false);
+                    setCurrProduct('');
+                } else if (itemInCart.quantity + 1 > itemInCart.quantity_available) {
+                    console.log('out of stock!');
+                    setOutOfStock(true);
+                    setCurrProduct(itemInCart.sku);
+                }
             } else {
                 const lineItem = { base_sku: product.base_sku, sku: product.sku, name: product.name, price: (product.price_cents / 100), totalProductPrice: (product.price_cents / 100), color_name: values.color, size: values.size, photo_url: product.photo_url, quantity: 1, quantity_available: product.quantity_available };
                 newCart.push(lineItem);
             }
+            // if (itemInCart.quantity + 1 > itemInCart.quantity_available) {
+            //     console.log('out of stock!');
+            //     setOutOfStock(true);
+            //   } else {
+            //     setOutOfStock(false);
+            //   }
             //sets cart and opens pane
             setCart(newCart);
             console.log(newCart);
@@ -111,28 +125,28 @@ const ProductForm = (props) => {
                     <div id="Colors" className="Colors">
                         <ul>
                             {errors.color && (<p role="alert">COLOR IS REQUIRED.</p>)}
-                            
+
                             {colors.map((color, id) => (
                                 <li key={id}>
                                     <input type="radio" name="color" id={color[0]} value={color[0]} ref={register({ required: true })} />
                                     <label className={color[0]} htmlFor={color[0]}>
-                                        <span 
-                                            className="Selector-Block" 
+                                        <span
+                                            className="Selector-Block"
                                             style={{
                                                 background: color[1],
                                                 width: '48px',
                                                 height: '48px',
-                                                display: 'block' 
-                                            }}/>
-                                        <span 
+                                                display: 'block'
+                                            }} />
+                                        <span
                                             className="__selector"
                                             style={{
-                                                borderBottom: 'solid 2px'+ color[1],
+                                                borderBottom: 'solid 2px' + color[1],
                                                 height: '2px',
                                                 width: '48px',
                                                 paddingTop: '4px',
                                                 position: 'relative'
-                                            }}/>
+                                            }} />
                                     </label>
                                 </li>
                             ))}
