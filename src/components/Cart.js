@@ -79,10 +79,10 @@ export const HandleQuantity = ({ product }) => {
   const outOfStockMsg = product => {
     return (
       <form action='mailto:shanscirg7@gmail.com' method="post" encType="text/plain" id={product.sku} className={location.pathname !== '/Cart' && isPaneOpen ? 'out-stock-wrapper' : 'out-stock-wrapper-cart-page'}>
-        <label htmlFor="email" className='out-of-stock'>You're snatching up our last {product.quantity_available} {product.name}s! Enter your email to be the first to know when we restock.</label>
+        <label htmlFor="email" className='out-of-stock'>You're snatching up our last {product.quantity_available > 1 ? product.quantity_available + ' ' + product.name + 's' : product.name}! Enter your email to be the first to know when we restock.</label>
         <input type="email" id="email" name="email" placeholder="email@gmail.com"></input>
         <input type="submit" value=">>"></input>
-        <input type="button" value="No thanks" onClick={() => setOutOfStock(false)}></input>
+        <input type="button" value="No thanks!" onClick={() => setOutOfStock(false)}></input>
       </form>
     )
   }
