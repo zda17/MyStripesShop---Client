@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { MyContext } from '../src/utils/Context';
 import { CartContext } from '../src/utils/CartContext';
 import localStorage from './utils/localStorage';
-
+import axios from 'axios';
 
 //components
 import NavBar from "./components/NavBar";
@@ -21,75 +21,79 @@ import Mens from "./routes/Mens";
 import Womens from "./routes/Womens";
 import Contact from "./routes/Contact";
 import Login from "./routes/Login";
+import Admin from "./routes/Admin";
 import Home from "./routes/Home";
 import CartPage from "./routes/CartPage";
 
 
 function App() {
 
-  const { menuOpenState, setMenuOpenState } = useContext(MyContext)
-  const { cart, setCart } = useContext(CartContext)
+    const { menuOpenState, setMenuOpenState } = useContext(MyContext)
+    const { cart, setCart } = useContext(CartContext)
 
-  useEffect(() => {
-    document.body.onclick = function () {
-      menuOpenState && setMenuOpenState(!menuOpenState);
-    }
-  }, [menuOpenState, setMenuOpenState]);
+    useEffect(() => {
+        document.body.onclick = function () {
+            menuOpenState && setMenuOpenState(!menuOpenState);
+        }
+    }, [menuOpenState, setMenuOpenState]);
 
-  useEffect(() => {
-    if (cart) {
-      let newCart = localStorage.getUserCart();
-      setCart(newCart);
-    }
-  }, []);
+    useEffect(() => {
+        if (cart) {
+            let newCart = localStorage.getUserCart();
+            setCart(newCart);
+        }
+    }, []);
 
 
-  return (
-    <div className="App">
-    <Router>
-      <main className='App'>
-        <NavBar />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/Products/All">
-            <ShowAll />
-          </Route>
-          <Route exact path="/Products/Mens">
-            <Mens />
-          </Route>
-          <Route exact path="/Products/Womens">
-            <Womens />
-          </Route>
-          <Route exact path="/Products/:base_sku"
-            render={(props) => <Product {...props} />}
-          >
-          </Route>
-          <Route exact path="/Cart">
-            <CartPage />
-          </Route>
-          <Route exact path="/Checkout">
-            <Checkout />
-          </Route>
-          <Route exact path="/About">
-            <About />
-          </Route>
-          <Route exact path="/Contact">
-            <Contact />
-          </Route>
-          <Route exact path="/Login">
-            <Login />
-          </Route>
-          <Route>
-            {/* Error page? */}
-          </Route>
-        </Switch>
-        <Footer />
-      </main>
-    </Router>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Router>
+                <main className='App'>
+                    <NavBar />
+                    <Switch>
+                        <Route exact path="/">
+                            <Home />
+                        </Route>
+                        <Route exact path="/Products/All">
+                            <ShowAll />
+                        </Route>
+                        <Route exact path="/Products/Mens">
+                            <Mens />
+                        </Route>
+                        <Route exact path="/Products/Womens">
+                            <Womens />
+                        </Route>
+                        <Route exact path="/Products/:base_sku"
+                            render={(props) => <Product {...props} />}
+                        >
+                        </Route>
+                        <Route exact path="/Cart">
+                            <CartPage />
+                        </Route>
+                        <Route exact path="/Checkout">
+                            <Checkout />
+                        </Route>
+                        <Route exact path="/About">
+                            <About />
+                        </Route>
+                        <Route exact path="/Contact">
+                            <Contact />
+                        </Route>
+                        <Route exact path="/Login">
+                            <Login />
+                        </Route>
+                        <Route exact path="/Admin">
+                            <Admin />
+                        </Route>
+                        <Route>
+                            {/* Error page? */}
+                        </Route>
+                    </Switch>
+                    <Footer />
+                </main>
+            </Router>
+        </div>
+    );
 }
 
 export default App;
