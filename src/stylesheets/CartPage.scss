@@ -16,6 +16,7 @@
         position: relative;
         top: 65px;
         width: 80%;
+        margin-bottom: 20px;
     }
     .horizontal-line-bottom {
         top: 5px;
@@ -81,6 +82,10 @@
     .quantity-input {
         margin: 0;
     }
+    .out-stock-wrapper-cart-page {
+        right: 0;
+        width: 350px;
+      }
 }
 
 
