@@ -49,6 +49,43 @@
 
 }
 
+.out-stock-wrapper, .out-stock-wrapper-cart-page {
+  display: flex;
+  border: 2px solid $dark-blue;
+  justify-content: center;
+  position: relative;
+  right: 65px;
+  align-items: center;
+  width: 220px;
+  background-color: white;
+  margin: 20px;
+  padding: 5px;
+  .out-of-stock {
+    font-size: 12px;
+    color: red;
+    margin: 5px;
+    line-height: 110%;
+    text-align: center;
+  }
+  input[type='submit'], input[type='button'] {
+      width: 80%;
+      height: auto;
+      border: none;
+      background-color: $dark-blue;
+      color: #ffefca;
+      margin: 5px 5px 2px 5px;
+      cursor: pointer;
+    
+      font: {
+        size: 14px;
+        weight: bold;
+      }
+  }
+  input[type='email'] {
+    width: 90%;
+  }
+}
+
 .cart-item {
     display: flex;
     width: 400px;
