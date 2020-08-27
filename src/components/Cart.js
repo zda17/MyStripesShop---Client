@@ -5,6 +5,7 @@ import localStorage from '../utils/localStorage';
 
 //assets
 import { CartContext } from '../utils/CartContext';
+import { MyContext } from '../utils/Context';
 
 //routes
 
@@ -41,7 +42,6 @@ export const HandleQuantity = ({ product }) => {
       setOutOfStock(false);
       setCurrProduct('');
     } else if (itemInCart.quantity + 1 > itemInCart.quantity_available) {
-      console.log('out of stock!');
       setOutOfStock(true);
       setCurrProduct(itemInCart.sku);
     }
@@ -100,7 +100,7 @@ export const HandleQuantity = ({ product }) => {
                 </button>
         </div>
       </div>
-      {outOfStock && currProduct === product.sku && 
+      {outOfStock && currProduct === product.sku &&
         outOfStockMsg(product)
       }
     </>
@@ -204,19 +204,17 @@ export const EmptyCart = () => {
 export const Cart = () => {
 
   //used to pass cart array
-  const { cart, isPaneOpen, setIsPaneOpen } = useContext(CartContext);
+  const { cart, isPaneOpen, setIsPaneOpen, setOutOfStock } = useContext(CartContext);
 
   //set panes width
-  const [windowWidth, setWindowWidth] = useState(0);
-  let resizeWindow = () => {
-    setWindowWidth(window.innerWidth);
-  };
+  const { windowWidth } = useContext(MyContext);
 
+  const location = useLocation();
+
+  // If user gets out of stock message, removes item, then adds another item, the out of stock message was still there and INACCURATE. This function prevents that and closes out of that message if they remove the item from the cart.
   useEffect(() => {
-    resizeWindow();
-    window.addEventListener("resize", resizeWindow);
-    return () => window.removeEventListener("resize", resizeWindow);
-  }, []);
+    !isPaneOpen && location.pathname !== '/Cart' && setOutOfStock(false);
+  }, [isPaneOpen]);
 
   //gets total price
   function getTotalPrice() {

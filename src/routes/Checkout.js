@@ -4,6 +4,7 @@ import UserInfoForm from '../components/Checkout/UserInfoForm';
 import '../stylesheets/Checkout.scss';
 import { CartItem, EmptyCart } from '../components/Cart';
 import { CartContext } from '../utils/CartContext';
+import { MyContext } from '../utils/Context';
 import { Link } from 'react-router-dom';
 
 // Calculate costs and manage state for subtotal, shipping, taxes, coupon, and total
@@ -98,30 +99,43 @@ const Costs = () => {
 
 const Checkout = () => {
 
-    const { cart } = useContext(CartContext);
+    const { cart, total } = useContext(CartContext);
+    const { windowWidth } = useContext(MyContext);
 
-    const [userShipInfo, setUserShipInfo] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
         <>
             {cart[0] ?
                 <section className="checkout-container">
                     <section className='cart-display'>
-                        <h1>Order Summary</h1>
-                        <CartItem
-                            displayRemove={false}
-                            displayQuantity={false}
-                            displayTotalProdPrice={true}
-                            numBub={true}
-                        />
-                        <div className='button-div'>
-                            <Link to='/Cart' className='cart-btn'>
-                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                Return to cart
-                        </Link>
-                        </div>
-                        <Costs />
-                        {/* {userShipInfo && <Index />} */}
+                        {windowWidth <= 1199 ?
+                            <header className='order-sum-header' onClick={() => setOpen(!open)}>
+                                <h1><i className="fa fa-shopping-cart cart" aria-hidden="true"> </i>{!open ? ' Show' : ' Hide'} order summary {!open ? <i class="fas fa-chevron-down"></i> : <i class="fas fa-chevron-up"></i>}</h1>
+                                <h1>${total}</h1>
+                            </header>
+                            :
+                            <h1>Order Summary</h1>
+                        }
+                        {windowWidth <= 1199 && open || windowWidth > 1199 ?
+                            <>
+                                <CartItem
+                                    displayRemove={false}
+                                    displayQuantity={false}
+                                    displayTotalProdPrice={true}
+                                    numBub={true}
+                                />
+                                <div className='button-div'>
+                                    <Link to='/Cart' className='cart-btn'>
+                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                        Return to cart
+                                        </Link>
+                                </div>
+                                <Costs />
+                            </>
+                            :
+                            ''
+                        }
                     </section>
                     <section className='user-checkout-info'>
                         <UserInfoForm />
