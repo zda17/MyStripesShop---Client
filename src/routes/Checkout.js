@@ -100,19 +100,9 @@ const Costs = () => {
 const Checkout = () => {
 
     const { cart, total } = useContext(CartContext);
-    const { windowWidth, setWindowWidth } = useContext(MyContext);
+    const { windowWidth } = useContext(MyContext);
 
     const [open, setOpen] = useState(false)
-
-    let resizeWindow = () => {
-        setWindowWidth(window.innerWidth);
-    };
-
-    useEffect(() => {
-        resizeWindow();
-        window.addEventListener("resize", resizeWindow);
-        return () => window.removeEventListener("resize", resizeWindow);
-    }, []);
 
     return (
         <>

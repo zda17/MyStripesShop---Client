@@ -58,6 +58,7 @@ const NoBurger = () => {
 // Navbar
 const NavBar = () => {
     const { windowWidth, setWindowWidth } = useContext(MyContext);
+
     let resizeWindow = () => {
         setWindowWidth(window.innerWidth);
     };

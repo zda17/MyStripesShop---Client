@@ -207,16 +207,7 @@ export const Cart = () => {
   const { cart, isPaneOpen, setIsPaneOpen, setOutOfStock } = useContext(CartContext);
 
   //set panes width
-  const { windowWidth, setWindowWidth } = useContext(MyContext);
-  let resizeWindow = () => {
-    setWindowWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    resizeWindow();
-    window.addEventListener("resize", resizeWindow);
-    return () => window.removeEventListener("resize", resizeWindow);
-  }, []);
+  const { windowWidth } = useContext(MyContext);
 
   const location = useLocation();
 
