@@ -47,10 +47,11 @@ const Admin = () => {
                     </>
                 : activeSection === 'orders' ?
                     <>
-
+                        <p>Orders</p>
                     </>
                 : activeSection === 'fulfilled' ?
                     <>
+                        <p>Fulfilled</p>
                     </>
                 :
                 <>
