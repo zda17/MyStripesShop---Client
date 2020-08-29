@@ -1,0 +1,62 @@
+$color:  #1f7bc5;
+$hover-color: rgb(95, 171, 117); 
+$dark-blue: rgb(0, 38, 72);
+
+form {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    div {
+        width: 310px;
+        height: auto;
+
+        .InputItem {
+            display: block;
+            width: 100%;
+            color: $dark-blue;
+
+            span {
+                width: 100%;
+                margin: 0px;
+                font-weight: bold;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                outline: none;
+                border: solid 2px $dark-blue;
+                margin: 8px 0px;
+
+                border: {
+                    radius: 0px;
+                }
+            }
+        }
+
+        input[type="submit"] {
+            width: fit-content;
+            height: 5vh;
+            min-height: 36px;
+            display: block;
+            border: none;
+            border-radius: 5px;
+            background-color: $color;
+            color: white;
+            margin: 12px auto;
+            cursor: pointer;
+            background-image: url("../utils/images/add\ 1.png");
+            background-repeat: no-repeat;
+            background-position: 95%;
+            padding-right: 45px;
+            padding-left: 20px;
+            padding-top: 4px;
+    
+            font: {
+                size: 18px;
+                weight: bold;
+            }
+        }
+    }
+}
