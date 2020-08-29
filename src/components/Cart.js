@@ -263,7 +263,7 @@ export const Cart = () => {
           displayRemove={true}
           displayTotalProdPrice={false}
         />
-        {cart[0] ?
+        {cart && cart[0] ?
           <input type="submit" value={"CHECKOUT ~ $" + totalPrice} onClick={goToCheckout} />
           :
           <EmptyCart />
