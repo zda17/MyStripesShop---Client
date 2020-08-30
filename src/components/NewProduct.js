@@ -49,7 +49,7 @@ export default function NewProduct() {
                         <label htmlFor="colors">
                             <span>Colors</span>
                         </label>
-                        <input className="InputText" type="text" name="colors" value={colorArray} onClick={ handleClick } readOnly></input>
+                        <input className="InputText" type="text" name="colors" value={color.hex} onClick={ handleClick } readOnly></input>
                         { displayColorPicker ? <div><SketchPicker
                             color={color}
                             onChangeComplete={onChange}
