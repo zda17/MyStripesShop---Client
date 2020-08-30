@@ -17,6 +17,7 @@
     "react": "^16.13.1",
     "react-animated-text": "^0.1.4",
     "react-burger-menu": "^2.7.0",
+    "react-color": "^2.18.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.0.7",
     "react-router-dom": "^5.2.0",
