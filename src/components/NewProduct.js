@@ -76,7 +76,7 @@ export default function NewProduct() {
                         <label htmlFor="quantity">
                             <span>Quantity</span>
                         </label>
-                        <input className="InputText" type="number" name="quantity"></input>
+                        <input className="InputText" type="text" name="quantity"></input>
                     </div>
                     {/*ADDS TO CART*/}
                     <input
