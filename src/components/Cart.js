@@ -9,27 +9,22 @@ import { MyContext } from '../utils/Context';
 
 //routes
 
-
 //components
 import Image from "../components/Image";
 
 //stlye
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import "../stylesheets/Cart.scss";
+import axios from '../utils/axios';
 
 export const HandleQuantity = ({ product }) => {
 
   const { cart, setCart, isPaneOpen, outOfStock, setOutOfStock, currProduct, setCurrProduct } = useContext(CartContext);
 
-  const submitEmail = () => {
-    // function to save email for sending updates on products
-    console.log('save that email!');
-  }
 
   //adds 1 to quantity
   const increment = (e) => {
     const nameAttr = e.target.getAttribute("name")
-    console.log(cart);
     let newCart = [...cart];
     const itemInCart = newCart.find(
       (item) => nameAttr === item.sku
@@ -76,13 +71,74 @@ export const HandleQuantity = ({ product }) => {
 
   const location = useLocation();
 
+  const [email, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
+  const [status, setStatus] = useState('');
+
+  const handleEmail = e => setEmail(e.target.value);
+  const handleUserName = e => setUserName(e.target.value);
+
+  const resetForm = () => {
+    setEmail('');
+    setUserName('');
+  }
+
+  const ValidateEmail = email => {
+    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (email.match(mailformat)) {
+      return true
+    } else {
+      return false;
+    }
+  }
+
+  const submitEmail = e => {
+    e.preventDefault();
+    const { name, size, color_name } = product;
+    let data = {};
+    if (ValidateEmail(email)) {
+      console.log('valid email!')
+      data = {
+        name: userName,
+        email,
+        product: name,
+        size,
+        color: color_name
+      }
+      axios.post('/wait-list', data)
+        .then(res => {
+          console.log('Email was sent!')
+          setOutOfStock(false);
+          setStatus('success');
+          resetForm();
+        })
+        .catch(err => {
+          console.log(err);
+          console.log('Email not sent')
+          setStatus('fail')
+        })
+    } else {
+      setStatus('invalid')
+      console.log('invalid email!')
+    }
+    // function to save email for sending updates on products
+  }
+
+  const closeOut = () => {
+    setOutOfStock(false);
+    resetForm();
+    setStatus('');
+  }
+
   const outOfStockMsg = product => {
+    const { sku, quantity_available, name } = product;
     return (
-      <form action='mailto:shanscirg7@gmail.com' method="post" encType="text/plain" id={product.sku} className={location.pathname !== '/Cart' && isPaneOpen ? 'out-stock-wrapper' : 'out-stock-wrapper-cart-page'}>
-        <label htmlFor="email" className='out-of-stock'>You're snatching up our last {product.quantity_available > 1 ? product.quantity_available + ' ' + product.name + 's' : product.name}! Enter your email to be the first to know when we restock.</label>
-        <input type="email" id="email" name="email" placeholder="email@gmail.com"></input>
+      <form onSubmit={submitEmail} method="post" encType="text/plain" id={sku} className={location.pathname !== '/Cart' && isPaneOpen ? 'out-stock-wrapper' : 'out-stock-wrapper-cart-page'}>
+        <label htmlFor="email" className='out-of-stock'>You're snatching up our last {quantity_available > 1 ? quantity_available + ' ' + name + 's' : name}! Enter your name and email to be the first to know when we restock.</label>
+        <input type="text" id="name" name="name" value={userName} onChange={handleUserName} placeholder="name"></input>
+        <input type="email" id="email" name="email" value={email} onChange={handleEmail} placeholder="email@gmail.com"></input>
         <input type="submit" value=">>"></input>
-        <input type="button" value="No thanks!" onClick={() => setOutOfStock(false)}></input>
+        <input type="button" value="No thanks!" onClick={closeOut}></input>
       </form>
     )
   }
@@ -103,6 +159,21 @@ export const HandleQuantity = ({ product }) => {
       {outOfStock && currProduct === product.sku &&
         outOfStockMsg(product)
       }
+      {status === 'success' &&
+        <div className={location.pathname !== '/Cart' && isPaneOpen ? 'email-sent-slideout' : 'email-sent'}>
+          <p><i class="fas fa-check"></i>Your email has been sent!</p>
+        </div>
+      }
+      {status === 'fail' && outOfStock &&
+        <div className='email-not-sent'>
+          <p>Email did not send. Please try again.</p>
+        </div>
+      }
+      {status === 'invalid' && outOfStock &&
+        <div className={location.pathname !== '/Cart' && isPaneOpen ? 'email-not-sent-slideout' : 'email-not-sent'}>
+          <p><i class="fas fa-exclamation"></i>Email is invalid. Please try again.</p>
+        </div>
+      }
     </>
   )
 
@@ -112,7 +183,6 @@ export const HandleQuantity = ({ product }) => {
 export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice, numBub }) => {
 
   const { cart, setCart, setTotal } = useContext(CartContext);
-  console.log(cart);
 
   //removes cart item based on sku.
   const remove = (e) => {
