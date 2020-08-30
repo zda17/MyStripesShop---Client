@@ -97,7 +97,6 @@ export const HandleQuantity = ({ product }) => {
     const { name, size, color_name } = product;
     let data = {};
     if (ValidateEmail(email)) {
-      console.log('valid email!')
       data = {
         name: userName,
         email,
@@ -107,21 +106,17 @@ export const HandleQuantity = ({ product }) => {
       }
       axios.post('/wait-list', data)
         .then(res => {
-          console.log('Email was sent!')
           setOutOfStock(false);
           setStatus('success');
           resetForm();
         })
         .catch(err => {
           console.log(err);
-          console.log('Email not sent')
           setStatus('fail')
         })
     } else {
       setStatus('invalid')
-      console.log('invalid email!')
     }
-    // function to save email for sending updates on products
   }
 
   const closeOut = () => {
