@@ -33,45 +33,45 @@ export default function NewProduct() {
     return (
         <>
             <form method="post" className="ProductForm" onSubmit={handleSubmit(onSubmit)}>
-                <div className="NewInfo">
-                    <div className="InputItem">
+                <section className="NewInfo">
+                    <article className="InputItem">
                         <label htmlFor="name">
                             <span>Name</span>
                         </label>
                         <input className="InputText" type="text" name="name"></input>
-                    </div>
-                    {/* <div className="InputItem">
+                    </article>
+                    {/* <article className="InputItem">
                         <label htmlFor="colors">
                             <span>Colors</span>
                         </label>
                         <input className="InputText" type="text" name="colors" value={color.hex} onClick={ handleClick } readOnly></input>
                         { displayColorPicker ? <CustomPicker/> : null}  
-                    </div>
-                    <div className="InputItem">
+                    </article>
+                    <article className="InputItem">
                         <label htmlFor="sizes">
                             <span>Sizes</span>
                         </label>
                         <input className="InputText" type="text" name="sizes"></input>
-                    </div>
-                    <div className="InputItem">
+                    </article>
+                    <article className="InputItem">
                         <label htmlFor="price">
                             <span>Price</span>
                         </label>
                         <input className="InputText" type="text" name="price"></input>
-                    </div>
-                    <div className="InputItem">
+                    </article>
+                    <article className="InputItem">
                         <label htmlFor="quantity">
                             <span>Quantity</span>
                         </label>
                         <input className="InputText" type="text" name="quantity"></input>
-                    </div> */}
-                    <div className="InputItem">
+                    </article> */}
+                    <article className="InputItem">
                         <label htmlFor="sku">
                             <span>SKU</span>
                         </label>
                         <input className="InputText" type="text" name="sku"></input>
-                    </div>
-                    <div className="InputItem">
+                    </article>
+                    <article className="InputItem">
                         <label htmlFor="category">
                             <span>Category</span>
                         </label>
@@ -80,14 +80,14 @@ export default function NewProduct() {
                             <option value='bottoms'>Bottoms</option>
                             <option value='accessories'>Accessories</option>
                         </select>
-                    </div>
-                    <div className="InputItem">
+                    </article>
+                    <article className="InputItem">
                         <label htmlFor="description">
                             <span>Description</span>
                         </label>
                         <input className="InputText" type="text" name="description"></input>
-                    </div>
-                    <div className="InputItem">
+                    </article>
+                    <article className="InputItem">
                         <label htmlFor="gender">
                             <span>Gender</span>
                         </label>
@@ -96,8 +96,8 @@ export default function NewProduct() {
                             <option value='W'>Womens</option>
                             <option value='M'>Mens</option>
                         </select>                    
-                    </div>
-                    <div className="InputItem">
+                    </article>
+                    <article className="InputItem">
                         <label htmlFor="gender">
                             <span>Photo</span>
                         </label>
@@ -105,8 +105,8 @@ export default function NewProduct() {
 
                             <input type="file" id="img" name="img" accept="image/*"></input>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </section>
                 <table>
                     <tr>
                         <th>Color Name</th>
