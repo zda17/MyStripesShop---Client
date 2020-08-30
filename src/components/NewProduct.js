@@ -40,7 +40,7 @@ export default function NewProduct() {
                         </label>
                         <input className="InputText" type="text" name="name"></input>
                     </div>
-                    <div className="InputItem">
+                    {/* <div className="InputItem">
                         <label htmlFor="colors">
                             <span>Colors</span>
                         </label>
@@ -64,13 +64,84 @@ export default function NewProduct() {
                             <span>Quantity</span>
                         </label>
                         <input className="InputText" type="text" name="quantity"></input>
+                    </div> */}
+                    <div className="InputItem">
+                        <label htmlFor="sku">
+                            <span>SKU</span>
+                        </label>
+                        <input className="InputText" type="text" name="sku"></input>
                     </div>
-                    {/*ADDS TO CART*/}
-                    <input
-                        type="submit"
-                        value="CREATE ITEM"
-                    />
+                    <div className="InputItem">
+                        <label htmlFor="category">
+                            <span>Category</span>
+                        </label>
+                        <select className="inputDropdown" name="category">
+                            <option value='tops'>Tops</option>
+                            <option value='bottoms'>Bottoms</option>
+                            <option value='accessories'>Accessories</option>
+                        </select>
+                    </div>
+                    <div className="InputItem">
+                        <label htmlFor="description">
+                            <span>Description</span>
+                        </label>
+                        <input className="InputText" type="text" name="description"></input>
+                    </div>
+                    <div className="InputItem">
+                        <label htmlFor="gender">
+                            <span>Gender</span>
+                        </label>
+                        <select className="inputDropdown" name="category">
+                            <option value='U'>Unisex</option>
+                            <option value='W'>Womens</option>
+                            <option value='M'>Mens</option>
+                        </select>                    
+                    </div>
+                    <div className="InputItem">
+                        <label htmlFor="gender">
+                            <span>Photo</span>
+                        </label>
+                        <div className="photo-upload">
+
+                            <input type="file" id="img" name="img" accept="image/*"></input>
+                        </div>
+                    </div>
                 </div>
+                <table>
+                    <tr>
+                        <th>Color Name</th>
+                        <th>Color Hex Code</th>
+                        <th>Sizes Available</th>
+                        <th>Price</th>
+                        <th>Quantity Available</th>                            
+                    </tr>
+                    <tr>
+                        <td contenteditable='true'>Forest Green</td>
+                        <td contenteditable='true'>#417505</td>
+                        <td contenteditable='true'>XS, S, M, L</td>
+                        <td contenteditable='true'>$24.99</td>
+                        <td contenteditable='true'>XS: 4, S: 3, M: 2, L: 3</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable='true'>Ocean Blue</td>
+                        <td contenteditable='true'>#059FC8</td>
+                        <td contenteditable='true'>XS, S, M, L, XL</td>
+                        <td contenteditable='true'>$26.99</td>
+                        <td contenteditable='true'>XS: 4, S: 3, M: 2, L: 3, XL: 4</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable='true'>Navy Blue</td>
+                        <td contenteditable='true'></td>
+                        <td contenteditable='true'></td>
+                        <td contenteditable='true'></td>
+                        <td contenteditable='true'></td>
+                    </tr>
+                </table>
+                {/*ADDS TO CART*/}
+                <input
+                    type="submit"
+                    value="CREATE ITEM"
+                />
 
             </form>
         </>

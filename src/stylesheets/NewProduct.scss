@@ -20,12 +20,13 @@ form {
             color: $dark-blue;
 
             span {
+                display: block;
                 width: 100%;
                 margin: 0px;
                 font-weight: bold;
             }
 
-            input[type="text"], input[type="number"] {
+            input[type="text"], input[type="number"], .photo-upload, select {
                 width: 100%;
                 height: 39px;
                 outline: none;
@@ -36,30 +37,59 @@ form {
                     radius: 0px;
                 }
             }
-        }
-
-        input[type="submit"] {
-            width: fit-content;
-            height: 5vh;
-            min-height: 36px;
-            display: block;
-            border: none;
-            border-radius: 5px;
-            background-color: $color;
-            color: white;
-            margin: 12px auto;
-            cursor: pointer;
-            background-image: url("../utils/images/add\ 1.png");
-            background-repeat: no-repeat;
-            background-position: 95%;
-            padding-right: 45px;
-            padding-left: 20px;
-            padding-top: 4px;
-    
-            font: {
-                size: 18px;
-                weight: bold;
+            .photo-upload {
+                height: 250px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: center;
             }
+        }
+    }
+    table {
+        border: 1px solid black;
+        border-collapse: collapse;
+        th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 2px 4px
+        }
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 2px 4px
+        }
+        > :nth-child(even) {
+            background-color: white;
+        }
+        > :nth-child(odd) {
+            background-color: lightgray;
+        }
+        > :first-child {
+            background-color: gray;
+        }
+    }
+    input[type="submit"] {
+        width: fit-content;
+        height: 5vh;
+        min-height: 36px;
+        display: block;
+        border: none;
+        border-radius: 5px;
+        background-color: $color;
+        color: white;
+        margin: 12px auto;
+        cursor: pointer;
+        background-image: url("../utils/images/add\ 1.png");
+        background-repeat: no-repeat;
+        background-position: 95%;
+        padding-right: 45px;
+        padding-left: 20px;
+        padding-top: 4px;
+
+        font: {
+            size: 18px;
+            weight: bold;
         }
     }
 }
