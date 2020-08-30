@@ -61,11 +61,13 @@
   margin: 20px;
   padding: 5px;
   .out-of-stock {
-    font-size: 12px;
+    font-size: 11px;
     color: red;
     margin: 5px;
     line-height: 110%;
     text-align: center;
+    display: flex;
+    justify-content: center;
   }
   input[type='submit'], input[type='button'] {
       width: 80%;
@@ -81,8 +83,9 @@
         weight: bold;
       }
   }
-  input[type='email'] {
-    width: 90%;
+  input[type='email'], input[type='text'] {
+    padding: 5px;
+    width: 80%;
   }
 }
 
@@ -157,6 +160,58 @@
       height: fit-content;
     }
 
+}
+
+.email-sent, .email-sent-slideout {
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    .fa-check {
+      color: green;
+      padding-right: 3px;
+      font-size: 20px;
+    }
+}
+
+.email-sent {
+  text-align: center;
+  padding: 10px;
+}
+
+.email-sent-slideout, .email-not-sent-slideout {
+  font-weight: bold;
+  position: relative;
+  right: 40px;
+}
+
+.email-not-sent,  .email-not-sent-slideout {
+  .fa-exclamation {
+    color: red;
+    padding-right: 7px;
+    font-size: 20px;
+  }
+}
+
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
 }
 
 //For quantity selectors--------------------------------------------
