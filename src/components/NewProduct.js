@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { SketchPicker, ChromePicker } from 'react-color';
 import { render } from 'react-dom';
 import '../stylesheets/NewProduct.scss';
-import { findAllByTestId } from '@testing-library/react';
 
 
 export default function NewProduct() {
