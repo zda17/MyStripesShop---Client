@@ -25,6 +25,7 @@
         display: flex;
         justify-content: space-around;
         padding-bottom: 30px;
+        margin: 0 10px;
         // border-bottom: 0.5px solid rgba(0, 38, 72, 0.5);
         // border-top: 0.5px solid rgba(0, 38, 72, 0.5);
         .cart-items-list, .quantity-list, .item-price-times-quantity {
@@ -88,4 +89,29 @@
       }
 }
 
+@media only screen and (max-width: 1200px) {
+    .cart-page-container {
+        .horizontal-line, .horizontal-line-bottom {
+            width: 95%;
+        }
+        .cart-info-wrapper {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 30px;
+            height: auto;
+            // align-items: center;
+        }
+    }
+}
 
+@media only screen and (max-width: 780px) {
+    .cart-page-container {
+        .checkout-total-wrapper {
+            margin-top: 200px;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+    }
+}
