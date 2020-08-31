@@ -1,29 +1,34 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import CustomPicker from './MyColorPicker';
+import { SketchPicker, ChromePicker } from 'react-color';
 import { render } from 'react-dom';
 import '../stylesheets/NewProduct.scss';
 import { findAllByTestId } from '@testing-library/react';
-  
+
 
 export default function NewProduct() {
 
     const { handleSubmit, register, errors, reset } = useForm();
     const [color, setColor] = useState([]);
+    const [currentColor, setCurrentColor] = useState('#3cd6bf');
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
-
-    /*const newProduct = {};
-    //colors.splice(0, colors.length);
-    products.map(product => colorObject.hasOwnProperty(product.color_name) ? null : colorObject[product.color_name] = product.color_hex);
-    const colors = Object.entries(colorObject);
-    console.log(colorObject);*/
-
+    
     const handleClick = () => {
         setDisplayColorPicker(!displayColorPicker);
-    }
-
+      };
+    
     const handleClose = () => {
         setDisplayColorPicker(false);
+      };
+
+    const onChange = (updatedColor) => {
+        setCurrentColor(updatedColor);
+        console.log(currentColor.hex);
+    };
+
+    const addColor = () => {
+        setColor([currentColor.hex]);
+        console.log(color);
     }
 
     const onSubmit = (values) => {
@@ -95,7 +100,7 @@ export default function NewProduct() {
                             <option value='U'>Unisex</option>
                             <option value='W'>Womens</option>
                             <option value='M'>Mens</option>
-                        </select>                    
+                        </select>
                     </article>
                     <article className="InputItem">
                         <label htmlFor="gender">
@@ -107,17 +112,28 @@ export default function NewProduct() {
                         </div>
                     </article>
                 </section>
+                {displayColorPicker ?
+                    <>
+                    <SketchPicker
+                        color={currentColor}
+                        onChange={onChange}
+                        disableAlpha={true}
+                        width={300}
+                    />
+                    <button onClick={addColor}>ADD</button>
+                    </>
+                    : null}
                 <table>
                     <tr>
                         <th>Color Name</th>
                         <th>Color Hex Code</th>
                         <th>Sizes Available</th>
                         <th>Price</th>
-                        <th>Quantity Available</th>                            
+                        <th>Quantity Available</th>
                     </tr>
                     <tr>
                         <td contenteditable='true'>Forest Green</td>
-                        <td contenteditable='true'>#417505</td>
+                        <td contenteditable='true' onClick={handleClick}>#055600</td>
                         <td contenteditable='true'>XS, S, M, L</td>
                         <td contenteditable='true'>$24.99</td>
                         <td contenteditable='true'>XS: 4, S: 3, M: 2, L: 3</td>
@@ -131,7 +147,7 @@ export default function NewProduct() {
                     </tr>
                     <tr>
                         <td contenteditable='true'>Navy Blue</td>
-                        <td contenteditable='true'></td>
+                        <td contenteditable='true' onClick={handleClick}>{color}</td>
                         <td contenteditable='true'></td>
                         <td contenteditable='true'></td>
                         <td contenteditable='true'></td>

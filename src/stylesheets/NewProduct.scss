@@ -93,3 +93,14 @@ form {
         }
     }
 }
+
+//swatches size
+.sketch-picker > div + div > div + div {
+    width: 22px !important;
+    height: 22px !important;
+}
+
+//swatches row
+.sketch-picker > div + div + div + .flexbox-fix {
+    display: none !important;
+}
