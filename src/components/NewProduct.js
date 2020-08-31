@@ -12,14 +12,14 @@ export default function NewProduct() {
     const [color, setColor] = useState([]);
     const [currentColor, setCurrentColor] = useState('#3cd6bf');
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
-    
+
     const handleClick = () => {
         setDisplayColorPicker(!displayColorPicker);
-      };
-    
+    };
+
     const handleClose = () => {
         setDisplayColorPicker(false);
-      };
+    };
 
     const onChange = (updatedColor) => {
         setCurrentColor(updatedColor);
@@ -27,7 +27,7 @@ export default function NewProduct() {
     };
 
     const addColor = () => {
-        setColor([currentColor.hex]);
+        setColor([...color, currentColor.hex]);
         console.log(color);
     }
 
@@ -45,31 +45,6 @@ export default function NewProduct() {
                         </label>
                         <input className="InputText" type="text" name="name"></input>
                     </article>
-                    {/* <article className="InputItem">
-                        <label htmlFor="colors">
-                            <span>Colors</span>
-                        </label>
-                        <input className="InputText" type="text" name="colors" value={color.hex} onClick={ handleClick } readOnly></input>
-                        { displayColorPicker ? <CustomPicker/> : null}  
-                    </article>
-                    <article className="InputItem">
-                        <label htmlFor="sizes">
-                            <span>Sizes</span>
-                        </label>
-                        <input className="InputText" type="text" name="sizes"></input>
-                    </article>
-                    <article className="InputItem">
-                        <label htmlFor="price">
-                            <span>Price</span>
-                        </label>
-                        <input className="InputText" type="text" name="price"></input>
-                    </article>
-                    <article className="InputItem">
-                        <label htmlFor="quantity">
-                            <span>Quantity</span>
-                        </label>
-                        <input className="InputText" type="text" name="quantity"></input>
-                    </article> */}
                     <article className="InputItem">
                         <label htmlFor="sku">
                             <span>SKU</span>
@@ -114,44 +89,33 @@ export default function NewProduct() {
                 </section>
                 {displayColorPicker ?
                     <>
-                    <SketchPicker
-                        color={currentColor}
-                        onChange={onChange}
-                        disableAlpha={true}
-                        width={300}
-                    />
-                    <button onClick={addColor}>ADD</button>
+                        <SketchPicker
+                            color={currentColor}
+                            onChange={onChange}
+                            disableAlpha={true}
+                            width={300}
+                        />
+                        <button onClick={addColor}>ADD</button>
                     </>
                     : null}
                 <table>
                     <tr>
                         <th>Color Name</th>
-                        <th>Color Hex Code</th>
+                        <th onClick={handleClick}>Color Hex Code</th>
                         <th>Sizes Available</th>
                         <th>Price</th>
                         <th>Quantity Available</th>
                     </tr>
-                    <tr>
-                        <td contenteditable='true'>Forest Green</td>
-                        <td contenteditable='true' onClick={handleClick}>#055600</td>
-                        <td contenteditable='true'>XS, S, M, L</td>
-                        <td contenteditable='true'>$24.99</td>
-                        <td contenteditable='true'>XS: 4, S: 3, M: 2, L: 3</td>
-                    </tr>
-                    <tr>
-                        <td contenteditable='true'>Ocean Blue</td>
-                        <td contenteditable='true'>#059FC8</td>
-                        <td contenteditable='true'>XS, S, M, L, XL</td>
-                        <td contenteditable='true'>$26.99</td>
-                        <td contenteditable='true'>XS: 4, S: 3, M: 2, L: 3, XL: 4</td>
-                    </tr>
-                    <tr>
-                        <td contenteditable='true'>Navy Blue</td>
-                        <td contenteditable='true' onClick={handleClick}>{color}</td>
-                        <td contenteditable='true'></td>
-                        <td contenteditable='true'></td>
-                        <td contenteditable='true'></td>
-                    </tr>
+                    {color.map(hex => (
+                        <tr>
+                            <td contenteditable='true'>Name</td>
+                            <td contenteditable='true' onClick={handleClick} onChange={onChange}>{hex}</td>
+                            <td contenteditable='true'>XS, S, M, L, XL</td>
+                            <td contenteditable='true'>$24.99</td>
+                            <td contenteditable='true'>XS: 4, S: 3, M: 2, L: 3, XL: 6</td>
+                        </tr>
+                    ))}
+                    
                 </table>
                 {/*ADDS TO CART*/}
                 <input
