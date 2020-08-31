@@ -106,8 +106,8 @@ export default function NewProduct() {
                         <th>Price</th>
                         <th>Quantity Available</th>
                     </tr>
-                    {color.map(hex => (
-                        <tr>
+                    {color.map((hex, index) => (
+                        <tr key={index}>
                             <td contenteditable='true'>Name</td>
                             <td contenteditable='true' onClick={handleClick} onChange={onChange}>{hex}</td>
                             <td contenteditable='true'>XS, S, M, L, XL</td>
