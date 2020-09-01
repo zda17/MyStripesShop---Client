@@ -6,6 +6,7 @@ import { CartItem, EmptyCart } from '../components/Cart';
 import { CartContext } from '../utils/CartContext';
 import { MyContext } from '../utils/Context';
 import { Link } from 'react-router-dom';
+import localStorage from '../utils/localStorage';
 
 // Calculate costs and manage state for subtotal, shipping, taxes, coupon, and total
 const Costs = () => {
@@ -84,7 +85,7 @@ const Costs = () => {
                 </ul>
                 <ul className='checkout-price-amounts'>
                     <li>${subtotal}</li>
-                    <li>{shipping ? shipping : 'Calculated at next step'}</li>
+                    <li>FREE SHIPPING</li>
                     <li>${taxes} (estimated)</li>
                 </ul>
             </section>
@@ -98,21 +99,32 @@ const Costs = () => {
 
 
 const Checkout = () => {
-
     const { cart, total } = useContext(CartContext);
     const { windowWidth } = useContext(MyContext);
 
     const [open, setOpen] = useState(false)
 
+    let localTotal; 
+    
+    const getLocalTotal = () => {
+        localTotal = localStorage.getTotalPrice() ? '$' + localStorage.getTotalPrice() : '';
+    }
+
+    getLocalTotal();
+    
+    useEffect(() => {
+        getLocalTotal();
+    }, []);
+
     return (
         <>
-            {cart[0] ?
+            {cart && cart[0] ?
                 <section className="checkout-container">
                     <section className='cart-display'>
                         {windowWidth <= 1199 ?
                             <header className='order-sum-header' onClick={() => setOpen(!open)}>
                                 <h1><i className="fa fa-shopping-cart cart" aria-hidden="true"> </i>{!open ? ' Show' : ' Hide'} order summary {!open ? <i class="fas fa-chevron-down"></i> : <i class="fas fa-chevron-up"></i>}</h1>
-                                <h1>${total}</h1>
+                                <h1>{total ? '$' + total : localTotal}</h1>
                             </header>
                             :
                             <h1>Order Summary</h1>
