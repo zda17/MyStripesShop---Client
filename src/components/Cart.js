@@ -297,6 +297,7 @@ export const Cart = () => {
   const goToCheckout = () => {
     history.push('/Checkout');
     setIsPaneOpen(false);
+    localStorage.setTotalPrice(totalPrice + parseInt(((totalPrice) * 0.08).toFixed(2)));
   }
 
   const openCart = () => {
