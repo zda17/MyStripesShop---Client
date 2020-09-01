@@ -92,6 +92,7 @@ export default function NewProduct() {
                             onChange={onChange}
                             disableAlpha={true}
                             width={300}
+                            on
                         />
                         <button onClick={addColor}>ADD</button>
                     </>
@@ -106,16 +107,17 @@ export default function NewProduct() {
                             <th>Quantity Available</th>
                         </tr>
                     </thead>
+                    <tbody>
                     {color.map((hex, index) => (
-                        <tr key={index}>
-                            <td contenteditable='true'>Name</td>
+                        <tr key={index} >
+                            <td contenteditable='true' >Name</td>
                             <td contenteditable='true' id="hex" onClick={handleClick} onChange={onChange}>{hex}</td>
                             <td contenteditable='true'>XS, S, M, L, XL</td>
                             <td contenteditable='true'>$24.99</td>
                             <td contenteditable='true'>XS: 4, S: 3, M: 2, L: 3, XL: 6</td>
                         </tr>
                     ))}
-
+                    </tbody>
                 </table>
                 {/*ADDS TO CART*/}
                 <input
