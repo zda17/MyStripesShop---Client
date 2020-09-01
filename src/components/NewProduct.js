@@ -22,7 +22,6 @@ export default function NewProduct() {
 
     const onChange = (updatedColor) => {
         setCurrentColor(updatedColor);
-        console.log(currentColor.hex);
     };
 
     const addColor = () => {
@@ -98,23 +97,25 @@ export default function NewProduct() {
                     </>
                     : null}
                 <table>
-                    <tr>
-                        <th>Color Name</th>
-                        <th onClick={handleClick}>Color Hex Code</th>
-                        <th>Sizes Available</th>
-                        <th>Price</th>
-                        <th>Quantity Available</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Color Name</th>
+                            <th onClick={handleClick}>Color Hex Code</th>
+                            <th>Sizes Available</th>
+                            <th>Price</th>
+                            <th>Quantity Available</th>
+                        </tr>
+                    </thead>
                     {color.map((hex, index) => (
                         <tr key={index}>
                             <td contenteditable='true'>Name</td>
-                            <td contenteditable='true' onClick={handleClick} onChange={onChange}>{hex}</td>
+                            <td contenteditable='true' id="hex" onClick={handleClick} onChange={onChange}>{hex}</td>
                             <td contenteditable='true'>XS, S, M, L, XL</td>
                             <td contenteditable='true'>$24.99</td>
                             <td contenteditable='true'>XS: 4, S: 3, M: 2, L: 3, XL: 6</td>
                         </tr>
                     ))}
-                    
+
                 </table>
                 {/*ADDS TO CART*/}
                 <input
