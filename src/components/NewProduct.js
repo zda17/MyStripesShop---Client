@@ -7,7 +7,7 @@ import '../stylesheets/NewProduct.scss';
 
 export default function NewProduct() {
 
-    const { handleSubmit, register, errors, reset } = useForm();
+    const { handleSubmit, register } = useForm();
     const [color, setColor] = useState([]);
     const [currentColor, setCurrentColor] = useState('#3cd6bf');
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
@@ -29,31 +29,30 @@ export default function NewProduct() {
         console.log(color);
     }
 
-    const onSubmit = (values) => {
-        console.log(values)
+    const onSubmit = data => {
+        console.log(data)
     }
 
     return (
-        <>
-            <form method="post" className="ProductForm" onSubmit={handleSubmit(onSubmit)}>
+            <form method="post" className="NewProductForm" onSubmit={handleSubmit(onSubmit)}>
                 <section className="NewInfo">
                     <article className="InputItem">
                         <label htmlFor="name">
                             <span>Name</span>
                         </label>
-                        <input className="InputText" type="text" name="name"></input>
+                        <input className="InputText" type="text" id="name" name="name" register={register({ required: true })} />
                     </article>
                     <article className="InputItem">
                         <label htmlFor="sku">
                             <span>SKU</span>
                         </label>
-                        <input className="InputText" type="text" name="sku"></input>
+                        <input className="InputText" type="text" id="sku" name="sku" register={register({ required: true })} />
                     </article>
                     <article className="InputItem">
                         <label htmlFor="category">
                             <span>Category</span>
                         </label>
-                        <select className="inputDropdown" name="category">
+                        <select className="inputDropdown" id="category" name="category" register={register({ required: true })}>
                             <option value='tops'>Tops</option>
                             <option value='bottoms'>Bottoms</option>
                             <option value='accessories'>Accessories</option>
@@ -63,25 +62,25 @@ export default function NewProduct() {
                         <label htmlFor="description">
                             <span>Description</span>
                         </label>
-                        <input className="InputText" type="text" name="description"></input>
+                        <input className="InputText" type="text" id="description" name="description" register={register({ required: true })} />
                     </article>
                     <article className="InputItem">
                         <label htmlFor="gender">
                             <span>Gender</span>
                         </label>
-                        <select className="inputDropdown" name="category">
+                        <select className="inputDropdown" id="gender" name="gender" register={register({ required: true })}>
                             <option value='U'>Unisex</option>
                             <option value='W'>Womens</option>
                             <option value='M'>Mens</option>
                         </select>
                     </article>
                     <article className="InputItem">
-                        <label htmlFor="gender">
+                        <label htmlFor="img">
                             <span>Photo</span>
                         </label>
                         <div className="photo-upload">
 
-                            <input type="file" id="img" name="img" accept="image/*"></input>
+                            <input type="file" id="img" name="img" accept="image/*" register={register({ required: true })} />
                         </div>
                     </article>
                 </section>
@@ -126,6 +125,5 @@ export default function NewProduct() {
                 />
 
             </form>
-        </>
     )
 }
