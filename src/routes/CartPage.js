@@ -22,7 +22,6 @@ export default function CartPage() {
 
     const goToCheckout = () => {
         history.push('/Checkout');
-        localStorage.setTotalPrice(totalPrice + parseInt(((totalPrice) * 0.08).toFixed(2)));
     }
 
     return (

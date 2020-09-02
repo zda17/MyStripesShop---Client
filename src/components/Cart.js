@@ -175,9 +175,10 @@ export const HandleQuantity = ({ product }) => {
 }
 
 //cart item component to insert into cart pane
-export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice, numBub }) => {
+export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice, numBub, open }) => {
 
   const { cart, setCart, setTotal } = useContext(CartContext);
+  const { windowWidth } = useContext(MyContext);
 
   //removes cart item based on sku.
   const remove = (e) => {
@@ -215,24 +216,26 @@ export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice
           {
             cart.map((product, index) => {
               return (
-                <div className="cart-item" key={index}>
-                  <div className="cart-image">
-                    <Image
-                      to={"/Products/" + product.base_sku}
-                      imgDivClass='img-div-cart-page'
-                      imgClass='product-img'
-                      product={product}
-                      numBub={numBub && product.quantity}
-                    />
-                  </div>
-                  <div className="cart-info">
-                    <h2><strong>{product.name}</strong></h2>
-                    <span><p>{getSize(product.size)} ~ {product.color_name.toUpperCase()}</p></span>
-                    <span>${displayTotalProdPrice ? product.totalProductPrice : product.price}</span>{displayRemove && <span className="cart-remove" name={product.sku} onClick={remove}>Remove</span>}
-                    {displayQuantity &&
-                      <HandleQuantity
+                <div className={windowWidth <= 1199 && open || windowWidth > 1199 ? 'show' : 'hide'}>
+                  <div className='cart-item' key={index}>
+                    <div className="cart-image">
+                      <Image
+                        to={"/Products/" + product.base_sku}
+                        imgDivClass='img-div-cart-page'
+                        imgClass='product-img'
                         product={product}
-                      />}
+                        numBub={numBub && product.quantity}
+                      />
+                    </div>
+                    <div className="cart-info">
+                      <h2><strong>{product.name}</strong></h2>
+                      <span><p>{getSize(product.size)} ~ {product.color_name.toUpperCase()}</p></span>
+                      <span>${displayTotalProdPrice ? product.totalProductPrice : product.price}</span>{displayRemove && <span className="cart-remove" name={product.sku} onClick={remove}>Remove</span>}
+                      {displayQuantity &&
+                        <HandleQuantity
+                          product={product}
+                        />}
+                    </div>
                   </div>
                 </div>
               )
@@ -297,7 +300,6 @@ export const Cart = () => {
   const goToCheckout = () => {
     history.push('/Checkout');
     setIsPaneOpen(false);
-    localStorage.setTotalPrice(totalPrice + parseInt(((totalPrice) * 0.08).toFixed(2)));
   }
 
   const openCart = () => {

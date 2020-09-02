@@ -21,12 +21,6 @@ const localStorage = {
 	},
 	setJWT(JWT) {
 		window.localStorage.setItem('JWT', JWT);
-	},
-	setTotalPrice(total) {
-		window.localStorage.setItem('total', total);
-	},
-	getTotalPrice() {
-		return window.localStorage.getItem('total');
 	}
 };
 

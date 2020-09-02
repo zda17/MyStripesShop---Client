@@ -7,6 +7,12 @@
     align-items: center;
     .cart-display {
         width: 100%;
+        .hide {
+            display: none;
+        }
+        // .show {
+        //     display: block;
+        // }
         .cart-item {
             border-bottom: 0;
             height: 150px;
@@ -164,4 +170,5 @@
     .checkout-container {
         flex-wrap: wrap;
     }
+   
 }

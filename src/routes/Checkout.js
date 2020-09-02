@@ -9,8 +9,9 @@ import { Link } from 'react-router-dom';
 import localStorage from '../utils/localStorage';
 
 // Calculate costs and manage state for subtotal, shipping, taxes, coupon, and total
-const Costs = () => {
+const Costs = ({ open }) => {
     const { cart, total, setTotal, isPaneOpen } = useContext(CartContext);
+    const { windowWidth } = useContext(MyContext);
 
     useEffect(() => {
         !isPaneOpen && window.scrollTo(0, 0);
@@ -70,7 +71,7 @@ const Costs = () => {
     const { register, handleSubmit } = useForm();
 
     return (
-        <>
+        <div className={windowWidth <= 1199 && open === true || windowWidth > 1199 ? 'show' : 'hide'}>
             <section>
                 <form className='discount-form' onSubmit={handleSubmit(applyCoupon)}>
                     <input type='text' name='Discount' className='discount-input' ref={register} placeholder='Discount code' />
@@ -93,7 +94,7 @@ const Costs = () => {
                 <h3 className='checkout-total-title'>Total</h3>
                 <h2 className='checkout-total-amount'><span className='usd'>USD </span>${total}</h2>
             </section>
-        </>
+        </div>
     )
 }
 
@@ -104,18 +105,6 @@ const Checkout = () => {
 
     const [open, setOpen] = useState(false)
 
-    let localTotal; 
-    
-    const getLocalTotal = () => {
-        localTotal = localStorage.getTotalPrice() ? '$' + localStorage.getTotalPrice() : '';
-    }
-
-    getLocalTotal();
-    
-    useEffect(() => {
-        getLocalTotal();
-    }, []);
-
     return (
         <>
             {cart && cart[0] ?
@@ -124,30 +113,29 @@ const Checkout = () => {
                         {windowWidth <= 1199 ?
                             <header className='order-sum-header' onClick={() => setOpen(!open)}>
                                 <h1><i className="fa fa-shopping-cart cart" aria-hidden="true"> </i>{!open ? ' Show' : ' Hide'} order summary {!open ? <i class="fas fa-chevron-down"></i> : <i class="fas fa-chevron-up"></i>}</h1>
-                                <h1>{total ? '$' + total : localTotal}</h1>
+                                <h1>{total ? '$' + total : ''}</h1>
                             </header>
                             :
                             <h1>Order Summary</h1>
                         }
-                        {windowWidth <= 1199 && open || windowWidth > 1199 ?
-                            <>
-                                <CartItem
-                                    displayRemove={false}
-                                    displayQuantity={false}
-                                    displayTotalProdPrice={true}
-                                    numBub={true}
-                                />
-                                <div className='button-div'>
-                                    <Link to='/Cart' className='cart-btn'>
-                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                        Return to cart
-                                        </Link>
-                                </div>
-                                <Costs />
-                            </>
-                            :
-                            ''
-                        }
+                        <CartItem
+                            open={open}
+                            displayRemove={false}
+                            displayQuantity={false}
+                            displayTotalProdPrice={true}
+                            numBub={true}
+                        />
+                        <div className={windowWidth <= 1199 && open === true || windowWidth > 1199 ? 'show' : 'hide'}>
+                            <div className={'button-div'}>
+                                <Link to='/Cart' className='cart-btn'>
+                                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                    Return to cart
+                                </Link>
+                            </div>
+                        </div>
+                        <Costs
+                            open={open}
+                        />
                     </section>
                     <section className='user-checkout-info'>
                         <UserInfoForm />
