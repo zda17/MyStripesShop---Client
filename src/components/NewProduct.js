@@ -110,7 +110,7 @@ export default function NewProduct() {
                     {color.map((hex, index) => (
                         <tr key={index} >
                             <td contenteditable='true' >Name</td>
-                            <td contenteditable='true' id="hex" onClick={handleClick} onChange={onChange}>{hex}</td>
+                            <td contenteditable='true' onClick={handleClick} onChange={onChange} ref={register({ required: true })}><input type="text" name={hex} value={hex} /></td>
                             <td contenteditable='true'>XS, S, M, L, XL</td>
                             <td contenteditable='true'>$24.99</td>
                             <td contenteditable='true'>XS: 4, S: 3, M: 2, L: 3, XL: 6</td>
