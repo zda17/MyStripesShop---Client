@@ -57,7 +57,8 @@ const NoBurger = () => {
 
 // Navbar
 const NavBar = () => {
-    const [windowWidth, setWindowWidth] = useState(0);
+    const { windowWidth, setWindowWidth } = useContext(MyContext);
+
     let resizeWindow = () => {
         setWindowWidth(window.innerWidth);
     };
@@ -83,7 +84,7 @@ const NavBar = () => {
                 </div>
                 <div className='nav-cart-container'>
                     <div className="nav-cart-wrapper">
-                        <i class="fa fa-search search"></i>
+                        <i className="fa fa-search search"></i>
                         <Cart />
                     </div>
                 </div>

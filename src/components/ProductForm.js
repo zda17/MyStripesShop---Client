@@ -85,12 +85,6 @@ const ProductForm = (props) => {
                 const lineItem = { base_sku: product.base_sku, sku: product.sku, name: product.name, price: (product.price_cents / 100), totalProductPrice: (product.price_cents / 100), color_name: values.color, size: values.size, photo_url: product.photo_url, quantity: 1, quantity_available: product.quantity_available };
                 newCart.push(lineItem);
             }
-            // if (itemInCart.quantity + 1 > itemInCart.quantity_available) {
-            //     console.log('out of stock!');
-            //     setOutOfStock(true);
-            //   } else {
-            //     setOutOfStock(false);
-            //   }
             //sets cart and opens pane
             setCart(newCart);
             console.log(newCart);
@@ -194,7 +188,7 @@ const ProductForm = (props) => {
                     <div className='button-div'>
                         <Link to='/Cart' className='cart-btn'>
                             VIEW CART
-                            <i className="fa fa-shopping-cart cart" aria-hidden="true"></i><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                            <i className="fa fa-shopping-cart cart" aria-hidden="true"></i><i className="fa fa-angle-double-right" aria-hidden="true"></i>
                         </Link>
                     </div>
                 </div>
