@@ -6,7 +6,8 @@ import '../../stylesheets/CheckoutForm.scss'
 import { CartContext } from '../../utils/CartContext';
 
 
-const CheckoutForm = ({ success, fail }) => {
+const CheckoutForm = ({ success, fail, loading, notLoading }) => {
+    const [disableForm, setDisableForm] = useState('');
     const { cart, cartUUID, setCartUUID, total } = useContext(CartContext);
     if (!cartUUID) {
         setCartUUID(localStorage.getItem('UUID'))
@@ -16,8 +17,10 @@ const CheckoutForm = ({ success, fail }) => {
     const stripe = useStripe();
     const elements = useElements();
 
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setDisableForm('disabled');
 
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
@@ -25,11 +28,12 @@ const CheckoutForm = ({ success, fail }) => {
         });
 
         if (!error) {
+            loading();
             const { id } = paymentMethod;
             try {
                 const { data } = await axios.post('/checkout', { id, amount: centsTotal, uuid: cartUUID });
-                console.log(data);
                 success();
+                notLoading();
             } catch (error) {
                 console.log(error.message);
                 fail();
@@ -44,10 +48,12 @@ const CheckoutForm = ({ success, fail }) => {
                 onSubmit={handleSubmit}
                 className='checkout-form'
             >
-                <CardElement />
-                <button type='submit' className='pay-btn' disabled={!stripe}>
-                    Pay
-            </button>
+                <fieldset disabled={disableForm}>
+                    <CardElement />
+                    <button type='submit' className='pay-btn' disabled={!stripe}>
+                        Pay
+                    </button>
+                </fieldset>
             </form>
         </>
     )
@@ -57,29 +63,46 @@ const stripePromise = loadStripe("pk_test_51HELKHG3yT4fkVPvmTSvWinnxraM8XWMvM34G
 
 const Payment = () => {
 
-    const { total } = useContext(CartContext);
+    const { total, setPaid } = useContext(CartContext);
+
+    const [loading, setLoading] = useState(false);
 
     const [status, setStatus] = useState();
 
     if (status === "success") {
-        return <div>Payment of ${total} successful!</div>
+        setPaid(true);
+        return (
+            <div className='paid-div'>
+                <h1>Payment of ${total} successful!</h1>
+            </div>
+        )
     }
 
     return (
         <>
-            <h1>Payment</h1>
-            <h4>All transactions are secure and encrypted.</h4>
-            <Elements stripe={stripePromise}>
-                <CheckoutForm
-                    success={() => { setStatus("success") }}
-                    fail={() => { setStatus("fail") }}
-                />
-            </Elements>
-            {status === "fail" &&
+            {!loading ?
+                <>
+                    <h1>Payment</h1>
+                    <h4>All transactions are secure and encrypted.</h4>
+                    <Elements stripe={stripePromise}>
+                        <CheckoutForm
+                            success={() => { setStatus("success") }}
+                            fail={() => { setStatus("fail") }}
+                            loading={() => { setLoading(true) }}
+                            notLoading={() => { setLoading(false) }}
+                        />
+                    </Elements>
+                </>
+                :
+                <div className="loading-icon"></div>
+            }
+            {
+                status === "fail" &&
                 <div>Payment failed. Please try again.</div>
             }
         </>
     );
+
 }
 
 export default Payment;
