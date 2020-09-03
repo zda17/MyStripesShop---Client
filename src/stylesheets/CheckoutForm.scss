@@ -1,20 +1,48 @@
 @import './NavBar.scss';
 
-.checkout-form {
+form {
     max-width: 500px;
     margin: 30px 0;
-    .pay-btn {
-        margin: 20px;
-        background: $dark-blue;
-        color: white;
-        padding: 10px;
-        font-family: $font;
-        font-size: 14px;
-        border-radius: 5px;
-    }
-    .pay-btn:hover {
-        cursor: pointer;
+    fieldset {
+        .pay-btn {
+            margin: 20px;
+            background: $dark-blue;
+            color: white;
+            padding: 10px;
+            font-family: $font;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        .pay-btn:hover {
+            cursor: pointer;
+        }
     }
 }
 
+@keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+}
+
+.loading-icon {
+    animation: App-logo-spin 1s infinite linear;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-bottom: 3px solid $hover-color;
+    border-left: 3px solid $hover-color;
+}
     
+.paid-div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    top: 120px;
+    left: 0;
+    font-size: 20px;
+}
