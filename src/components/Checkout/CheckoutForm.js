@@ -6,7 +6,7 @@ import '../../stylesheets/CheckoutForm.scss'
 import { CartContext } from '../../utils/CartContext';
 
 
-const CheckoutForm = ({ success, fail, loading, notLoading }) => {
+const CheckoutForm = ({ success, fail, loading, complete }) => {
     const [disableForm, setDisableForm] = useState('');
     const { cart, cartUUID, setCartUUID, total } = useContext(CartContext);
     if (!cartUUID) {
@@ -33,7 +33,7 @@ const CheckoutForm = ({ success, fail, loading, notLoading }) => {
             try {
                 const { data } = await axios.post('/checkout', { id, amount: centsTotal, uuid: cartUUID });
                 success();
-                notLoading();
+                complete();
             } catch (error) {
                 console.log(error.message);
                 fail();
@@ -89,7 +89,7 @@ const Payment = () => {
                             success={() => { setStatus("success") }}
                             fail={() => { setStatus("fail") }}
                             loading={() => { setLoading(true) }}
-                            notLoading={() => { setLoading(false) }}
+                            complete={() => { setLoading(false) }}
                         />
                     </Elements>
                 </>
