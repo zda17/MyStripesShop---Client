@@ -100,7 +100,7 @@ const Costs = ({ open }) => {
 
 
 const Checkout = () => {
-    const { cart, total } = useContext(CartContext);
+    const { cart, total, paid } = useContext(CartContext);
     const { windowWidth } = useContext(MyContext);
 
     const [open, setOpen] = useState(false)
@@ -125,7 +125,7 @@ const Checkout = () => {
                             displayTotalProdPrice={true}
                             numBub={true}
                         />
-                        <div className={windowWidth <= 1199 && open === true || windowWidth > 1199 ? 'show' : 'hide'}>
+                        {!paid && <div className={windowWidth <= 1199 && open === true || windowWidth > 1199 ? 'show' : 'hide'}>
                             <div className={'button-div'}>
                                 <Link to='/Cart' className='cart-btn'>
                                     <i class="fa fa-angle-double-left" aria-hidden="true"></i>
@@ -133,9 +133,10 @@ const Checkout = () => {
                                 </Link>
                             </div>
                         </div>
-                        <Costs
+                        }
+                        {!paid && <Costs
                             open={open}
-                        />
+                        />}
                     </section>
                     <section className='user-checkout-info'>
                         <UserInfoForm />
