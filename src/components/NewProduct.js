@@ -34,25 +34,25 @@ export default function NewProduct() {
     }
 
     return (
-            <form method="post" className="NewProductForm" onSubmit={handleSubmit(onSubmit)}>
+            <form className="NewProductForm" onSubmit={handleSubmit(onSubmit)}>
                 <section className="NewInfo">
                     <article className="InputItem">
                         <label htmlFor="name">
                             <span>Name</span>
                         </label>
-                        <input className="InputText" type="text" id="name" name="name" register={register({ required: true })} />
+                        <input className="InputText" type="text" id="name" name="name" ref={register({ required: true })} />
                     </article>
                     <article className="InputItem">
                         <label htmlFor="sku">
                             <span>SKU</span>
                         </label>
-                        <input className="InputText" type="text" id="sku" name="sku" register={register({ required: true })} />
+                        <input className="InputText" type="text" id="sku" name="sku" ref={register({ required: true })} />
                     </article>
                     <article className="InputItem">
                         <label htmlFor="category">
                             <span>Category</span>
                         </label>
-                        <select className="inputDropdown" id="category" name="category" register={register({ required: true })}>
+                        <select className="inputDropdown" id="category" name="category" ref={register({ required: true })}>
                             <option value='tops'>Tops</option>
                             <option value='bottoms'>Bottoms</option>
                             <option value='accessories'>Accessories</option>
@@ -62,13 +62,13 @@ export default function NewProduct() {
                         <label htmlFor="description">
                             <span>Description</span>
                         </label>
-                        <input className="InputText" type="text" id="description" name="description" register={register({ required: true })} />
+                        <input className="InputText" type="text" id="description" name="description" ref={register({ required: true })} />
                     </article>
                     <article className="InputItem">
                         <label htmlFor="gender">
                             <span>Gender</span>
                         </label>
-                        <select className="inputDropdown" id="gender" name="gender" register={register({ required: true })}>
+                        <select className="inputDropdown" id="gender" name="gender" ref={register({ required: true })}>
                             <option value='U'>Unisex</option>
                             <option value='W'>Womens</option>
                             <option value='M'>Mens</option>
@@ -80,7 +80,7 @@ export default function NewProduct() {
                         </label>
                         <div className="photo-upload">
 
-                            <input type="file" id="img" name="img" accept="image/*" register={register({ required: true })} />
+                            <input type="file" id="img" name="img" accept="image/*" ref={register({ required: true })} />
                         </div>
                     </article>
                 </section>
