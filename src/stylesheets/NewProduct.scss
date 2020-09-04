@@ -46,10 +46,33 @@ $dark-blue: rgb(0, 38, 72);
             }
         }
     }
+
+    button {
+        width: fit-content;
+        height: 4vh;
+        min-height: 30px;
+        display: block;
+        border: none;
+        border-radius: 5px;
+        background-color: $color;
+        color: white;
+        margin: 6px auto 12px;
+        padding: 0px 15px;
+        cursor: pointer;
+
+        font: {
+            size: 16px;
+            weight: bold;
+        }
+    }
+
     table {
+        overflow: visible;
         border: 1px solid black;
         border-collapse: collapse;
+
         th {
+            background-color: $color;
             border: 1px solid black;
             border-collapse: collapse;
             padding: 2px 4px
@@ -92,6 +115,11 @@ $dark-blue: rgb(0, 38, 72);
             weight: bold;
         }
     }
+
+    input {
+        width: 10vw;
+    }
+
 }
 
 //swatches size
