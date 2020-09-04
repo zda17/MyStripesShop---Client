@@ -43,6 +43,10 @@ $dark-blue: rgb(0, 38, 72);
                 flex-direction: column;
                 justify-content: flex-end;
                 align-items: center;
+
+                input[type="file"] {
+                    width: fit-content;
+                }
             }
         }
     }
