@@ -63,9 +63,16 @@
     justify-content: center;
     .paid-card-display {
         text-align: center;
+        .cart-item {
+            margin-left: 35px;
+        }
         .paid-div {
             font-size: 32px;
             margin: 50px 0;
+            .fa-check {
+                margin-left: 12px;
+                color: green;
+            }
         }
     }
 }
