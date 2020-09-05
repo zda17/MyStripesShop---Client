@@ -6,7 +6,6 @@ import { CartItem, EmptyCart } from '../components/Cart';
 import { CartContext } from '../utils/CartContext';
 import { MyContext } from '../utils/Context';
 import { Link } from 'react-router-dom';
-import localStorage from '../utils/localStorage';
 
 // Calculate costs and manage state for subtotal, shipping, taxes, coupon, and total
 const Costs = ({ open }) => {
@@ -112,7 +111,7 @@ const Checkout = () => {
                     <section className={paid ? 'paid-card-display' : 'cart-display'}>
                         {paid &&
                             <div className='paid-div'>
-                                <h1>Payment of ${total} successful!</h1>
+                                <h1>Payment of ${total} successful!<i class="fas fa-check"></i></h1>
                             </div>
                         }
                         {windowWidth <= 1199 && !paid ?
