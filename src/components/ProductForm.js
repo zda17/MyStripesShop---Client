@@ -188,7 +188,7 @@ const ProductForm = (props) => {
                     <div className='button-div'>
                         <Link to='/Cart' className='cart-btn'>
                             VIEW CART
-                            <i className="fa fa-shopping-cart cart" aria-hidden="true"></i><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                            <i className="fa fa-shopping-cart cart" aria-hidden="true"></i><i className="fa fa-angle-double-right" aria-hidden="true"></i>
                         </Link>
                     </div>
                 </div>

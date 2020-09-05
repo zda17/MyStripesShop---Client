@@ -10,6 +10,7 @@ import Header from '../components/Header';
 
 //assets
 import Add1 from '../utils/images/add 1.png';
+import NewProduct from '../components/NewProduct';
 
 const Admin = () => {
 
@@ -40,9 +41,22 @@ const Admin = () => {
             </div>
 
             <section className="Admin-Component">
-
-
-
+                {activeSection === 'new' ?
+                    <>
+                        <NewProduct/>
+                    </>
+                : activeSection === 'orders' ?
+                    <>
+                        <p>Orders</p>
+                    </>
+                : activeSection === 'fulfilled' ?
+                    <>
+                        <p>Fulfilled</p>
+                    </>
+                :
+                <>
+                </>
+                }       
             </section>
 
         </section>
