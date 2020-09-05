@@ -8,7 +8,7 @@ import Payment from './CheckoutForm';
 const UserInfoForm = () => {
 
     const { register, handleSubmit } = useForm();
-    const { cart } = useContext(CartContext);
+    const { cart, paid } = useContext(CartContext);
     const [userInfo, setUserInfo] = useState();
     const [filledOut, setFilledOut] = useState(false);
     const [showCheckoutForm, setShowCheckoutForm] = useState(false);
@@ -18,6 +18,7 @@ const UserInfoForm = () => {
         console.log('data', data);
         setUserInfo(data);
         setFilledOut(true);
+        setShowCheckoutForm(true);
     };
     const formInputs = ['Address', 'Apartment, suite, etc. (optional)', 'City']
 
@@ -42,16 +43,12 @@ const UserInfoForm = () => {
 
     document.body.onclick = function () {
         console.log(userInfo);
-        // console.log(userInfo.apartmentsuiteetc.optional);
     }
 
     const goBackToForm = () => {
         setFilledOut(false);
     }
 
-    const displayCheckoutForm = () => {
-        setShowCheckoutForm(true);
-    }
 
     return (
         <>
@@ -84,26 +81,31 @@ const UserInfoForm = () => {
                             <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                             Return to cart
                     </Link>
-                        <button type='submit' className='ship-btn'>Continue to shipping</button>
+                        {/* change 'payment' to 'shipping' if shipping options get implemented */}
+                        <button type='submit' className='ship-btn'>Continue to payment</button>
                     </div>
                 </form>
             }
-            {filledOut && !showCheckoutForm &&
+            {filledOut &&
                 <section className='user-info-filled-container'>
-                    <section className='user-contact-ship-info'>
-                        <section className='contact-div'>
-                            <p>Contact: </p>
-                            <p className='user-email'>{userInfo.email}</p>
-                            <p className='back-to-form' onClick={goBackToForm}>Change</p>
-                        </section>
-                        {/* destructure userInfo somehow... */}
-                        <section className='ship-div'>
-                            <p>Ship to: </p>
-                            <p className='user-ship-info'>{userInfo.address}, {userInfo.apartmentsuiteetc.optional && '#' + userInfo.apartmentsuiteetc.optional + ', '}{userInfo.city}, {userInfo.state}, {userInfo.zipCode}, {userInfo.country}</p>
-                            <p className='back-to-form' onClick={goBackToForm}>Change</p>
-                        </section>
-                    </section>
-                    <section>
+                    {!paid &&
+                        <>
+                            <h2>Confirm Info</h2>
+                            <section className='user-contact-ship-info'>
+                                <section className='contact-div'>
+                                    <p><strong>Contact: </strong></p>
+                                    <p className='user-email'>{userInfo.email}</p>
+                                    {/* <p className='back-to-form' onClick={goBackToForm}>Change</p> */}
+                                </section>
+                                {/* destructure userInfo? */}
+                                <section className='ship-div'>
+                                    <p><strong>Ship to: </strong></p>
+                                    <p className='user-ship-info'>{userInfo.address}, {userInfo.apartmentsuiteetc.optional && '#' + userInfo.apartmentsuiteetc.optional + ', '}{userInfo.city}, {userInfo.state}, {userInfo.zipCode}, {userInfo.country}</p>
+                                    {/* <p className='back-to-form' onClick={goBackToForm}>Change</p> */}
+                                </section>
+                            </section>
+                            {/* Shipping options section if needed in the future (right now shipping is free) */}
+                            {/* <section>
                         <h2>Shipping Method</h2>
                         <form className='shipping-methods'>
                             <input type="radio" className="standard" name="standard" value="standard" style={{ position: 'relative', top: '-9px', right: '8px' }} />
@@ -118,19 +120,22 @@ const UserInfoForm = () => {
                             <label for="next-day" className="next-day" style={{ width: '90%' }}>UPS Next Day Air (Arrives 1 business day after it has shipped - allow 1-2 business days to ship) Not Available for PO BOX/APO/FPO</label>
                             <label for="next-day" className="next-day-price">$19.99</label>
                         </form>
-                    </section>
-                    <div className='button-div'>
-                        <p onClick={goBackToForm} className='back-btn'>
-                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                            Return to Information
-                            </p>
-                        <button type='button' onClick={displayCheckoutForm} className='pay-btn'>Continue to payment</button>
-                    </div>
+                    </section> */}
+                            <div className='button-div'>
+                                <p onClick={goBackToForm} className='back-btn'>
+                                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                    Edit Information
+                                </p>
+                                {/* <button type='button' onClick={displayCheckoutForm} className='pay-btn'>Continue to payment</button> */}
+                            </div>
+                        </>
+                    }
+                    {showCheckoutForm &&
+                        <Payment />
+                    }
                 </section>
             }
-            {showCheckoutForm &&
-                <Payment />
-            }
+
         </>
     )
 }
