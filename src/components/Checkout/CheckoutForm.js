@@ -17,6 +17,28 @@ const CheckoutForm = ({ success, fail, loading, complete }) => {
     const stripe = useStripe();
     const elements = useElements();
 
+    const CARD_OPTIONS = {
+        iconStyle: 'solid',
+        style: {
+            base: {
+                iconColor: '#1f7bc5',
+                color: 'rgb(0, 38, 72)',
+                fontSize: '18px',
+                fontSmoothing: 'antialiased',
+                ':-webkit-autofill': {
+                    color: '#fce883',
+                },
+                '::placeholder': {
+                    color: 'rgba(128, 128, 128, 0.5)',
+                },
+            },
+            invalid: {
+                iconColor: 'rgb(99, 0, 0)',
+                color: 'rgb(99, 0, 0)',
+            },
+        },
+    };
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -32,6 +54,7 @@ const CheckoutForm = ({ success, fail, loading, complete }) => {
             const { id } = paymentMethod;
             try {
                 const { data } = await axios.post('/checkout', { id, amount: centsTotal, uuid: cartUUID });
+                console.log(data)
                 success();
                 complete();
             } catch (error) {
@@ -49,9 +72,12 @@ const CheckoutForm = ({ success, fail, loading, complete }) => {
                 className='checkout-form'
             >
                 <fieldset disabled={disableForm}>
-                    <CardElement />
+                    <CardElement
+                        options={CARD_OPTIONS}
+                        className='payment-div'
+                    />
                     <button type='submit' className='pay-btn' disabled={!stripe}>
-                        Pay
+                        <h2>Pay</h2>
                     </button>
                 </fieldset>
             </form>
@@ -63,7 +89,7 @@ const stripePromise = loadStripe("pk_test_51HELKHG3yT4fkVPvmTSvWinnxraM8XWMvM34G
 
 const Payment = () => {
 
-    const { total, setPaid } = useContext(CartContext);
+    const { total, paid, setPaid } = useContext(CartContext);
 
     const [loading, setLoading] = useState(false);
 
@@ -71,18 +97,13 @@ const Payment = () => {
 
     if (status === "success") {
         setPaid(true);
-        return (
-            <div className='paid-div'>
-                <h1>Payment of ${total} successful!</h1>
-            </div>
-        )
     }
 
     return (
         <>
-            {!loading ?
+            {!loading && !paid &&
                 <>
-                    <h1>Payment</h1>
+                    <h2>Payment</h2>
                     <h4>All transactions are secure and encrypted.</h4>
                     <Elements stripe={stripePromise}>
                         <CheckoutForm
@@ -93,7 +114,8 @@ const Payment = () => {
                         />
                     </Elements>
                 </>
-                :
+            }
+            {loading && !paid &&
                 <div className="loading-icon"></div>
             }
             {
