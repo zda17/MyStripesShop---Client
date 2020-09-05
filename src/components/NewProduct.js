@@ -25,7 +25,11 @@ export default function NewProduct() {
     };
 
     const addColor = () => {
-        setColor([...color, currentColor.hex]);
+        if(displayColorPicker == false) {
+            setDisplayColorPicker(!displayColorPicker);
+        }else {
+            setColor([...color, currentColor.hex]);
+        }
         console.log(color);
     }
 
@@ -93,9 +97,9 @@ export default function NewProduct() {
                             width={300}
                             on
                         />
-                        <button onClick={addColor}>ADD</button>
                     </>
                     : null}
+                    <button onClick={addColor}>ADD COLOR</button>
                 <table>
                     <thead>
                         <tr>
@@ -106,14 +110,14 @@ export default function NewProduct() {
                             <th>Quantity Available</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody> 
                     {color.map((hex, index) => (
                         <tr key={index} >
-                            <td contenteditable='true' >Name</td>
-                            <td contenteditable='true' onClick={handleClick} onChange={onChange} ref={register({ required: true })}><input type="text" name={hex} value={hex} /></td>
-                            <td contenteditable='true'>XS, S, M, L, XL</td>
-                            <td contenteditable='true'>$24.99</td>
-                            <td contenteditable='true'>XS: 4, S: 3, M: 2, L: 3, XL: 6</td>
+                            <td contenteditable='true' ><input contentEditable={true} type="text" name={"cName"+index} placeholder="Color Name" ref={register({ required: true })}/></td>
+                            <td contenteditable='true' onClick={handleClick}><input type="text" name={"hex"+index} value={hex} ref={register({ required: true })} onChange={onChange}/></td>
+                            <td contenteditable='true'><input contentEditable={true} type="text" name={"cSizes"+index} placeholder="e.g. XS, S, M, L, XL" ref={register({ required: true })}/></td>
+                            <td contenteditable='true'><input contentEditable={true} type="text" name={"cPrice"+index} placeholder="e.g. $25.99" ref={register({ required: true })}/></td>
+                            <td contenteditable='true'><input contentEditable={true} type="text" name={"cQuantity"+index} placeholder="e.g. XS: 4, S: 3, M: 2, L: 3, XL: 6" ref={register({ required: true })}/></td>
                         </tr>
                     ))}
                     </tbody>
