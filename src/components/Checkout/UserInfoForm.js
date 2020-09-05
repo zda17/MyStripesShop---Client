@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { useForm } from "react-hook-form";
 import '../../stylesheets/UserInfoForm.scss';
 import { CartContext } from '../../utils/CartContext';
@@ -8,17 +8,16 @@ import Payment from './CheckoutForm';
 const UserInfoForm = ({ open }) => {
 
     const { register, handleSubmit } = useForm();
-    const { cart, paid } = useContext(CartContext);
+    const { paid, userEmail, setUserEmail } = useContext(CartContext);
     const [userInfo, setUserInfo] = useState();
     const [filledOut, setFilledOut] = useState(false);
     const [showCheckoutForm, setShowCheckoutForm] = useState(false);
 
     const onSubmit = data => {
-        console.log('cart', cart);
-        console.log('data', data);
         setUserInfo(data);
         setFilledOut(true);
         setShowCheckoutForm(true);
+        setUserEmail(data.email);
         open();
         window.scrollTo(0, 0);
     };

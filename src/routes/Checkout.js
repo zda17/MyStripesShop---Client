@@ -99,7 +99,7 @@ const Costs = ({ open }) => {
 
 
 const Checkout = () => {
-    const { cart, total, paid } = useContext(CartContext);
+    const { cart, total, paid, userEmail } = useContext(CartContext);
     const { windowWidth } = useContext(MyContext);
 
     const [open, setOpen] = useState(false)
@@ -111,7 +111,11 @@ const Checkout = () => {
                     <section className={paid ? 'paid-card-display' : 'cart-display'}>
                         {paid &&
                             <div className='paid-div'>
-                                <h1>Payment of ${total} successful!<i class="fas fa-check"></i></h1>
+                                <h1>Payment of <strong>${total}</strong> successful!<i class="fas fa-check"></i></h1>
+                                <h5>Thank you for your order.</h5> 
+                                {/* TO-DO: get Stripe conf code */}
+                                <h5>Your confirmation code is <strong>????</strong>.</h5>
+                                <h5>A confirmation email has been sent to <strong>{userEmail}</strong>.</h5>
                             </div>
                         }
                         {windowWidth <= 1199 && !paid ?
