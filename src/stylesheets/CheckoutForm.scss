@@ -1,20 +1,33 @@
 @import './NavBar.scss';
 
 form {
-    max-width: 500px;
+    max-width: 600px;
     margin: 30px 0;
     fieldset {
+        border: 1px solid $dark-blue;
+        border-radius: 10px;
+        padding: 2px 15px;
         .pay-btn {
-            margin: 20px;
+            margin: 8px 10px 7px 0;
             background: $dark-blue;
             color: white;
             padding: 10px;
             font-family: $font;
             font-size: 14px;
             border-radius: 5px;
+            width: 100%;
+            h2 {
+                margin: 0;
+                color: white;
+                font-size: 18px;
+            }
         }
         .pay-btn:hover {
             cursor: pointer;
+        }
+        .payment-div {
+            padding: 10px;
+            margin-top: 10px;
         }
     }
 }
@@ -35,14 +48,4 @@ form {
     border-radius: 50%;
     border-bottom: 3px solid $hover-color;
     border-left: 3px solid $hover-color;
-}
-    
-.paid-div {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    position: relative;
-    top: 120px;
-    left: 0;
-    font-size: 20px;
 }

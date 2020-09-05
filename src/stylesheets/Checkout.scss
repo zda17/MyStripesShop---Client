@@ -27,9 +27,9 @@
             }
             h1 {
                 text-align: center;
-                color: white;
+                color: white;             
                 padding: 10px;
-            }
+            } 
             h1:hover {
                 cursor: pointer;
             }
@@ -54,6 +54,19 @@
         margin: 35px 10px;
         width: 100%;
         padding: 5px;
+    }
+}
+
+.completed-order {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    .paid-card-display {
+        text-align: center;
+        .paid-div {
+            font-size: 32px;
+            margin: 50px 0;
+        }
     }
 }
 
@@ -155,6 +168,8 @@
         .user-checkout-info {
             margin: 40px 70px;
             width: 600px;
+            display: flex;
+            justify-content: center;
         }
     }
     .checkout-prices-wrapper, .checkout-total-wrapper {

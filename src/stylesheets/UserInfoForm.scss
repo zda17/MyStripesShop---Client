@@ -57,12 +57,14 @@ form {
 }
 
 .user-info-filled-container {
-    width: 800px;
     .user-contact-ship-info {
+        display: flex;
+        flex-direction: column;
         background: white;
         border: 1px solid $dark-blue;
         border-radius: 5px;
         padding: 15px;
+        max-width: 600px;
         .contact-div, .ship-div {
             display: flex;
             justify-content: space-between;
@@ -72,13 +74,13 @@ form {
         }
         .contact-div {
             .user-email {
-                width: 51%;
+                width: 65%;
                 text-align: left;
             }
         }
         .ship-div {
             .user-ship-info {
-                width: 50%;
+                width: 65%;
                 word-wrap: normal;
             }
         }
@@ -103,6 +105,8 @@ form {
         align-items: center;
         .back-btn {
             margin: 20px;
+            color: $dark-blue;
+            font-weight: bold;
         }
         .fa-angle-double-left {
             padding: 10px;
