@@ -60,6 +60,7 @@ const CheckoutForm = ({ success, fail, loading, complete }) => {
             } catch (error) {
                 console.log(error.message);
                 fail();
+                complete();
                 // set more specific error messages -- see https://stripe.com/docs/testing#cards-responses
             }
         }
