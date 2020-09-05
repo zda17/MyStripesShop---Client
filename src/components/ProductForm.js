@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 const ProductForm = (props) => {
 
     const { products } = props;
+    console.log('render')
 
     //creates states for colors and sizes and clears null amount
     const colorObject = {};
