@@ -108,15 +108,20 @@ const Checkout = () => {
     return (
         <>
             {cart && cart[0] ?
-                <section className="checkout-container">
-                    <section className='cart-display'>
-                        {windowWidth <= 1199 ?
+                <section className={paid ? 'completed-order' : 'checkout-container'}>
+                    <section className={paid ? 'paid-card-display' : 'cart-display'}>
+                        {paid &&
+                            <div className='paid-div'>
+                                <h1>Payment of ${total} successful!</h1>
+                            </div>
+                        }
+                        {windowWidth <= 1199 && !paid ?
                             <header className='order-sum-header' onClick={() => setOpen(!open)}>
                                 <h1><i className="fa fa-shopping-cart cart" aria-hidden="true"> </i>{!open ? ' Show' : ' Hide'} order summary {!open ? <i class="fas fa-chevron-down"></i> : <i class="fas fa-chevron-up"></i>}</h1>
                                 <h1>{total ? '$' + total : ''}</h1>
                             </header>
                             :
-                            <h1>Order Summary</h1>
+                            <h2>Order Summary</h2>
                         }
                         <CartItem
                             open={open}
