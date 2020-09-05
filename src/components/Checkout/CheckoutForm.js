@@ -89,7 +89,7 @@ const stripePromise = loadStripe("pk_test_51HELKHG3yT4fkVPvmTSvWinnxraM8XWMvM34G
 
 const Payment = () => {
 
-    const { total, paid, setPaid } = useContext(CartContext);
+    const { paid, setPaid } = useContext(CartContext);
 
     const [loading, setLoading] = useState(false);
 
@@ -116,7 +116,9 @@ const Payment = () => {
                 </>
             }
             {loading && !paid &&
-                <div className="loading-icon"></div>
+                <div className='loading-wrapper'>
+                    <div className="loading-icon"></div>
+                </div>
             }
             {
                 status === "fail" &&

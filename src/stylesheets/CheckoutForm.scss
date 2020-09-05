@@ -41,11 +41,16 @@ form {
     }
 }
 
-.loading-icon {
-    animation: App-logo-spin 1s infinite linear;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border-bottom: 3px solid $hover-color;
-    border-left: 3px solid $hover-color;
+.loading-wrapper {
+    display: flex;
+    justify-content: center;
+    .loading-icon {
+        animation: App-logo-spin 1s infinite linear;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border-bottom: 3px solid $hover-color;
+        border-left: 3px solid $hover-color;
+        margin-top: 30px;
+    }
 }
