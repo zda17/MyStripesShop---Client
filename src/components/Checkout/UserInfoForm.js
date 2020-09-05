@@ -5,7 +5,7 @@ import { CartContext } from '../../utils/CartContext';
 import { Link } from 'react-router-dom';
 import Payment from './CheckoutForm';
 
-const UserInfoForm = () => {
+const UserInfoForm = ({ open }) => {
 
     const { register, handleSubmit } = useForm();
     const { cart, paid } = useContext(CartContext);
@@ -19,6 +19,8 @@ const UserInfoForm = () => {
         setUserInfo(data);
         setFilledOut(true);
         setShowCheckoutForm(true);
+        open();
+        window.scrollTo(0, 0);
     };
     const formInputs = ['Address', 'Apartment, suite, etc. (optional)', 'City']
 

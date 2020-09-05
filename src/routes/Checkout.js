@@ -144,7 +144,9 @@ const Checkout = () => {
                         />}
                     </section>
                     <section className='user-checkout-info'>
-                        <UserInfoForm />
+                        <UserInfoForm 
+                        open={() => setOpen(false)}
+                        />
                     </section>
                 </section>
                 :
