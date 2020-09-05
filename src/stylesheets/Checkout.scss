@@ -63,15 +63,20 @@
     justify-content: center;
     .paid-card-display {
         text-align: center;
-        .cart-item {
-            margin-left: 35px;
-        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         .paid-div {
             font-size: 32px;
             margin: 50px 0;
             .fa-check {
                 margin-left: 12px;
                 color: green;
+            }
+            h5 {
+                margin: 0 10px;
+                font-weight: 300;
             }
         }
     }
@@ -189,5 +194,34 @@
     .checkout-container {
         flex-wrap: wrap;
     }
-   
+    .completed-order {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        .paid-card-display {
+            text-align: center;
+            width: 100%;
+            .cart-item {
+                max-width: 350px;
+                .cart-info {
+                    padding-left: 30px;
+                }
+            }
+            .paid-div {
+                font-size: 32px;
+                margin: 10px 0 50px;
+                width: 100%;
+                .fa-check {
+                    margin-left: 12px;
+                    color: green;
+                }
+                h5 {
+                    margin: 0 45px;
+                    font-weight: 300;
+                    padding: 8px 0px;
+                    max-width: 350px;
+                }
+            }
+        }
+    }
 }
