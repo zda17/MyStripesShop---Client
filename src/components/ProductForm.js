@@ -48,6 +48,7 @@ const ProductForm = (props) => {
 
     //add to cart button
     const onSubmit = (values) => {
+        console.log('submit!')
         // Check if user has UUID stored, if not: create one, store it in LocalStorage and cartContext
         if (!localStorage.hasUUID()) {
             const UUID = uuid();
@@ -67,39 +68,34 @@ const ProductForm = (props) => {
         const product = products.find(
             (item) => (values.color === item.color_name) && (values.size === item.size)
         );
+        
+        oos = "";
+        //looks to see if item exists in cart
+        const itemInCart = newCart.find(
+            (item) => product.sku === item.sku
+        );
 
-        //if no product exists
-        if (!product || product.quantity_available === 0) {
-            oos = "OUT OF STOCK!";
-        } else {
-            oos = "";
-            //looks to see if item exists in cart
-            const itemInCart = newCart.find(
-                (item) => product.sku === item.sku
-            );
-
-            //if exists increment quantity and set new price. else push new line item
-            if (itemInCart) {
-                if (itemInCart.quantity < itemInCart.quantity_available) {
-                    let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
-                    itemInCart.quantity++;
-                    itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
-                    setMaxAvailable(false);
-                    setCurrProduct('');
-                } else if (itemInCart.quantity + 1 > itemInCart.quantity_available) {
-                    console.log('out of stock!');
-                    setMaxAvailable(true);
-                    setCurrProduct(itemInCart.sku);
-                }
-            } else {
-                const lineItem = { base_sku: product.base_sku, sku: product.sku, name: product.name, price: (product.price_cents / 100), totalProductPrice: (product.price_cents / 100), color_name: values.color, size: values.size, photo_url: product.photo_url, quantity: 1, quantity_available: product.quantity_available };
-                newCart.push(lineItem);
+        //if exists increment quantity and set new price. else push new line item
+        if (itemInCart) {
+            if (itemInCart.quantity < itemInCart.quantity_available) {
+                let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
+                itemInCart.quantity++;
+                itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
+                setMaxAvailable(false);
+                setCurrProduct('');
+            } else if (itemInCart.quantity + 1 > itemInCart.quantity_available) {
+                console.log('out of stock!');
+                setMaxAvailable(true);
+                setCurrProduct(itemInCart.sku);
             }
-            //sets cart and opens pane
-            setCart(newCart);
-            localStorage.setUserCart(newCart);
-            setIsPaneOpen(true);
+        } else {
+            const lineItem = { base_sku: product.base_sku, sku: product.sku, name: product.name, price: (product.price_cents / 100), totalProductPrice: (product.price_cents / 100), color_name: values.color, size: values.size, photo_url: product.photo_url, quantity: 1, quantity_available: product.quantity_available };
+            newCart.push(lineItem);
         }
+        //sets cart and opens pane
+        setCart(newCart);
+        localStorage.setUserCart(newCart);
+        setIsPaneOpen(true);
     };
 
     return (
@@ -175,14 +171,15 @@ const ProductForm = (props) => {
 
                     {/*OUT OF STOCK*/}
                     <div id="Errors" className="Errors">
-                        {outOfStock === true ? <p>OUT OF STOCK</p> : null}
+                        {outOfStock ? <p>OUT OF STOCK</p> : null}
                     </div>
 
                     {/*ADDS TO CART*/}
-                    <input
-                        type="submit"
-                        value="ADD TO CART"
-                    />
+                    {outOfStock ? 
+                        <input disabled="true" type="submit" value="ADD TO CART" />
+                        :
+                        <input type="submit" value="ADD TO CART" />
+                    }
 
                     {/*VIEW CART*/}
                     <div className='button-div'>
