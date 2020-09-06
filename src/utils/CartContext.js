@@ -8,7 +8,7 @@ export const CartProvider = (props) => {
     // Cart uses UUID to pull correct Cart from database
     const [cartUUID, setCartUUID] = useState('');
     const [total, setTotal] = useState(0);
-    const [outOfStock, setOutOfStock] = useState(false);
+    const [maxAvailable, setMaxAvailable] = useState(false);
     const [currProduct, setCurrProduct] = useState('');
     const [paid, setPaid] = useState(false);
 
@@ -16,7 +16,7 @@ export const CartProvider = (props) => {
     const [isPaneOpen, setIsPaneOpen] = useState(false);
 
     return (
-        <CartContext.Provider value={{ cart, setCart, cartUUID, setCartUUID, total, setTotal, outOfStock, setOutOfStock, currProduct, setCurrProduct, paid, setPaid, isPaneOpen, setIsPaneOpen }}>
+        <CartContext.Provider value={{ cart, setCart, cartUUID, setCartUUID, total, setTotal, maxAvailable, setMaxAvailable, currProduct, setCurrProduct, paid, setPaid, isPaneOpen, setIsPaneOpen }}>
             {props.children}
         </CartContext.Provider>
     )

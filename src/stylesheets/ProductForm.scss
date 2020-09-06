@@ -179,6 +179,10 @@ form {
         }
     }
 
+    input[disabled] {
+        background-color: gray;
+    }
+
     input[type="reset"] {
       width: fit-content;
       height: 5vh;
