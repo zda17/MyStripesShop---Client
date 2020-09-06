@@ -100,16 +100,7 @@ const ProductForm = (props) => {
             localStorage.setUserCart(newCart);
             setIsPaneOpen(true);
         }
-        render();
     };
-
-    function render() {
-        const outOfOrder = (
-            <p>{oos}</p>
-        );
-        ReactDOM.render(outOfOrder, document.getElementById('Errors'));
-
-    }
 
     return (
         <form method="post" className="ProductForm" onSubmit={handleSubmit(onSubmit)}>
@@ -184,7 +175,7 @@ const ProductForm = (props) => {
 
                     {/*OUT OF STOCK*/}
                     <div id="Errors" className="Errors">
-
+                        {outOfStock === true ? <p>OUT OF STOCK</p> : null}
                     </div>
 
                     {/*ADDS TO CART*/}
