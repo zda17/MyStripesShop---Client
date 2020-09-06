@@ -51,6 +51,40 @@ $dark-blue: rgb(0, 38, 72);
         }
     }
 
+    .size-quantity {
+        align-items: center;
+        text-align: center;
+
+        span {
+            margin: 20px 15px;
+        }
+
+        input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            margin: 5px 2px 5px 25px;
+        }
+
+        input[type="number"] {
+            width: 50px;
+            height: 21px;
+            border: solid 1px $dark-blue;
+            margin: 5px 10px 5px 15px;
+        }
+
+        input[type="text"] {
+            border-radius: 0;
+            width: 70px;
+            height: 21px;
+            margin: 5px 5px 5px 15px;
+        }
+
+        label {
+            margin: 5px 20px 5px 0px;
+        }
+
+    }
+
     button {
         width: fit-content;
         height: 4vh;
@@ -125,6 +159,8 @@ $dark-blue: rgb(0, 38, 72);
     }
 
 }
+
+
 
 //swatches size
 .sketch-picker > div + div > div + div {
