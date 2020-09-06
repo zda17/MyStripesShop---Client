@@ -19,7 +19,7 @@ const UserInfoForm = ({ open }) => {
         open();
         window.scrollTo(0, 0);
     };
-    
+
     const formInputs = ['Address', 'Apartment, suite, etc. (optional)', 'City']
 
     const Inputs = () => {
@@ -50,27 +50,27 @@ const UserInfoForm = ({ open }) => {
             {!filledOut &&
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <h3>Contact Information</h3>
-                    <input type='text' placeholder='Email' name='email' ref={register} />
+                    <input type='text' placeholder='Email' name='email' value={userInfo.email} ref={register} />
                     <h3>Shipping Address</h3>
                     <div className='name-div'>
-                        <input type='text' placeholder='First name (optional)' className='name first-name' name='firstName' ref={register} />
-                        <input type='text' placeholder='Last name' className='name last-name' name='lastName' ref={register} />
+                        <input type='text' placeholder='First name (optional)' value={userInfo.firstName} className='name first-name' name='firstName' ref={register} />
+                        <input type='text' placeholder='Last name' value={userInfo.lastName} className='name last-name' name='lastName' ref={register} />
                     </div>
                     <Inputs />
                     <div className='name-div'>
-                        <select name='country' defaultValue='' ref={register} className='country-select' required>
+                        <select name='country' defaultValue={userInfo.country} ref={register} className='country-select' required>
                             <option value="" disabled hidden>Country/Region</option>
                             <option value="United States">United States</option>
                         </select>
-                        <select name='state' defaultValue='' className='state-select' ref={register} required>
+                        <select name='state' defaultValue={userInfo.state} className='state-select' ref={register} required>
                             <option value="" disabled hidden>State</option>
                             {states.map((state, index) => (
                                 <option value={state} key={index}>{state}</option>
                             ))}
                         </select>
-                        <input type='text' placeholder='ZIP code' className='zip' name='zipCode' ref={register} />
+                        <input type='text' placeholder='ZIP code' value={userInfo.zipCode} className='zip' name='zipCode' ref={register} />
                     </div>
-                    <input type='text' placeholder='Phone' className='name' name='phone' ref={register} />
+                    <input type='text' placeholder='Phone' value={userInfo.phone} className='name' name='phone' ref={register} />
                     <div className='button-div'>
                         <Link to='/Cart' className='back-btn'>
                             <i class="fa fa-angle-double-left" aria-hidden="true"></i>
