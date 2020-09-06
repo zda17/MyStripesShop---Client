@@ -19,22 +19,25 @@ const ProductForm = (props) => {
     const { products } = props;
     console.log('render')
 
-    //creates states for colors and sizes and clears null amount
+    //creates object to store color names as keys with their Hex Code as values
     const colorObject = {};
-    //colors.splice(0, colors.length);
     products.map(product => colorObject.hasOwnProperty(product.color_name) ? null : colorObject[product.color_name] = product.color_hex);
     const colors = Object.entries(colorObject);
-    console.log(colorObject);
-
+    
     const sizes = [];
     products.map(product => sizes.includes(product.size) ? null : sizes.push(product.size));
 
+    const [colorPicked, setColorPicked] = useState('')
+    const [sizePicked, setSizePicked] = useState('')
     var oos = "";
+
+    useEffect(() => {
+        console.log('useEffect')
+    }, [colorPicked, sizePicked]);
 
     //creates react-hook-form and components
     const { handleSubmit, register, errors, reset } = useForm();
     const { cart, setCart, setIsPaneOpen, setCartUUID, setOutOfStock, setCurrProduct } = useContext(CartContext);
-
 
     //add to cart button
     const onSubmit = (values) => {
@@ -60,7 +63,6 @@ const ProductForm = (props) => {
 
         //if no product exists
         if (!product || product.quantity_available === 0) {
-            console.log("OUT OF STOCK!");
             oos = "OUT OF STOCK!";
         } else {
             oos = "";
@@ -88,7 +90,6 @@ const ProductForm = (props) => {
             }
             //sets cart and opens pane
             setCart(newCart);
-            console.log(newCart);
             localStorage.setUserCart(newCart);
             setIsPaneOpen(true);
         }
@@ -123,7 +124,7 @@ const ProductForm = (props) => {
 
                             {colors.map((color, id) => (
                                 <li key={id}>
-                                    <input type="radio" name="color" id={color[0]} value={color[0]} ref={register({ required: true })} />
+                                    <input type="radio" name="color" id={color[0]} value={color[0]} onChange={(e) => setColorPicked(e.target.value)} ref={register({ required: true })} />
                                     <label className={color[0]} htmlFor={color[0]}>
                                         <span
                                             className="Selector-Block"
@@ -163,7 +164,7 @@ const ProductForm = (props) => {
                             {errors.size && (<p role="alert">SIZE IS REQUIRED.</p>)}
                             {sizes.map((size, index) => (
                                 <li className={size} key={index}> {/*<--prop used for showing out of order (not made yet)*/}
-                                    <input type="radio" name="size" id={size} value={size} ref={register({ required: true })} />
+                                    <input type="radio" name="size" id={size} value={size} onChange={(e) => setSizePicked(e.target.value)} ref={register({ required: true })} />
                                     <label htmlFor={size}>
                                         <span className={size}>
                                             {size}
