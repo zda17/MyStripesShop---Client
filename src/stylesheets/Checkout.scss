@@ -1,5 +1,5 @@
 @import './NavBar.scss';
-
+@import './Burger.scss';
 
 .checkout-container {
     display: flex;
@@ -27,9 +27,9 @@
             }
             h1 {
                 text-align: center;
-                color: white;
+                color: white;             
                 padding: 10px;
-            }
+            } 
             h1:hover {
                 cursor: pointer;
             }
@@ -51,9 +51,34 @@
         }
     }
     .user-checkout-info {
-        margin: 35px 10px;
+        margin: 0 10px 30px;
         width: 100%;
         padding: 5px;
+    }
+}
+
+.completed-order {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    .paid-card-display {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .paid-div {
+            font-size: 32px;
+            margin: 50px 0;
+            .fa-check {
+                margin-left: 12px;
+                color: green;
+            }
+            h5 {
+                margin: 0 10px;
+                font-weight: 300;
+            }
+        }
     }
 }
 
@@ -155,6 +180,8 @@
         .user-checkout-info {
             margin: 40px 70px;
             width: 600px;
+            display: flex;
+            justify-content: center;
         }
     }
     .checkout-prices-wrapper, .checkout-total-wrapper {
@@ -167,5 +194,45 @@
     .checkout-container {
         flex-wrap: wrap;
     }
-   
+    .completed-order {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        .paid-card-display {
+            text-align: center;
+            width: 100%;
+            .cart-item {
+                max-width: 350px;
+                .cart-info {
+                    padding-left: 30px;
+                }
+            }
+            .paid-div {
+                font-size: 28px;
+                margin: 10px 0 50px;
+                width: 100%;
+                .fa-check {
+                    margin-left: 12px;
+                    color: green;
+                }
+                h1 {
+                    margin-bottom: 10px;
+                }
+                h5 {
+                    font-size: 18px;
+                    margin: 0 45px;
+                    font-weight: 300;
+                    padding: 8px 0px;
+                    max-width: 350px;
+                }
+            }
+            .horizontal-line {
+                color: $dark-blue-line;
+                position: relative;
+                top: -10px;
+                width: 80%;
+                margin-bottom: 20px;
+            }
+        }
+    }
 }

@@ -6,7 +6,6 @@ import { CartItem, EmptyCart } from '../components/Cart';
 import { CartContext } from '../utils/CartContext';
 import { MyContext } from '../utils/Context';
 import { Link } from 'react-router-dom';
-import localStorage from '../utils/localStorage';
 
 // Calculate costs and manage state for subtotal, shipping, taxes, coupon, and total
 const Costs = ({ open }) => {
@@ -100,7 +99,7 @@ const Costs = ({ open }) => {
 
 
 const Checkout = () => {
-    const { cart, total, paid } = useContext(CartContext);
+    const { cart, total, paid, userInfo, confCode } = useContext(CartContext);
     const { windowWidth } = useContext(MyContext);
 
     const [open, setOpen] = useState(false)
@@ -108,15 +107,26 @@ const Checkout = () => {
     return (
         <>
             {cart && cart[0] ?
-                <section className="checkout-container">
-                    <section className='cart-display'>
-                        {windowWidth <= 1199 ?
+                <section className={paid ? 'completed-order' : 'checkout-container'}>
+                    <section className={paid ? 'paid-card-display' : 'cart-display'}>
+                        {paid &&
+                            <>
+                                <div className='paid-div'>
+                                    <h1>Payment of <strong>${total}</strong> successful!<i class="fas fa-check"></i></h1>
+                                    <h5>Thank you for your order.</h5>
+                                    <h5>Your confirmation code is <strong>{confCode}</strong>.</h5>
+                                    <h5>A confirmation email has been sent to <strong>{userInfo.email}</strong>.</h5>
+                                </div>
+                                <hr className='horizontal-line'></hr>
+                            </>
+                        }
+                        {windowWidth <= 1199 && !paid ?
                             <header className='order-sum-header' onClick={() => setOpen(!open)}>
                                 <h1><i className="fa fa-shopping-cart cart" aria-hidden="true"> </i>{!open ? ' Show' : ' Hide'} order summary {!open ? <i class="fas fa-chevron-down"></i> : <i class="fas fa-chevron-up"></i>}</h1>
                                 <h1>{total ? '$' + total : ''}</h1>
                             </header>
                             :
-                            <h1>Order Summary</h1>
+                            <h2>Order Summary</h2>
                         }
                         <CartItem
                             open={open}
@@ -139,7 +149,9 @@ const Checkout = () => {
                         />}
                     </section>
                     <section className='user-checkout-info'>
-                        <UserInfoForm />
+                        <UserInfoForm
+                            open={() => setOpen(false)}
+                        />
                     </section>
                 </section>
                 :
