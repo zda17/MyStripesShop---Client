@@ -8,7 +8,8 @@ import { CartContext } from '../../utils/CartContext';
 
 const CheckoutForm = ({ success, fail, loading, complete }) => {
     const [disableForm, setDisableForm] = useState('');
-    const { cart, cartUUID, setCartUUID, total, setConfCode } = useContext(CartContext);
+    const { cart, cartUUID, setCartUUID, total, setConfCode, userInfo } = useContext(CartContext);
+
     if (!cartUUID) {
         setCartUUID(localStorage.getItem('UUID'))
     };
@@ -39,6 +40,20 @@ const CheckoutForm = ({ success, fail, loading, complete }) => {
         },
     };
 
+    const sendEmail = code => {
+        const data = {
+            userInfo,
+            cart,
+            confCode: code
+        }
+        axios.post('/confirm', data)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -54,10 +69,10 @@ const CheckoutForm = ({ success, fail, loading, complete }) => {
             const { id } = paymentMethod;
             try {
                 const { data } = await axios.post('/checkout', { id, amount: centsTotal, uuid: cartUUID });
-                console.log(data)
                 setConfCode(data.confirm);
                 success();
                 complete();
+                sendEmail(data.confirm);
             } catch (error) {
                 console.log(error.message);
                 fail();

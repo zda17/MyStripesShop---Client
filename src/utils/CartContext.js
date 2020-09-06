@@ -11,14 +11,14 @@ export const CartProvider = (props) => {
     const [maxAvailable, setMaxAvailable] = useState(false);
     const [currProduct, setCurrProduct] = useState('');
     const [paid, setPaid] = useState(false);
-    const [userEmail, setUserEmail] = useState('');
+    const [userInfo, setUserInfo] = useState('');
     const [confCode, setConfCode] = useState('');
 
     //states for cart pane
     const [isPaneOpen, setIsPaneOpen] = useState(false);
 
     return (
-        <CartContext.Provider value={{ cart, setCart, cartUUID, setCartUUID, total, setTotal, maxAvailable, setMaxAvailable, currProduct, setCurrProduct, paid, setPaid, userEmail, setUserEmail, confCode, setConfCode, isPaneOpen, setIsPaneOpen }}>
+        <CartContext.Provider value={{ cart, setCart, cartUUID, setCartUUID, total, setTotal, maxAvailable, setMaxAvailable, currProduct, setCurrProduct, paid, setPaid, userInfo, setUserInfo, confCode, setConfCode, isPaneOpen, setIsPaneOpen }}>
             {props.children}
         </CartContext.Provider>
     )
