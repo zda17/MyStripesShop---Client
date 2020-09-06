@@ -99,7 +99,7 @@ const Costs = ({ open }) => {
 
 
 const Checkout = () => {
-    const { cart, total, paid, userEmail } = useContext(CartContext);
+    const { cart, total, paid, userEmail, confCode } = useContext(CartContext);
     const { windowWidth } = useContext(MyContext);
 
     const [open, setOpen] = useState(false)
@@ -110,13 +110,16 @@ const Checkout = () => {
                 <section className={paid ? 'completed-order' : 'checkout-container'}>
                     <section className={paid ? 'paid-card-display' : 'cart-display'}>
                         {paid &&
-                            <div className='paid-div'>
-                                <h1>Payment of <strong>${total}</strong> successful!<i class="fas fa-check"></i></h1>
-                                <h5>Thank you for your order.</h5> 
-                                {/* TO-DO: get Stripe conf code */}
-                                <h5>Your confirmation code is <strong>????</strong>.</h5>
-                                <h5>A confirmation email has been sent to <strong>{userEmail}</strong>.</h5>
-                            </div>
+                            <>
+                                <div className='paid-div'>
+                                    <h1>Payment of <strong>${total}</strong> successful!<i class="fas fa-check"></i></h1>
+                                    <h5>Thank you for your order.</h5>
+                                    {/* TO-DO: get Stripe conf code */}
+                                    <h5>Your confirmation code is <strong>{confCode}</strong>.</h5>
+                                    <h5>A confirmation email has been sent to <strong>{userEmail}</strong>.</h5>
+                                </div>
+                                <hr className='horizontal-line'></hr>
+                            </>
                         }
                         {windowWidth <= 1199 && !paid ?
                             <header className='order-sum-header' onClick={() => setOpen(!open)}>
@@ -147,8 +150,8 @@ const Checkout = () => {
                         />}
                     </section>
                     <section className='user-checkout-info'>
-                        <UserInfoForm 
-                        open={() => setOpen(false)}
+                        <UserInfoForm
+                            open={() => setOpen(false)}
                         />
                     </section>
                 </section>

@@ -1,5 +1,5 @@
 @import './NavBar.scss';
-
+@import './Burger.scss';
 
 .checkout-container {
     display: flex;
@@ -208,19 +208,30 @@
                 }
             }
             .paid-div {
-                font-size: 32px;
+                font-size: 28px;
                 margin: 10px 0 50px;
                 width: 100%;
                 .fa-check {
                     margin-left: 12px;
                     color: green;
                 }
+                h1 {
+                    margin-bottom: 10px;
+                }
                 h5 {
+                    font-size: 18px;
                     margin: 0 45px;
                     font-weight: 300;
                     padding: 8px 0px;
                     max-width: 350px;
                 }
+            }
+            .horizontal-line {
+                color: $dark-blue-line;
+                position: relative;
+                top: -10px;
+                width: 80%;
+                margin-bottom: 20px;
             }
         }
     }
