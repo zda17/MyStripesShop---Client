@@ -27,17 +27,19 @@ const ProductForm = (props) => {
     const sizes = [];
     products.map(product => sizes.includes(product.size) ? null : sizes.push(product.size));
 
-    const [colorPicked, setColorPicked] = useState('')
-    const [sizePicked, setSizePicked] = useState('')
+    const [colorPicked, setColorPicked] = useState('');
+    const [sizePicked, setSizePicked] = useState('');
+    const [outOfStock, setOutOfStock] = useState(false);
     var oos = "";
 
     useEffect(() => {
         console.log('useEffect')
+
     }, [colorPicked, sizePicked]);
 
     //creates react-hook-form and components
     const { handleSubmit, register, errors, reset } = useForm();
-    const { cart, setCart, setIsPaneOpen, setCartUUID, setOutOfStock, setCurrProduct } = useContext(CartContext);
+    const { cart, setCart, setIsPaneOpen, setCartUUID, setMaxAvailable, setCurrProduct } = useContext(CartContext);
 
     //add to cart button
     const onSubmit = (values) => {
@@ -77,11 +79,11 @@ const ProductForm = (props) => {
                     let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
                     itemInCart.quantity++;
                     itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
-                    setOutOfStock(false);
+                    setMaxAvailable(false);
                     setCurrProduct('');
                 } else if (itemInCart.quantity + 1 > itemInCart.quantity_available) {
                     console.log('out of stock!');
-                    setOutOfStock(true);
+                    setMaxAvailable(true);
                     setCurrProduct(itemInCart.sku);
                 }
             } else {

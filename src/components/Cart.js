@@ -19,7 +19,7 @@ import axios from '../utils/axios';
 
 export const HandleQuantity = ({ product }) => {
 
-  const { cart, setCart, isPaneOpen, outOfStock, setOutOfStock, currProduct, setCurrProduct } = useContext(CartContext);
+  const { cart, setCart, isPaneOpen, maxAvailable, setMaxAvailable, currProduct, setCurrProduct } = useContext(CartContext);
 
 
   //adds 1 to quantity
@@ -34,10 +34,10 @@ export const HandleQuantity = ({ product }) => {
       let basePrice = itemInCart.totalProductPrice / itemInCart.quantity;
       itemInCart.quantity++;
       itemInCart.totalProductPrice = basePrice * itemInCart.quantity;
-      setOutOfStock(false);
+      setMaxAvailable(false);
       setCurrProduct('');
     } else if (itemInCart.quantity + 1 > itemInCart.quantity_available) {
-      setOutOfStock(true);
+      setMaxAvailable(true);
       setCurrProduct(itemInCart.sku);
     }
     setCart(newCart);
@@ -52,7 +52,7 @@ export const HandleQuantity = ({ product }) => {
     const itemInCart = newCart.find(
       (item) => nameAttr === item.sku
     );
-    setOutOfStock(false);
+    setMaxAvailable(false);
 
     if (itemInCart) {
       if (itemInCart.quantity > 1) {
@@ -106,7 +106,7 @@ export const HandleQuantity = ({ product }) => {
       }
       axios.post('/wait-list', data)
         .then(res => {
-          setOutOfStock(false);
+          setMaxAvailable(false);
           setStatus('success');
           resetForm();
         })
@@ -120,12 +120,12 @@ export const HandleQuantity = ({ product }) => {
   }
 
   const closeOut = () => {
-    setOutOfStock(false);
+    setMaxAvailable(false);
     resetForm();
     setStatus('');
   }
 
-  const outOfStockMsg = product => {
+  const maxAvailableMsg = product => {
     const { sku, quantity_available, name } = product;
     return (
       <form onSubmit={submitEmail} method="post" encType="text/plain" id={sku} className={location.pathname !== '/Cart' && isPaneOpen ? 'out-stock-wrapper' : 'out-stock-wrapper-cart-page'}>
@@ -151,20 +151,20 @@ export const HandleQuantity = ({ product }) => {
                 </button>
         </div>
       </div>
-      {outOfStock && currProduct === product.sku &&
-        outOfStockMsg(product)
+      {maxAvailable && currProduct === product.sku &&
+        maxAvailableMsg(product)
       }
       {status === 'success' &&
         <div className={location.pathname !== '/Cart' && isPaneOpen ? 'email-sent-slideout' : 'email-sent'}>
           <p><i class="fas fa-check"></i>Your email has been sent!</p>
         </div>
       }
-      {status === 'fail' && outOfStock &&
+      {status === 'fail' && maxAvailable &&
         <div className='email-not-sent'>
           <p>Email did not send. Please try again.</p>
         </div>
       }
-      {status === 'invalid' && outOfStock &&
+      {status === 'invalid' && maxAvailable &&
         <div className={location.pathname !== '/Cart' && isPaneOpen ? 'email-not-sent-slideout' : 'email-not-sent'}>
           <p><i class="fas fa-exclamation"></i>Email is invalid. Please try again.</p>
         </div>
@@ -272,7 +272,7 @@ export const EmptyCart = () => {
 export const Cart = () => {
 
   //used to pass cart array
-  const { cart, isPaneOpen, setIsPaneOpen, setOutOfStock } = useContext(CartContext);
+  const { cart, isPaneOpen, setIsPaneOpen, setMaxAvailable } = useContext(CartContext);
 
   //set panes width
   const { windowWidth } = useContext(MyContext);
@@ -281,7 +281,7 @@ export const Cart = () => {
 
   // If user gets out of stock message, removes item, then adds another item, the out of stock message was still there and INACCURATE. This function prevents that and closes out of that message if they remove the item from the cart.
   useEffect(() => {
-    !isPaneOpen && location.pathname !== '/Cart' && setOutOfStock(false);
+    !isPaneOpen && location.pathname !== '/Cart' && setMaxAvailable(false);
   }, [isPaneOpen]);
 
   //gets total price
