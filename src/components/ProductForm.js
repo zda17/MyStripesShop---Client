@@ -29,7 +29,6 @@ const ProductForm = (props) => {
     const [colorPicked, setColorPicked] = useState('');
     const [sizePicked, setSizePicked] = useState('');
     const [outOfStock, setOutOfStock] = useState(false);
-    var oos = "";
 
     useEffect(() => {
         if (colorPicked && sizePicked) {
@@ -48,7 +47,6 @@ const ProductForm = (props) => {
 
     //add to cart button
     const onSubmit = (values) => {
-        console.log('submit!')
         // Check if user has UUID stored, if not: create one, store it in LocalStorage and cartContext
         if (!localStorage.hasUUID()) {
             const UUID = uuid();
@@ -68,8 +66,6 @@ const ProductForm = (props) => {
         const product = products.find(
             (item) => (values.color === item.color_name) && (values.size === item.size)
         );
-        
-        oos = "";
         //looks to see if item exists in cart
         const itemInCart = newCart.find(
             (item) => product.sku === item.sku
@@ -84,7 +80,6 @@ const ProductForm = (props) => {
                 setMaxAvailable(false);
                 setCurrProduct('');
             } else if (itemInCart.quantity + 1 > itemInCart.quantity_available) {
-                console.log('out of stock!');
                 setMaxAvailable(true);
                 setCurrProduct(itemInCart.sku);
             }
