@@ -17,7 +17,6 @@ import { Link } from 'react-router-dom';
 const ProductForm = (props) => {
 
     const { products } = props;
-    console.log('render')
 
     //creates object to store color names as keys with their Hex Code as values
     const colorObject = {};
@@ -33,7 +32,13 @@ const ProductForm = (props) => {
     var oos = "";
 
     useEffect(() => {
-        console.log('useEffect')
+        if (colorPicked && sizePicked) {
+            //looks for product in that size and color
+            const product = products.find(
+                (item) => (colorPicked === item.color_name) && (sizePicked === item.size)
+            );
+            product.quantity_available > 0 ? setOutOfStock(false) : setOutOfStock(true)
+        }
 
     }, [colorPicked, sizePicked]);
 
