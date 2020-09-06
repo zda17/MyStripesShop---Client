@@ -15,7 +15,6 @@ import axios from '../utils/axios';
 import { Link } from 'react-router-dom';
 
 const ProductForm = (props) => {
-
     const { products } = props;
 
     //creates object to store color names as keys with their Hex Code as values
@@ -171,7 +170,7 @@ const ProductForm = (props) => {
 
                     {/*ADDS TO CART*/}
                     {outOfStock ? 
-                        <input disabled="true" type="submit" value="ADD TO CART" />
+                        <input disabled={true} type="submit" value="ADD TO CART" />
                         :
                         <input type="submit" value="ADD TO CART" />
                     }
