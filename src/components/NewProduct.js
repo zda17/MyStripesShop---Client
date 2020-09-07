@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { SketchPicker, ChromePicker } from 'react-color';
-import { render } from 'react-dom';
+import { ReactDOM, render } from 'react-dom';
 import '../stylesheets/NewProduct.scss';
 
 
@@ -9,6 +9,7 @@ export default function NewProduct() {
 
     const { handleSubmit, register } = useForm();
     const [color, setColor] = useState([]);
+    const [size, setSize] = useState('');
     var tempSizes = "";
     var tempQuant = "";
     const [currentColor, setCurrentColor] = useState("#3cd6bf");
@@ -29,28 +30,33 @@ export default function NewProduct() {
         setCurrentColor(updatedColor);
     };
 
-    //read user input to change sizes
-    const handleInputChange = (e) => {
-        e.persist();
-        const target = e.target;
-        let value = target.value;
-        const name = target.name;
-        console.log(name);
-
-        setColor(prev => ({
-            color: { ...prev.color, sizes: value }
-        }));
-
+    const changeColor = (e) => {
+        const sizesAvailable = e.target.value;
+        setColor({
+            sizes: sizesAvailable
+        })
     }
 
-    //sees what sizes were selected when adding a color, adds them to table
+    //adds new size item to sizes div
+    const AddSize = () => {
+        var newSize = document.getElementsByName("newSize");
+        render(<SizeItem size={newSize.value} />);
+
+        ReactDOM.render(<AddSize />, document.getElementById('sizes'));
+    }
+
+    //sees what sizes and quantities were selected and available when adding a color then adds them to the table
     const addColor = () => {
         var checkboxes = document.getElementsByName("sizes");
         var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+
         selectedCboxes.forEach(size => {
             tempSizes += size.value + ', ';
-            tempQuant += size.value + ': ' + size.size + ', ';
+            if (size.value.toLowerCase() + "Q" == document.getElementById(size.value.toLowerCase() + 'Q').id) {
+                tempQuant += size.value + ': ' + document.getElementById(size.value.toLowerCase() + 'Q').value + ', ';
+            }
         });
+
         console.log(selectedCboxes);
         console.log(tempSizes);
         console.log(tempQuant);
@@ -72,6 +78,15 @@ export default function NewProduct() {
 
     const onSubmit = data => {
         console.log(data)
+    }
+
+    const SizeItem = (props) => {
+        return (
+            <div className="size-quantity-item">
+                <input type="checkbox" id={props.size} name="sizes" value={props.size} />
+                <label htmlFor={props.size}>{props.size}</label>
+                <input type="number" id={props.size + "Q"} name="quantity" min={0} />
+            </div>);
     }
 
     return (
@@ -134,36 +149,41 @@ export default function NewProduct() {
                         width={300}
                     />
                     <article className="size-quantity">
+                        <input type="text" id="newSize" placeholder="Enter New Size" />
+                        <button onClick={AddSize}>+</button>
+
                         <span>Sizes</span><span>Quantity</span>
-                        <div className="size-quantity-item">
-                            <input type="checkbox" id={"xs"} name="sizes" value="XS" />
-                            <label htmlFor={"xs"}>XS</label>
-                            <input type="number" id={"xsQ"} name="quantity" />
-                        </div>
-                        <div className="size-quantity-item">
-                            <input type="checkbox" id={"s"} name="sizes" value="S" />
-                            <label htmlFor={"s"}>S</label>
-                            <input type="number" id={"sQ"} name="quantity" />
-                        </div>
-                        <div className="size-quantity-item">
-                            <input type="checkbox" id={"m"} name="sizes" value="M" />
-                            <label htmlFor={"m"}>M</label>
-                            <input type="number" id={"mQ"} name="quantity" />
-                        </div>
-                        <div className="size-quantity-item">
-                            <input type="checkbox" id={"l"} name="sizes" value="L" />
-                            <label htmlFor={"l"}>L</label>
-                            <input type="number" id={"lQ"} name="quantity" />
-                        </div>
-                        <div className="size-quantity-item">
-                            <input type="checkbox" id={"xl"} name="sizes" value="XL" />
-                            <label htmlFor={"xl"}>XL</label>
-                            <input type="number" id={"xlQ"} name="quantity" />
-                        </div>
-                        <div className="size-quantity-item">
-                            <input type="checkbox" id={"xxl"} name="sizes" value="XXL" />
-                            <label htmlFor={"xxl"}>XXL</label>
-                            <input type="number" id={"xxlQ"} name="quantity" />
+                        <div id="sizes">
+                            <div className="size-quantity-item">
+                                <input type="checkbox" id={"xs"} name="sizes" value="XS" />
+                                <label htmlFor={"xs"}>XS</label>
+                                <input type="number" id={"xsQ"} name="quantity" min={0} />
+                            </div>
+                            <div className="size-quantity-item">
+                                <input type="checkbox" id={"s"} name="sizes" value="S" />
+                                <label htmlFor={"s"}>S</label>
+                                <input type="number" id={"sQ"} name="quantity" min={0} />
+                            </div>
+                            <div className="size-quantity-item">
+                                <input type="checkbox" id={"m"} name="sizes" value="M" />
+                                <label htmlFor={"m"}>M</label>
+                                <input type="number" id={"mQ"} name="quantity" min={0} />
+                            </div>
+                            <div className="size-quantity-item">
+                                <input type="checkbox" id={"l"} name="sizes" value="L" />
+                                <label htmlFor={"l"}>L</label>
+                                <input type="number" id={"lQ"} name="quantity" min={0} />
+                            </div>
+                            <div className="size-quantity-item">
+                                <input type="checkbox" id={"xl"} name="sizes" value="XL" />
+                                <label htmlFor={"xl"}>XL</label>
+                                <input type="number" id={"xlQ"} name="quantity" min={0} />
+                            </div>
+                            <div className="size-quantity-item">
+                                <input type="checkbox" id={"xxl"} name="sizes" value="XXL" />
+                                <label htmlFor={"xxl"}>XXL</label>
+                                <input type="number" id={"xxlQ"} name="quantity" min={0} />
+                            </div>
                         </div>
                     </article>
                 </>
@@ -182,11 +202,11 @@ export default function NewProduct() {
                 <tbody>
                     {color.map((color, index) => (
                         <tr key={index} >
-                            <td contenteditable='true' ><input contentEditable={true} type="text" name={"cName" + index} placeholder="Color Name" ref={register({ required: true })} /></td>
-                            <td contenteditable='true' onClick={handleClick}><input type="text" name={"hex" + index} value={color.hex} ref={register({ required: true })} onChange={onChange} /></td>
-                            <td contenteditable='true'><input contentEditable={true} type="text" name={"cSizes" + index} value={color.sizes} ref={register({ required: true })} /></td>
-                            <td contenteditable='true'><input contentEditable={true} type="text" name={"cPrice" + index} placeholder="e.g. $25.99" ref={register({ required: true })} /></td>
-                            <td contenteditable='true'><input contentEditable={true} type="text" name={"cQuantity" + index} value={color.quantity} ref={register({ required: true })} /></td>
+                            <td><input contentEditable={true} type="text" name={"cName" + index} placeholder="Color Name" ref={register({ required: true })} /></td>
+                            <td onClick={handleClick}><input type="text" name={"hex" + index} value={color.hex} ref={register({ required: true })} onChange={onChange} /></td>
+                            <td><input contentEditable={true} type="text" name={"cSizes" + index} placeholder="e.g. XS, S, L" value={color.sizes} ref={register({ required: true })} /></td>
+                            <td><input contentEditable={true} type="text" name={"cPrice" + index} placeholder="e.g. $25.99" ref={register({ required: true })} /></td>
+                            <td><input contentEditable={true} type="text" name={"cQuantity" + index} placeholder="e.g. XS: 6, S: 8, L: 10" value={color.quantity} ref={register({ required: true })} /></td>
                         </tr>
                     ))}
                 </tbody>

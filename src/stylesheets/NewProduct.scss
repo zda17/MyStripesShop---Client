@@ -79,6 +79,10 @@ $dark-blue: rgb(0, 38, 72);
             margin: 5px 5px 5px 15px;
         }
 
+        #newSize {
+            width: 120px;
+        }
+
         label {
             margin: 5px 20px 5px 0px;
         }
@@ -160,7 +164,9 @@ $dark-blue: rgb(0, 38, 72);
 
 }
 
-
+.sketch-picker {
+    margin: 5px;
+}
 
 //swatches size
 .sketch-picker > div + div > div + div {
