@@ -104,6 +104,8 @@ const Checkout = () => {
 
     const [open, setOpen] = useState(false)
 
+    // need to clear cart after user sees 'payment complete' page. currently using the cart for the payment complete page, so we need to figure out how to clear it if they leave the page post-checkout.
+
     return (
         <>
             {cart && cart[0] ?
