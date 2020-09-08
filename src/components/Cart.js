@@ -94,15 +94,12 @@ export const HandleQuantity = ({ product }) => {
 
   const submitEmail = e => {
     e.preventDefault();
-    const { name, size, color_name } = product;
     let data = {};
     if (ValidateEmail(email)) {
       data = {
         name: userName,
         email,
-        product: name,
-        size,
-        color: color_name
+        product
       }
       axios.post('/wait-list', data)
         .then(res => {
