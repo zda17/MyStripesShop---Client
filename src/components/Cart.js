@@ -101,7 +101,7 @@ export const HandleQuantity = ({ product }) => {
         email,
         product
       }
-      axios.post('/wait-list', data)
+      axios.post('/waiting-list', data)
         .then(res => {
           setMaxAvailable(false);
           setStatus('success');
