@@ -37,12 +37,12 @@ export default function NewProduct() {
         })
     }
 
-    //adds new size item to sizes div
+    //adds new size item to sizes div.
     const AddSize = () => {
         var newSize = document.getElementsByName("newSize");
         render(<SizeItem size={newSize.value} />);
 
-        ReactDOM.render(<AddSize />, document.getElementById('sizes'));
+        ReactDOM.render(AddSize, document.getElementById('sizes'));
     }
 
     //sees what sizes and quantities were selected and available when adding a color then adds them to the table
@@ -80,56 +80,59 @@ export default function NewProduct() {
         console.log(data)
     }
 
+    //layout for size item
     const SizeItem = (props) => {
         return (
             <div className="size-quantity-item">
-                <input type="checkbox" id={props.size} name="sizes" value={props.size} />
-                <label htmlFor={props.size}>{props.size}</label>
-                <input type="number" id={props.size + "Q"} name="quantity" min={0} />
+                <input type="checkbox" id={props.size.toLowerCase()} name="sizes" value={props.size} />
+                <label htmlFor={props.size.toLowerCase()}>{props.size}</label>
+                <input type="number" id={props.size.toLowerCase() + "Q"} name="quantity" min={0} />
             </div>);
+    }
+
+    //capitalized first letter in word
+    const capitalize = (s) => {
+        if (typeof s !== 'string') return ''
+        return s.charAt(0).toUpperCase() + s.slice(1)
+      }
+
+    //basic input
+    const InputItem = (props) => {
+        return (
+            <article className="InputItem">
+                <label htmlFor={props.name}>
+                    <span>{capitalize(props.name)}</span>
+                </label>
+                <input className="InputText" type="text" id={props.name} name={props.name} ref={register({ required: true })} />
+            </article>
+        );
+    }
+
+    //used for drop down inputs
+    const SelectItem = (props) => {
+
+        return (
+            <article className="InputItem">
+                <label htmlFor={props.name}>
+                    <span>{capitalize(props.name)}</span>
+                </label>
+                <select className="inputDropdown" id={props.name} name={props.name} ref={register({ required: true })}>
+                    <option value={props.select1}>{capitalize(props.select1 === 'U' ? 'Unisex' : props.select1)}</option>
+                    <option value={props.select2}>{capitalize(props.select2 === 'W' ? 'Womens' : props.select2)}</option>
+                    <option value={props.select3}>{capitalize(props.select3 === 'M' ? 'Mens' : props.select3)}</option>
+                </select>
+            </article>
+        );
     }
 
     return (
         <form className="NewProductForm" onSubmit={handleSubmit(onSubmit)}>
             <section className="NewInfo">
-                <article className="InputItem">
-                    <label htmlFor="name">
-                        <span>Name</span>
-                    </label>
-                    <input className="InputText" type="text" id="name" name="name" ref={register({ required: true })} />
-                </article>
-                <article className="InputItem">
-                    <label htmlFor="sku">
-                        <span>SKU</span>
-                    </label>
-                    <input className="InputText" type="text" id="sku" name="sku" ref={register({ required: true })} />
-                </article>
-                <article className="InputItem">
-                    <label htmlFor="category">
-                        <span>Category</span>
-                    </label>
-                    <select className="inputDropdown" id="category" name="category" ref={register({ required: true })}>
-                        <option value='tops'>Tops</option>
-                        <option value='bottoms'>Bottoms</option>
-                        <option value='accessories'>Accessories</option>
-                    </select>
-                </article>
-                <article className="InputItem">
-                    <label htmlFor="description">
-                        <span>Description</span>
-                    </label>
-                    <input className="InputText" type="text" id="description" name="description" ref={register({ required: true })} />
-                </article>
-                <article className="InputItem">
-                    <label htmlFor="gender">
-                        <span>Gender</span>
-                    </label>
-                    <select className="inputDropdown" id="gender" name="gender" ref={register({ required: true })}>
-                        <option value='U'>Unisex</option>
-                        <option value='W'>Womens</option>
-                        <option value='M'>Mens</option>
-                    </select>
-                </article>
+                <InputItem name="name" />
+                <InputItem name="SKU" />
+                <SelectItem name="category" select1="tops" select2="bottoms" select3="accessories" />
+                <InputItem name="description" />
+                <SelectItem name="gender" select1="U" select2="W" select3="M" />
                 <article className="InputItem">
                     <label htmlFor="img">
                         <span>Photo</span>
@@ -154,36 +157,12 @@ export default function NewProduct() {
 
                         <span>Sizes</span><span>Quantity</span>
                         <div id="sizes">
-                            <div className="size-quantity-item">
-                                <input type="checkbox" id={"xs"} name="sizes" value="XS" />
-                                <label htmlFor={"xs"}>XS</label>
-                                <input type="number" id={"xsQ"} name="quantity" min={0} />
-                            </div>
-                            <div className="size-quantity-item">
-                                <input type="checkbox" id={"s"} name="sizes" value="S" />
-                                <label htmlFor={"s"}>S</label>
-                                <input type="number" id={"sQ"} name="quantity" min={0} />
-                            </div>
-                            <div className="size-quantity-item">
-                                <input type="checkbox" id={"m"} name="sizes" value="M" />
-                                <label htmlFor={"m"}>M</label>
-                                <input type="number" id={"mQ"} name="quantity" min={0} />
-                            </div>
-                            <div className="size-quantity-item">
-                                <input type="checkbox" id={"l"} name="sizes" value="L" />
-                                <label htmlFor={"l"}>L</label>
-                                <input type="number" id={"lQ"} name="quantity" min={0} />
-                            </div>
-                            <div className="size-quantity-item">
-                                <input type="checkbox" id={"xl"} name="sizes" value="XL" />
-                                <label htmlFor={"xl"}>XL</label>
-                                <input type="number" id={"xlQ"} name="quantity" min={0} />
-                            </div>
-                            <div className="size-quantity-item">
-                                <input type="checkbox" id={"xxl"} name="sizes" value="XXL" />
-                                <label htmlFor={"xxl"}>XXL</label>
-                                <input type="number" id={"xxlQ"} name="quantity" min={0} />
-                            </div>
+                            <SizeItem size="XS" />
+                            <SizeItem size="S" />
+                            <SizeItem size="M" />
+                            <SizeItem size="L" />
+                            <SizeItem size="XL" />
+                            <SizeItem size="XXL" />
                         </div>
                     </article>
                 </>
