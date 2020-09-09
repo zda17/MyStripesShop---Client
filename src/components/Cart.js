@@ -205,7 +205,7 @@ export const Cart = () => {
 
   //used to pass cart array
   const { cart, isPaneOpen, setIsPaneOpen } = useContext(CartContext);
-
+  console.log(cart);
   //set panes width
   const [windowWidth, setWindowWidth] = useState(0);
   let resizeWindow = () => {
@@ -264,12 +264,13 @@ export const Cart = () => {
           displayQuantity={true}
           displayRemove={true}
           displayTotalProdPrice={false}
-        />
+          />
         {cart[0] ?
           <input type="submit" value={"CHECKOUT ~ $" + totalPrice} onClick={goToCheckout} />
           :
           <EmptyCart />
         }
+        
       </SlidingPane>
       {/*responsive pane*/}
 
