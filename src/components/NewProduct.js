@@ -40,7 +40,6 @@ export default function NewProduct() {
     //adds new size item to sizes div.
     const AddSize = () => {
         var newSize = document.getElementById("newSize").value;
-        console.log(newSize);
         setSize([...size, newSize]);
     }
 
@@ -56,9 +55,6 @@ export default function NewProduct() {
             }
         });
 
-        console.log(selectedCboxes);
-        console.log(tempSizes);
-        console.log(tempQuant);
         if (displayColorPicker == false) {
             setDisplayColorPicker(!displayColorPicker);
         } else {
@@ -71,7 +67,6 @@ export default function NewProduct() {
             setDisplayColorPicker(!displayColorPicker);
         }
 
-        console.log(color);
         window.scrollTo(0, 900);
     }
 
