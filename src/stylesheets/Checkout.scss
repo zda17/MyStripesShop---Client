@@ -38,7 +38,7 @@
             display: flex;
             align-items: center;
             .cart-btn {
-                margin: 20px 0;
+                margin: 0 0 20px;
                 color: $dark-blue;
             }
             .fa-angle-double-left {
@@ -174,12 +174,15 @@
         align-items: flex-start;
         
         .cart-display {
-            margin: 40px 70px;
-            width: 500px;
+            padding: 10px 95px 10px 0px;
+            margin: 50px 25px 50px 100px;
+            width: 550px;
+            border-right: 1px solid rgba(0, 8, 14, 0.5);
         }
         .user-checkout-info {
-            margin: 40px 70px;
-            width: 600px;
+            margin: 70px 70px 40px 30px;
+            padding: 10px 0 10px 30px;
+            width: 550px;
             display: flex;
             justify-content: center;
         }
@@ -193,6 +196,12 @@
 @media screen and (max-width: 1200px) {
     .checkout-container {
         flex-wrap: wrap;
+        .cart-display {
+            border: none;
+        }
+        .user-checkout-info {
+            max-width: 620px;
+        }
     }
     .completed-order {
         display: flex;
