@@ -4,11 +4,13 @@ import UserInfoForm from '../components/Checkout/UserInfoForm';
 import '../stylesheets/Checkout.scss';
 import { CartItem, EmptyCart } from '../components/Cart';
 import { CartContext } from '../utils/CartContext';
+import { MyContext } from '../utils/Context';
 import { Link } from 'react-router-dom';
 
 // Calculate costs and manage state for subtotal, shipping, taxes, coupon, and total
-const Costs = () => {
+const Costs = ({ open }) => {
     const { cart, total, setTotal, isPaneOpen } = useContext(CartContext);
+    const { windowWidth } = useContext(MyContext);
 
     useEffect(() => {
         !isPaneOpen && window.scrollTo(0, 0);
@@ -68,7 +70,7 @@ const Costs = () => {
     const { register, handleSubmit } = useForm();
 
     return (
-        <>
+        <div className={windowWidth <= 1199 && open === true || windowWidth > 1199 ? 'show' : 'hide'}>
             <section>
                 <form className='discount-form' onSubmit={handleSubmit(applyCoupon)}>
                     <input type='text' name='Discount' className='discount-input' ref={register} placeholder='Discount code' />
@@ -83,7 +85,7 @@ const Costs = () => {
                 </ul>
                 <ul className='checkout-price-amounts'>
                     <li>${subtotal}</li>
-                    <li>{shipping ? shipping : 'Calculated at next step'}</li>
+                    <li>FREE SHIPPING</li>
                     <li>${taxes} (estimated)</li>
                 </ul>
             </section>
@@ -91,40 +93,65 @@ const Costs = () => {
                 <h3 className='checkout-total-title'>Total</h3>
                 <h2 className='checkout-total-amount'><span className='usd'>USD </span>${total}</h2>
             </section>
-        </>
+        </div>
     )
 }
 
 
 const Checkout = () => {
+    const { cart, total, paid, userInfo, confCode } = useContext(CartContext);
+    const { windowWidth } = useContext(MyContext);
 
-    const { cart } = useContext(CartContext);
-
-    const [userShipInfo, setUserShipInfo] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
         <>
-            {cart[0] ?
-                <section className="checkout-container">
-                    <section className='cart-display'>
-                        <h1>Order Summary</h1>
+            {cart && cart[0] ?
+                <section className={paid ? 'completed-order' : 'checkout-container'}>
+                    <section className={paid ? 'paid-card-display' : 'cart-display'}>
+                        {paid &&
+                            <>
+                                <div className='paid-div'>
+                                    <h1>Payment of <strong>${total}</strong> successful!<i class="fas fa-check"></i></h1>
+                                    <h5>Thank you for your order.</h5>
+                                    <h5>Your confirmation code is <strong>{confCode}</strong>.</h5>
+                                    <h5>A confirmation email has been sent to <strong>{userInfo.email}</strong>.</h5>
+                                </div>
+                                <hr className='horizontal-line'></hr>
+                            </>
+                        }
+                        {windowWidth <= 1199 && !paid ?
+                            <header className='order-sum-header' onClick={() => setOpen(!open)}>
+                                <h1><i className="fa fa-shopping-cart cart" aria-hidden="true"> </i>{!open ? ' Show' : ' Hide'} order summary {!open ? <i class="fas fa-chevron-down"></i> : <i class="fas fa-chevron-up"></i>}</h1>
+                                <h1>{total ? '$' + total : ''}</h1>
+                            </header>
+                            :
+                            <h2>Order Summary</h2>
+                        }
                         <CartItem
+                            open={open}
                             displayRemove={false}
                             displayQuantity={false}
                             displayTotalProdPrice={true}
                             numBub={true}
                         />
-                        <div className='button-div'>
-                            <Link to='/Cart' className='cart-btn'>
-                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                Return to cart
-                        </Link>
+                        {!paid && <div className={windowWidth <= 1199 && open === true || windowWidth > 1199 ? 'show' : 'hide'}>
+                            <div className={'button-div'}>
+                                <Link to='/Cart' className='cart-btn'>
+                                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                    Return to cart
+                                </Link>
+                            </div>
                         </div>
-                        <Costs />
-                        {/* {userShipInfo && <Index />} */}
+                        }
+                        {!paid && <Costs
+                            open={open}
+                        />}
                     </section>
                     <section className='user-checkout-info'>
-                        <UserInfoForm />
+                        <UserInfoForm
+                            open={() => setOpen(false)}
+                        />
                     </section>
                 </section>
                 :

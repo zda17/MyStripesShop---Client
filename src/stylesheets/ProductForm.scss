@@ -1,4 +1,8 @@
-@import './NavBar.scss';
+$color:  #1f7bc5;
+$hover-color: rgb(95, 171, 117); 
+$dark-blue: rgb(0, 38, 72);
+$darker-blue: rgb(0, 3, 6);
+$font: "ITC Avant Garde Gothic",sans-serif;
 
 $sizes: (
     x-small: XS,
@@ -12,6 +16,11 @@ $sizes: (
 
 * {
     box-sizing: border-box;
+}
+
+form {
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 .Colors {
@@ -170,6 +179,10 @@ $sizes: (
         }
     }
 
+    input[disabled] {
+        background-color: gray;
+    }
+
     input[type="reset"] {
       width: fit-content;
       height: 5vh;
@@ -235,6 +248,13 @@ $sizes: (
             margin: 5px auto 0;
             background-position: 70%;
             padding-right: 0px;
+        }
+        .button-div {
+            .cart-btn {
+                width: 100%;
+                margin: 15px 0;
+                padding: 3px;
+            }
         }
     }
 }
