@@ -154,11 +154,7 @@ export default function NewProduct() {
                         <div id="sizes">
                             {size.map((size, index) => {
                                 return (
-                                    <div className="size-quantity-item" key={index}>
-                                        <input type="checkbox" id={size} name="sizes" value={size} />
-                                        <label htmlFor={size}>{size}</label>
-                                        <input type="number" id={size + "Q"} name="quantity" min={0} />
-                                    </div>
+                                    <SizeItem size={size} key={index} />
                                 )
                             })}
                             <SizeItem size="XS" />
