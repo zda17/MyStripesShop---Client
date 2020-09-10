@@ -9,7 +9,7 @@ export default function NewProduct() {
 
     const { handleSubmit, register } = useForm();
     const [color, setColor] = useState([]);
-    const [size, setSize] = useState('');
+    const [size, setSize] = useState([]);
     var tempSizes = "";
     var tempQuant = "";
     const [currentColor, setCurrentColor] = useState("#3cd6bf");
@@ -39,10 +39,9 @@ export default function NewProduct() {
 
     //adds new size item to sizes div.
     const AddSize = () => {
-        var newSize = document.getElementsByName("newSize");
-        render(<SizeItem size={newSize.value} />);
-
-        ReactDOM.render(AddSize, document.getElementById('sizes'));
+        var newSize = document.getElementById("newSize").value;
+        console.log(newSize);
+        setSize([...size, newSize]);
     }
 
     //sees what sizes and quantities were selected and available when adding a color then adds them to the table
@@ -94,7 +93,7 @@ export default function NewProduct() {
     const capitalize = (s) => {
         if (typeof s !== 'string') return ''
         return s.charAt(0).toUpperCase() + s.slice(1)
-      }
+    }
 
     //basic input
     const InputItem = (props) => {
@@ -151,12 +150,22 @@ export default function NewProduct() {
                         disableAlpha={true}
                         width={300}
                     />
+
                     <article className="size-quantity">
                         <input type="text" id="newSize" placeholder="Enter New Size" />
                         <button onClick={AddSize}>+</button>
 
                         <span>Sizes</span><span>Quantity</span>
                         <div id="sizes">
+                            {size.map((size, index) => {
+                                return (
+                                    <div className="size-quantity-item" key={index}>
+                                        <input type="checkbox" id={size} name="sizes" value={size} />
+                                        <label htmlFor={size}>{size}</label>
+                                        <input type="number" id={size + "Q"} name="quantity" min={0} />
+                                    </div>
+                                )
+                            })}
                             <SizeItem size="XS" />
                             <SizeItem size="S" />
                             <SizeItem size="M" />
