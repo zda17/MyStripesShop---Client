@@ -9,11 +9,16 @@ form {
         font-family: $font;
         font-weight: 500;
     }
+    h5 {
+        margin: 0 20px;
+        color: rgb(135, 13, 13);
+    }
     input[type=text], select {
         border: 1px solid $dark-blue;
         border-radius: 3px;
         margin: 8px 20px;
-        padding: 10px;
+        padding: 12px;
+        font-size: 14px;
     }
     select:invalid {
         color: gray;
