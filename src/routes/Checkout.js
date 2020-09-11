@@ -71,7 +71,9 @@ const Costs = ({ open }) => {
         <div className={windowWidth <= 1199 && open === true || windowWidth > 1199 ? 'show' : 'hide'}>
             <section>
                 <form className='discount-form' onSubmit={handleSubmit(applyCoupon)}>
-                    <input type='text' name='Discount' className='discount-input' ref={register} placeholder='Discount code' />
+                    <label for='discount'><span className='screen-reader-text'>Enter discount code.</span>
+                    </label>
+                    <input type='text' id='discount' name='Discount' className='discount-input' ref={register} placeholder='Discount code' />
                     <button type='submit' className='apply-btn'>Apply</button>
                 </form>
             </section>
