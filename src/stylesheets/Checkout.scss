@@ -7,6 +7,7 @@
     align-items: center;
     .cart-display {
         width: 100%;
+        max-width: 550px;
         .hide {
             display: none;
         }
@@ -176,11 +177,12 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
+        margin-bottom: 100px;
         
         .cart-display {
             padding: 10px 95px 10px 0px;
             margin: 50px 25px 50px 100px;
-            width: 550px;
+            width: 600px;
             border-right: 1px solid rgba(0, 8, 14, 0.5);
         }
         .user-checkout-info {
