@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { MyContext } from '../src/utils/Context';
 import { CartContext } from '../src/utils/CartContext';
 import localStorage from './utils/localStorage';
-import axios from 'axios';
 
 //components
 import NavBar from "./components/NavBar";
