@@ -17,7 +17,6 @@ const CheckoutForm = ({ success, fail, loading, complete }) => {
         };
     }, [cartUUID])
 
-    console.log(cart, cartUUID, total);
     const centsTotal = total * 100;
     const stripe = useStripe();
     const elements = useElements();

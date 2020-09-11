@@ -13,7 +13,6 @@ const UserInfoForm = ({ open }) => {
     const [showCheckoutForm, setShowCheckoutForm] = useState(false);
 
     const onSubmit = data => {
-        console.log('data', data);
         setUserInfo(data);
         setFilledOut(true);
         setShowCheckoutForm(true);
