@@ -32,6 +32,11 @@ form {
     }
 }
 
+.pay-fail {
+    color: rgb(135, 13, 13);
+    font-weight: bold;
+}
+
 @keyframes App-logo-spin {
     from {
       transform: rotate(0deg);
