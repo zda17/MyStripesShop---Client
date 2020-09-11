@@ -6,7 +6,7 @@ $font: "ITC Avant Garde Gothic",sans-serif;
 
 
 nav {
-    .nav {
+    .main-nav {
         background-color: $color;
         margin-bottom: 0px;
         display: flex;
@@ -59,23 +59,23 @@ nav {
             display: flex;
             justify-content: flex-start;
 
-            .top-menu {
-                display: flex;
-                padding-left: 20px;
-                li {
-                    list-style-type: none;
-                    padding: 15px;
-                    font-size: 26px;
-                    // font-weight: bold;
-                    a {
-                        text-decoration: none;
-                        color: $dark-blue;
-                        font-family: $font;
-                    }
-                    a:hover {
-                        color: $hover-color;
-                        font-weight: bold;
-                    }
+        }
+        .top-menu {
+            display: flex;
+            padding-left: 20px;
+            li {
+                list-style-type: none;
+                padding: 15px;
+                font-size: 22px;
+                // font-weight: bold;
+                a {
+                    text-decoration: none;
+                    color: $dark-blue;
+                    font-family: $font;
+                }
+                a:hover {
+                    color: $hover-color;
+                    font-weight: bold;
                 }
             }
         }
@@ -101,7 +101,7 @@ nav {
 
 @media screen and (max-width: 1199px) {
     nav {
-        .nav {
+        .main-nav {
             display: block;
             height: 116px;
             .logo {

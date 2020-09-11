@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MyContext } from '../utils/Context';
 import { stack as Menu } from 'react-burger-menu';
@@ -8,14 +8,12 @@ import '../stylesheets/Burger.scss';
 import '../stylesheets/NavBar.scss';
 import { Cart } from '../components/Cart';
 
-// Instagram icon for bottom of side menu
+// Instagram icon for bottom of side menu on mobile
 const Icon = () => {
     return (
         <>
             <hr className='line'></hr>
-            <div className='insta'>
-                <Link to='#'><img className='insta-icon' src={insta} alt='Instagram' /></Link>
-            </div>
+            <Link to='#' className='insta'><img className='insta-icon' src={insta} alt='Instagram' /></Link>
         </>
     )
 }
@@ -42,16 +40,14 @@ const BurgerMenu = () => {
     )
 };
 
-// Non-burger top menu
+// Non-burger top menu (desktop)
 const NoBurger = () => {
     return (
-        <>
-            <ul className='top-menu'>
-                <li><Link id='shop' to='/Products/All'>SHOP</Link></li>
-                <li><Link id='about' to='/About'>ABOUT</Link></li>
-                <li><Link id='contact' to='/Contact'>CONTACT</Link></li>
-            </ul>
-        </>
+        <ul className='top-menu nav-item-wrapper'>
+            <li><Link id='shop' to='/Products/All'>SHOP</Link></li>
+            <li><Link id='about' to='/About'>ABOUT</Link></li>
+            <li><Link id='contact' to='/Contact'>CONTACT</Link></li>
+        </ul>
     )
 }
 
@@ -71,23 +67,16 @@ const NavBar = () => {
 
     return (
         <nav>
-            <section className='nav'>
+            <section className='main-nav'>
                 {windowWidth <= 1199 ?
                     <BurgerMenu />
                     :
-                    <div className='nav-item-wrapper'>
-                        <NoBurger />
-                    </div>
+                    <NoBurger />
                 }
-                <div className={windowWidth <= 1199 ? "logo-wrapper-mobile" : "logo-wrapper-desktop"}>
-                    <Link to='/'><img className='logo' src={logo} alt='logo' /></Link>
-                </div>
-                <div className='nav-cart-container'>
-                    <div className="nav-cart-wrapper">
-                        <i className="fa fa-search search"></i>
-                        <Cart />
-                    </div>
-                </div>
+                <Link to='/' className={windowWidth <= 1199 ? "logo-wrapper-mobile" : "logo-wrapper-desktop"}>
+                    <img className='logo' src={logo} alt='My Stripes Logo' />
+                </Link>
+                <Cart />
             </section>
             <section className='tagline'>
                 <h4>COMMUNITY CONSCIOUS CLOTHING</h4>

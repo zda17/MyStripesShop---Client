@@ -7,6 +7,7 @@
     align-items: center;
     .cart-display {
         width: 100%;
+        max-width: 550px;
         .hide {
             display: none;
         }
@@ -38,7 +39,7 @@
             display: flex;
             align-items: center;
             .cart-btn {
-                margin: 20px 0;
+                margin: 15px 0 20px;
                 color: $dark-blue;
             }
             .fa-angle-double-left {
@@ -67,6 +68,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-bottom: 200px;
         .paid-div {
             font-size: 32px;
             margin: 50px 0;
@@ -78,6 +80,9 @@
                 margin: 0 10px;
                 font-weight: 300;
             }
+        }
+        .cart-item {
+            border-bottom: 0;
         }
     }
 }
@@ -172,14 +177,18 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
+        margin-bottom: 100px;
         
         .cart-display {
-            margin: 40px 70px;
-            width: 500px;
+            padding: 10px 95px 10px 0px;
+            margin: 50px 25px 50px 100px;
+            width: 600px;
+            border-right: 1px solid rgba(0, 8, 14, 0.5);
         }
         .user-checkout-info {
-            margin: 40px 70px;
-            width: 600px;
+            margin: 70px 70px 40px 30px;
+            padding: 10px 0 10px 30px;
+            width: 550px;
             display: flex;
             justify-content: center;
         }
@@ -193,6 +202,16 @@
 @media screen and (max-width: 1200px) {
     .checkout-container {
         flex-wrap: wrap;
+        .cart-display {
+            border: none;
+            .cart-item {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+        .user-checkout-info {
+            max-width: 620px;
+        }
     }
     .completed-order {
         display: flex;
@@ -201,6 +220,7 @@
         .paid-card-display {
             text-align: center;
             width: 100%;
+            margin-bottom: 50px;
             .cart-item {
                 max-width: 350px;
                 .cart-info {

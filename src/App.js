@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { MyContext } from '../src/utils/Context';
 import { CartContext } from '../src/utils/CartContext';
 import localStorage from './utils/localStorage';
-import axios from 'axios';
 
 //components
 import NavBar from "./components/NavBar";
@@ -16,6 +15,7 @@ import Footer from "./components/Footer";
 import About from "./routes/About";
 import Product from "./routes/Product";
 import Checkout from "./routes/Checkout";
+import Paid from "./routes/Paid";
 import ShowAll from "./routes/ShowAll";
 import Mens from "./routes/Mens";
 import Womens from "./routes/Womens";
@@ -44,7 +44,6 @@ function App() {
         }
     }, []);
 
-
     return (
         <div className="App">
             <Router>
@@ -72,6 +71,9 @@ function App() {
                         </Route>
                         <Route exact path="/Checkout">
                             <Checkout />
+                        </Route>
+                        <Route path="/Paid">
+                            <Paid />
                         </Route>
                         <Route exact path="/About">
                             <About />
