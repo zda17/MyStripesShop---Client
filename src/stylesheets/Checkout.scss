@@ -38,7 +38,7 @@
             display: flex;
             align-items: center;
             .cart-btn {
-                margin: 0 0 20px;
+                margin: 15px 0 20px;
                 color: $dark-blue;
             }
             .fa-angle-double-left {
@@ -67,6 +67,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-bottom: 200px;
         .paid-div {
             font-size: 32px;
             margin: 50px 0;
@@ -78,6 +79,9 @@
                 margin: 0 10px;
                 font-weight: 300;
             }
+        }
+        .cart-item {
+            border-bottom: 0;
         }
     }
 }
@@ -198,6 +202,10 @@
         flex-wrap: wrap;
         .cart-display {
             border: none;
+            .cart-item {
+                width: 100%;
+                max-width: 350px;
+            }
         }
         .user-checkout-info {
             max-width: 620px;
@@ -210,6 +218,7 @@
         .paid-card-display {
             text-align: center;
             width: 100%;
+            margin-bottom: 50px;
             .cart-item {
                 max-width: 350px;
                 .cart-info {
