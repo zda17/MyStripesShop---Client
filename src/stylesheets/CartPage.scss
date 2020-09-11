@@ -98,6 +98,11 @@
             margin-bottom: 20px;
             padding-bottom: 30px;
             height: auto;
+            .cart-items-list {
+                .cart-item {
+                    height: 100%;
+                }
+            }
         }
     }
 }
@@ -117,6 +122,7 @@
                 .cart-page-article-item {
                     .cart-item {
                         width: 100%;
+                        max-width: 350px;
                         .cart-image {
                             margin-right: 30px;
                         }
