@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from '../../utils/axios';
-import '../../stylesheets/CheckoutForm.scss'
+import '../../stylesheets/CheckoutForm.scss';
+import { useHistory } from 'react-router-dom';
 import { CartContext } from '../../utils/CartContext';
 
 
@@ -10,9 +11,12 @@ const CheckoutForm = ({ success, fail, loading, complete }) => {
     const [disableForm, setDisableForm] = useState('');
     const { cart, cartUUID, setCartUUID, total, setConfCode, userInfo } = useContext(CartContext);
 
-    if (!cartUUID) {
-        setCartUUID(localStorage.getItem('UUID'))
-    };
+    useEffect(() => {
+        if (!cartUUID) {
+            setCartUUID(localStorage.getItem('UUID'))
+        };
+    }, [cartUUID])
+
     console.log(cart, cartUUID, total);
     const centsTotal = total * 100;
     const stripe = useStripe();
@@ -107,14 +111,22 @@ const stripePromise = loadStripe("pk_test_51HELKHG3yT4fkVPvmTSvWinnxraM8XWMvM34G
 const Payment = () => {
 
     const { paid, setPaid } = useContext(CartContext);
-
     const [loading, setLoading] = useState(false);
-
     const [status, setStatus] = useState();
+    const history = useHistory();
 
-    if (status === "success") {
-        setPaid(true);
-    }
+    useEffect(() => {
+        if (status === "success") {
+            setPaid(true);
+        }
+    }, [status])
+
+        
+    useEffect(() => {
+        if (paid) {
+            history.push('/Paid');
+        }
+    }, [paid])
 
     return (
         <>
