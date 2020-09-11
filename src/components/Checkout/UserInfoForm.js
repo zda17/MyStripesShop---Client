@@ -36,8 +36,11 @@ const UserInfoForm = ({ open }) => {
             {!filledOut &&
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <h3>Contact Information</h3>
+                    <label for='email'><span className='screen-reader-text'>Enter email.</span>
+                    </label>
                     <input
                         type='text'
+                        id='email'
                         placeholder='Email'
                         name='email'
                         ref={register({ required: true, pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ })}
@@ -45,46 +48,64 @@ const UserInfoForm = ({ open }) => {
                     {errors.email && errors.email.type === 'required' && <h5>*Email is required.</h5>}
                     {errors.email && errors.email.type === 'pattern' && <h5>*Invalid email.</h5>}
                     <h3>Shipping Address</h3>
-                    <section className='name-div'>
+                    <div className='name-div'>
+                        <label for='first-name'><span className='screen-reader-text'>Enter first name.</span>
+                        </label>
                         <input
                             type='text'
+                            id='first-name'
                             placeholder='First name (optional)'
                             className='name first-name'
                             name='firstName'
                             ref={register}
                         />
+                        <label for='last-name'><span className='screen-reader-text'>Enter last name.</span>
+                        </label>
                         <input
                             type='text'
+                            id='last-name'
                             placeholder='Last name'
                             className='name last-name'
                             name='lastName'
                             ref={register({ required: true })}
                         />
-                    </section>
+                    </div>
                     {errors.lastName && <h5>*Last name is required.</h5>}
+                    <label for='address'><span className='screen-reader-text'>Enter address.</span>
+                    </label>
                     <input
                         type='text'
+                        id='address'
                         placeholder='Address'
                         name='address'
                         ref={register({ required: true })}
                     />
                     {errors.address && <h5>*Address is required.</h5>}
+                    <label for='apartment'><span className='screen-reader-text'>Enter apartment, suite, unit number.</span>
+                    </label>
                     <input
                         type='text'
+                        id='apartment'
                         placeholder='Apartment, suite, etc. (optional)'
                         name='apartment'
                         ref={register}
                     />
+                    <label for='city'><span className='screen-reader-text'>Enter city.</span>
+                    </label>
                     <input
                         type='text'
+                        id='city'
                         placeholder='City'
                         name='city'
                         ref={register({ required: true })}
                     />
                     {errors.city && <h5>*City is required.</h5>}
-                    <section className='name-div'>
+                    <div className='name-div'>
+                        <label for='country'><span className='screen-reader-text'>Choose country.</span>
+                        </label>
                         <select
                             name='country'
+                            id='country'
                             defaultValue={userInfo.country}
                             ref={register({ required: true })}
                             className='country-select'
@@ -94,8 +115,11 @@ const UserInfoForm = ({ open }) => {
                             <option value="United States">United States</option>
                         </select>
                         {errors.country && <h5>*Country is required.</h5>}
+                        <label for='state'><span className='screen-reader-text'>Choose state.</span>
+                        </label>
                         <select
                             name='state'
+                            id='state'
                             defaultValue={userInfo.state}
                             className='state-select'
                             ref={register({ required: true })}
@@ -107,17 +131,23 @@ const UserInfoForm = ({ open }) => {
                             ))}
                         </select>
                         {errors.state && <h5>*State is required.</h5>}
+                        <label for='zip-code'><span className='screen-reader-text'>Enter ZIP code.</span>
+                        </label>
                         <input
                             type='text'
+                            id='zip-code'
                             placeholder='ZIP code'
                             className='zip'
                             name='zipCode'
                             ref={register({ required: true })}
                         />
-                    </section>
+                    </div>
                     {errors.zipCode && <h5>*ZIP code is required.</h5>}
+                    <label for='phone'><span className='screen-reader-text'>Enter phone number.</span>
+                    </label>
                     <input
                         type='text'
+                        id='phone'
                         placeholder='Phone'
                         className='name'
                         name='phone'
@@ -127,36 +157,36 @@ const UserInfoForm = ({ open }) => {
                     {errors.phone && errors.phone.type === 'minLength' && <h5>*Invalid phone number.</h5>}
                     {errors.phone && errors.phone.type === 'pattern' && <h5>*Invalid phone number.</h5>}
                     <div className='button-div'>
-                        <Link to='/Cart' className='back-btn'>
+                        <Link to='/Cart' className='back-to-cart-btn'>
                             <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                             Return to cart
                         </Link>
-                        <button type='submit' className='ship-btn'>Continue to payment</button>
+                        <button type='submit' className='pay-btn'>Continue to payment</button>
                     </div>
                 </form>
             }
             {filledOut &&
                 <section className='user-info-filled-container'>
                     {!paid &&
-                        <>
+                        <section>
                             <h2>Confirm Info</h2>
                             <section className='user-contact-ship-info'>
-                                <section className='contact-div'>
+                                <div className='contact-div'>
                                     <p><strong>Contact: </strong></p>
                                     <p className='user-email'>{userInfo.email}</p>
-                                </section>
-                                <section className='ship-div'>
+                                </div>
+                                <div className='ship-div'>
                                     <p><strong>Ship to: </strong></p>
                                     <p className='user-ship-info'>{userInfo.address}, {userInfo.apartment && '#' + userInfo.apartment + ', '}{userInfo.city}, {userInfo.state}, {userInfo.zipCode}, {userInfo.country}</p>
-                                </section>
+                                </div>
                             </section>
                             <div className='button-div'>
-                                <p onClick={goBackToForm} className='back-btn'>
+                                <p onClick={goBackToForm} className='back-to-cart-btn'>
                                     <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                                     Edit Information
                                 </p>
                             </div>
-                        </>
+                        </section>
                     }
                     {showCheckoutForm &&
                         <Payment />

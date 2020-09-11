@@ -130,7 +130,7 @@ const Payment = () => {
     return (
         <>
             {!loading && !paid &&
-                <>
+                <section>
                     <h2>Payment</h2>
                     <h4>All transactions are secure and encrypted.</h4>
                     <Elements stripe={stripePromise}>
@@ -141,7 +141,7 @@ const Payment = () => {
                             complete={() => { setLoading(false) }}
                         />
                     </Elements>
-                </>
+                </section>
             }
             {loading && !paid &&
                 <div className='loading-wrapper'>
@@ -150,7 +150,7 @@ const Payment = () => {
             }
             {
                 status === "fail" &&
-                <div>Payment failed. Please try again.</div>
+                <p className='pay-fail'>*Payment failed. Please try again.</p>
             }
         </>
     );
