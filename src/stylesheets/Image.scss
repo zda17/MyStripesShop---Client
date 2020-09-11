@@ -32,10 +32,8 @@ $autoHeight: auto;
     display: inline-block;
     position: relative;
     z-index: -1;
-    a {
-        text-decoration: none;
-        color: black;
-    }
+    text-decoration: none;
+    color: black;
 }
 
 .product-img {
@@ -46,7 +44,6 @@ $autoHeight: auto;
 .product-img-cart {
     width: 100%;
     height: $autoHeight;
-    //border: solid 1px black;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
@@ -60,5 +57,4 @@ $autoHeight: auto;
     .img-div-cart-page {
         width: 75px;
     }
-
 }
