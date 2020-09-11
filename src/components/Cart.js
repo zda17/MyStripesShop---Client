@@ -307,8 +307,9 @@ export const Cart = () => {
 
   return (
     <>
-      <div className="cart-wrapper">
+      <div className="cart-wrapper nav-cart-wrapper">
         {/*cart button*/}
+        <i className="fa fa-search search"></i>
         <i className="fa fa-shopping-cart cart" aria-hidden="true" onClick={location.pathname !== '/Paid' && openCart}></i>
       </div>
 
