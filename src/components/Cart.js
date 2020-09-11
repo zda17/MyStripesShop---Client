@@ -269,7 +269,7 @@ export const EmptyCart = () => {
 export const Cart = () => {
 
   //used to pass cart array
-  const { cart, isPaneOpen, setIsPaneOpen } = useContext(CartContext);
+  const { cart, isPaneOpen, setIsPaneOpen, setMaxAvailable } = useContext(CartContext);
   console.log(cart);
   //set panes width
   const { windowWidth } = useContext(MyContext);
