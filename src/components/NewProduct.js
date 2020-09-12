@@ -71,7 +71,9 @@ export default function NewProduct() {
     }
 
     const onSubmit = data => {
-        console.log(data)
+        if(color.length > 0) {
+            console.log(data);
+        }
     }
 
     //layout for size item

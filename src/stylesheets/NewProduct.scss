@@ -5,6 +5,7 @@ $dark-blue: rgb(0, 38, 72);
 .NewProductForm {
     margin-top: 20px;
     width: 100%;
+    max-width: 100% !important;
     height: auto;
     display: flex;
     align-items: center;
@@ -32,6 +33,7 @@ $dark-blue: rgb(0, 38, 72);
                 outline: none;
                 border: solid 2px $dark-blue;
                 margin: 8px 0px;
+                padding: 6px 12px !important;
 
                 border: {
                     radius: 0px;
@@ -77,6 +79,7 @@ $dark-blue: rgb(0, 38, 72);
             width: 70px;
             height: 21px;
             margin: 5px 5px 5px 15px;
+            padding: 12px;
         }
 
         #newSize {
