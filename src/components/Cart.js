@@ -47,7 +47,6 @@ export const HandleQuantity = ({ product }) => {
   //minus 1 from quanitity
   const decrement = (e) => {
     const nameAttr = e.target.getAttribute("name")
-    console.log(cart);
     let newCart = [...cart];
     const itemInCart = newCart.find(
       (item) => nameAttr === item.sku
@@ -172,10 +171,11 @@ export const HandleQuantity = ({ product }) => {
 }
 
 //cart item component to insert into cart pane
-export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice, numBub, open }) => {
+export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice, slidePane, numBub, open }) => {
 
   const { cart, setCart, setTotal } = useContext(CartContext);
   const { windowWidth } = useContext(MyContext);
+  const location = useLocation();
 
   //removes cart item based on sku.
   const remove = (e) => {
@@ -224,9 +224,11 @@ export const CartItem = ({ displayQuantity, displayRemove, displayTotalProdPrice
                         numBub={numBub && product.quantity}
                       />
                     </div>
-                    <div className="cart-info">
-                      <h2><strong>{product.name}</strong></h2>
-                      <span><p>{getSize(product.size)} ~ {product.color_name.toUpperCase()}</p></span>
+                    <div className={`cart-info ${slidePane || location.pathname !== '/Checkout' || windowWidth <= 1199 ? '' : 'cart-info-checkout'}`}>
+                      <div>
+                        <h2><strong>{product.name}</strong></h2>
+                        <span><p>{getSize(product.size)} ~ {product.color_name.toUpperCase()}</p></span>
+                      </div>
                       <span>${displayTotalProdPrice ? product.totalProductPrice : product.price}</span>{displayRemove && <span className="cart-remove" name={product.sku} onClick={remove}>Remove</span>}
                       {displayQuantity &&
                         <HandleQuantity
@@ -258,7 +260,7 @@ export const EmptyCart = () => {
     <section className='empty-cart'>
       <h3>Cart is empty.</h3>
       <button type='button' onClick={goShop} className='shop-btn'>
-        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+        <i className="fa fa-angle-double-left" aria-hidden="true"></i>
         GO SHOP
       </button>
     </section>
@@ -305,9 +307,10 @@ export const Cart = () => {
 
   return (
     <>
-      <div className="cart-wrapper">
+      <div className="cart-wrapper nav-cart-wrapper">
         {/*cart button*/}
-        <i className="fa fa-shopping-cart cart" aria-hidden="true" onClick={openCart}></i>
+        <i className="fa fa-search search"></i>
+        <i className="fa fa-shopping-cart cart" aria-hidden="true" onClick={location.pathname !== '/Paid' && openCart}></i>
       </div>
 
       {/*pane and its contents*/}
@@ -327,6 +330,7 @@ export const Cart = () => {
           displayQuantity={true}
           displayRemove={true}
           displayTotalProdPrice={false}
+          slidePane={true}
         />
         {cart && cart[0] ?
           <input type="submit" value={"CHECKOUT ~ $" + totalPrice} onClick={goToCheckout} />

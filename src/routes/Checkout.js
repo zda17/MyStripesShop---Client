@@ -17,7 +17,6 @@ const Costs = ({ open }) => {
         calculateTotal();
     }, [cart])
 
-
     const [subtotal, setSubtotal] = useState(0);
     const [shipping, setShipping] = useState(0);
     const [taxes, setTaxes] = useState(0);
@@ -38,7 +37,6 @@ const Costs = ({ open }) => {
     }
 
     const applyCoupon = () => {
-        console.log('Apply discount code');
         setCoupon(0)
         // function to apply discount coupon to total
         // - Will need discount_codes table in DB
@@ -73,7 +71,9 @@ const Costs = ({ open }) => {
         <div className={windowWidth <= 1199 && open === true || windowWidth > 1199 ? 'show' : 'hide'}>
             <section>
                 <form className='discount-form' onSubmit={handleSubmit(applyCoupon)}>
-                    <input type='text' name='Discount' className='discount-input' ref={register} placeholder='Discount code' />
+                    <label for='discount'><span className='screen-reader-text'>Enter discount code.</span>
+                    </label>
+                    <input type='text' id='discount' name='Discount' className='discount-input' ref={register} placeholder='Discount code' />
                     <button type='submit' className='apply-btn'>Apply</button>
                 </form>
             </section>
@@ -99,7 +99,7 @@ const Costs = ({ open }) => {
 
 
 const Checkout = () => {
-    const { cart, total, paid, userInfo, confCode } = useContext(CartContext);
+    const { cart, total } = useContext(CartContext);
     const { windowWidth } = useContext(MyContext);
 
     const [open, setOpen] = useState(false)
@@ -107,20 +107,9 @@ const Checkout = () => {
     return (
         <>
             {cart && cart[0] ?
-                <section className={paid ? 'completed-order' : 'checkout-container'}>
-                    <section className={paid ? 'paid-card-display' : 'cart-display'}>
-                        {paid &&
-                            <>
-                                <div className='paid-div'>
-                                    <h1>Payment of <strong>${total}</strong> successful!<i class="fas fa-check"></i></h1>
-                                    <h5>Thank you for your order.</h5>
-                                    <h5>Your confirmation code is <strong>{confCode}</strong>.</h5>
-                                    <h5>A confirmation email has been sent to <strong>{userInfo.email}</strong>.</h5>
-                                </div>
-                                <hr className='horizontal-line'></hr>
-                            </>
-                        }
-                        {windowWidth <= 1199 && !paid ?
+                <section className='checkout-container'>
+                    <section className='cart-display'>
+                        {windowWidth <= 1199 ?
                             <header className='order-sum-header' onClick={() => setOpen(!open)}>
                                 <h1><i className="fa fa-shopping-cart cart" aria-hidden="true"> </i>{!open ? ' Show' : ' Hide'} order summary {!open ? <i class="fas fa-chevron-down"></i> : <i class="fas fa-chevron-up"></i>}</h1>
                                 <h1>{total ? '$' + total : ''}</h1>
@@ -135,7 +124,7 @@ const Checkout = () => {
                             displayTotalProdPrice={true}
                             numBub={true}
                         />
-                        {!paid && <div className={windowWidth <= 1199 && open === true || windowWidth > 1199 ? 'show' : 'hide'}>
+                        <div className={windowWidth <= 1199 && open === true || windowWidth > 1199 ? 'show' : 'hide'}>
                             <div className={'button-div'}>
                                 <Link to='/Cart' className='cart-btn'>
                                     <i class="fa fa-angle-double-left" aria-hidden="true"></i>
@@ -143,10 +132,9 @@ const Checkout = () => {
                                 </Link>
                             </div>
                         </div>
-                        }
-                        {!paid && <Costs
+                        <Costs
                             open={open}
-                        />}
+                        />
                     </section>
                     <section className='user-checkout-info'>
                         <UserInfoForm

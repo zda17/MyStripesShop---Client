@@ -9,11 +9,16 @@ form {
         font-family: $font;
         font-weight: 500;
     }
+    h5 {
+        margin: 0 20px;
+        color: rgb(135, 13, 13);
+    }
     input[type=text], select {
         border: 1px solid $dark-blue;
         border-radius: 3px;
         margin: 8px 20px;
-        padding: 10px;
+        padding: 12px;
+        font-size: 14px;
     }
     select:invalid {
         color: gray;
@@ -29,7 +34,18 @@ form {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .ship-btn {
+        .back-to-cart-btn {
+            margin: 20px;
+            color: $dark-blue;
+            text-align: center;
+        }
+        .back-to-cart-btn:hover {
+            color: $darker-blue;
+        }
+        .fa-angle-double-left {
+            padding: 10px;
+        }
+        .pay-btn {
             margin: 20px;
             background: $dark-blue;
             color: white;
@@ -38,18 +54,7 @@ form {
             font-size: 14px;
             border-radius: 5px;
         }
-        .back-btn {
-            margin: 20px;
-            color: $dark-blue;
-            text-align: center;
-        }
-        .back-btn:hover {
-            color: $darker-blue;
-        }
-        .fa-angle-double-left {
-            padding: 10px;
-        }
-        .ship-btn:hover {
+        .pay-btn:hover {
             cursor: pointer;
             box-shadow: 0 0 11px rgba(33,33,33,.2);
         }
@@ -103,7 +108,7 @@ form {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .back-btn {
+        .back-to-cart-btn {
             margin: 20px;
             color: $dark-blue;
             font-weight: bold;
@@ -111,7 +116,7 @@ form {
         .fa-angle-double-left {
             padding: 10px;
         }
-        .back-btn:hover, .pay-btn:hover {
+        .back-to-cart-btn:hover, .pay-btn:hover {
             cursor: pointer;
         }
         .pay-btn {

@@ -100,7 +100,6 @@
         position: relative;
         float: left;
         width: 33%;
-        
     }
 
     .cart-info {
@@ -118,6 +117,18 @@
           word-spacing: normal;
           word-break: break-word;
           line-height: 16px;
+        }
+
+        &-checkout {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          & > div {
+            width: 75%;
+          }
+          & > span {
+            font-size: 18px;
+          }
         }
     }
 
@@ -316,5 +327,13 @@ $modifier--text-color: #888;
     }
     #{$block}__modifier {
       font-size: 4vw;
+  }
+}
+
+
+@media screen and (max-width: 1200px) {
+  .out-stock-wrapper-cart-page {
+    position: relative;
+    right: 50%;
   }
 }
