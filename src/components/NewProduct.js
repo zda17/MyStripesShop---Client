@@ -35,18 +35,20 @@ export default function NewProduct() {
         setColor({
             sizes: sizesAvailable
         })
-    }
+    };
 
     //adds new size item to sizes div.
     const AddSize = () => {
         var newSize = document.getElementById("newSize").value;
         setSize([...size, newSize]);
-    }
+    };
 
     //sees what sizes and quantities were selected and available when adding a color then adds them to the table
     const addColor = () => {
         var checkboxes = document.getElementsByName("sizes");
         var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+        var name = document.getElementById("newName");
+        var price = document.getElementById("newPrice");
 
         selectedCboxes.forEach(size => {
             tempSizes += size.value + ', ';
@@ -59,22 +61,22 @@ export default function NewProduct() {
             setDisplayColorPicker(!displayColorPicker);
         } else {
             setColor([...color, {
+                name: name.value,
                 hex: currentColor.hex,
                 sizes: tempSizes,
-                quantity: tempQuant
+                quantity: tempQuant,
+                price: price.value
             }
             ]);
             setDisplayColorPicker(!displayColorPicker);
         }
 
         window.scrollTo(0, 900);
-    }
+    };
 
     const onSubmit = data => {
-        if(color.length > 0) {
-            console.log(data);
-        }
-    }
+        console.log(data);
+    };
 
     //layout for size item
     const SizeItem = (props) => {
@@ -84,13 +86,13 @@ export default function NewProduct() {
                 <label htmlFor={props.size.toLowerCase()}>{props.size}</label>
                 <input type="number" id={props.size.toLowerCase() + "Q"} name="quantity" min={0} />
             </div>);
-    }
+    };
 
     //capitalized first letter in word
     const capitalize = (s) => {
         if (typeof s !== 'string') return ''
         return s.charAt(0).toUpperCase() + s.slice(1)
-    }
+    };
 
     //basic input
     const InputItem = (props) => {
@@ -102,7 +104,7 @@ export default function NewProduct() {
                 <input className="InputText" type="text" id={props.name} name={props.name} ref={register({ required: true })} />
             </article>
         );
-    }
+    };
 
     //used for drop down inputs
     const SelectItem = (props) => {
@@ -119,7 +121,27 @@ export default function NewProduct() {
                 </select>
             </article>
         );
-    }
+    };
+
+    //if a color is added then the create item button is displayed
+    const CreateItem = () => {
+        if (color.length > 0) {
+            return (
+                <input
+                    type="submit"
+                    value="CREATE ITEM"
+                />
+            );
+        } else { return (null); }
+    };
+
+    const deleteColor = (e) => {
+        var array = [...color];
+        var i = array.indexOf(e.target.value);
+        console.log(i);
+        array.splice(i, 1);
+        setColor(array);
+    };
 
     return (
         <form className="NewProductForm" onSubmit={handleSubmit(onSubmit)}>
@@ -149,9 +171,12 @@ export default function NewProduct() {
                     />
 
                     <article className="size-quantity">
-                        <input type="text" id="newSize" placeholder="Enter New Size" />
-                        <button onClick={AddSize}>+</button>
-
+                        <span className="newName">Color Name</span>
+                            <input type="text" id="newName" placeholder="Enter Color"/>
+                        <br/>
+                        <span className="newPrice">Price</span>
+                            <input type="text" id="newPrice" placeholder="Enter Price"/>
+                        <br/>
                         <span>Sizes</span><span>Quantity</span>
                         <div id="sizes">
                             {size.map((size, index) => {
@@ -166,6 +191,8 @@ export default function NewProduct() {
                             <SizeItem size="XL" />
                             <SizeItem size="XXL" />
                         </div>
+                        <input type="text" id="newSize" placeholder="Enter New Size" />
+                        <button onClick={AddSize}>+</button>
                     </article>
                 </>
                 : null}
@@ -174,29 +201,40 @@ export default function NewProduct() {
                 <thead>
                     <tr>
                         <th>Color Name</th>
-                        <th onClick={handleClick}>Color Hex Code</th>
+                        <th>Color</th>
                         <th>Sizes Available</th>
                         <th>Price</th>
                         <th>Quantity Available</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     {color.map((color, index) => (
-                        <tr key={index} >
-                            <td><input contentEditable={true} type="text" name={"cName" + index} placeholder="Color Name" ref={register({ required: true })} /></td>
-                            <td onClick={handleClick}><input type="text" name={"hex" + index} value={color.hex} ref={register({ required: true })} onChange={onChange} /></td>
-                            <td><input contentEditable={true} type="text" name={"cSizes" + index} placeholder="e.g. XS, S, L" value={color.sizes} ref={register({ required: true })} /></td>
-                            <td><input contentEditable={true} type="text" name={"cPrice" + index} placeholder="e.g. $25.99" ref={register({ required: true })} /></td>
-                            <td><input contentEditable={true} type="text" name={"cQuantity" + index} placeholder="e.g. XS: 6, S: 8, L: 10" value={color.quantity} ref={register({ required: true })} /></td>
-                        </tr>
+                            <tr key={index} >
+                                <td><input contentEditable={true} type="text" name={"cName" + index} placeholder="Color Name" value={color.name} ref={register({ required: true })} /></td>
+                                <td><label htmlFor={"hex" + index}>
+                                        <span
+                                            className="Selector-Block"
+                                            style={{
+                                                background: color.hex,
+                                                width: '39px',
+                                                height: '39px',
+                                                display: 'block'
+                                            }} />
+                                    </label>
+                                </td>
+                                <td><input contentEditable={true} type="text" name={"cSizes" + index} placeholder="e.g. XS, S, L" value={color.sizes} ref={register({ required: true })} /></td>
+                                <td><input contentEditable={true} type="text" name={"cPrice" + index} placeholder="e.g. $25.99" value={color.price} ref={register({ required: true })} /></td>
+                                <td><input contentEditable={true} type="text" name={"cQuantity" + index} placeholder="e.g. XS: 6, S: 8, L: 10" value={color.quantity} ref={register({ required: true })} /></td>
+                                <td>
+                                    <button onClick={deleteColor} key={index}>-</button>
+                                </td>
+                            </tr>
                     ))}
                 </tbody>
             </table>
-            {/*ADDS TO CART*/}
-            <input
-                type="submit"
-                value="CREATE ITEM"
-            />
+                {/*ADDS TO CART*/}
+                <CreateItem />
 
         </form>
     )
