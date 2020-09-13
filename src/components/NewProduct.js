@@ -10,10 +10,14 @@ export default function NewProduct() {
     const { handleSubmit, register } = useForm();
     const [color, setColor] = useState([]);
     const [size, setSize] = useState([]);
+    const [colorName, setColorName] = useState("Turquoise");
     var tempSizes = "";
     var tempQuant = "";
     const [currentColor, setCurrentColor] = useState("#3cd6bf");
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
+
+    //module for color-namer
+    var namer = require('color-namer');
 
     //opens/closes color picker
     const handleClick = () => {
@@ -25,16 +29,11 @@ export default function NewProduct() {
         setDisplayColorPicker(false);
     };
 
-    //changes color, needs to make where updates color selected already in table
+    //changes color, updates color name
     const onChange = (updatedColor) => {
         setCurrentColor(updatedColor);
-    };
-
-    const changeColor = (e) => {
-        const sizesAvailable = e.target.value;
-        setColor({
-            sizes: sizesAvailable
-        })
+        var names = namer(updatedColor.hex, { pick: ['ntc'] });
+        setColorName(names.ntc[0].name);
     };
 
     //adds new size item to sizes div.
@@ -60,15 +59,17 @@ export default function NewProduct() {
         if (displayColorPicker == false) {
             setDisplayColorPicker(!displayColorPicker);
         } else {
-            setColor([...color, {
-                name: name.value,
-                hex: currentColor.hex,
-                sizes: tempSizes,
-                quantity: tempQuant,
-                price: price.value
+            if(name != null && price != null) {
+                setColor([...color, {
+                    name: name.value,
+                    hex: currentColor.hex,
+                    sizes: tempSizes,
+                    quantity: tempQuant,
+                    price: price.value
+                }
+                ]);
+                setDisplayColorPicker(!displayColorPicker);
             }
-            ]);
-            setDisplayColorPicker(!displayColorPicker);
         }
 
         window.scrollTo(0, 900);
@@ -170,7 +171,7 @@ export default function NewProduct() {
 
                     <article className="size-quantity">
                         <span className="newName">Color Name</span>
-                            <input type="text" id="newName" placeholder="Enter Color"/>
+                            <input type="text" id="newName" value={colorName} placeholder="Enter Color"/>
                         <br/>
                         <span className="newPrice">Price</span>
                             <input type="text" id="newPrice" placeholder="Enter Price"/>
