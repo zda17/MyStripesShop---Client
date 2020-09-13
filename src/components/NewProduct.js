@@ -135,12 +135,10 @@ export default function NewProduct() {
         } else { return (null); }
     };
 
+    //deletes table row from table
     const deleteColor = (e) => {
-        var array = [...color];
-        var i = array.indexOf(e.target.value);
-        console.log(i);
-        array.splice(i, 1);
-        setColor(array);
+        const name = e.target.getAttribute("name");
+        setColor(color.filter(color => color.hex !== name));
     };
 
     return (
@@ -227,7 +225,7 @@ export default function NewProduct() {
                                 <td><input contentEditable={true} type="text" name={"cPrice" + index} placeholder="e.g. $25.99" value={color.price} ref={register({ required: true })} /></td>
                                 <td><input contentEditable={true} type="text" name={"cQuantity" + index} placeholder="e.g. XS: 6, S: 8, L: 10" value={color.quantity} ref={register({ required: true })} /></td>
                                 <td>
-                                    <button onClick={deleteColor} key={index}>-</button>
+                                    <button name={color.hex} onClick={deleteColor} key={index}>-</button>
                                 </td>
                             </tr>
                     ))}
