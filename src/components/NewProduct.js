@@ -29,6 +29,11 @@ export default function NewProduct() {
         setDisplayColorPicker(false);
     };
 
+    //change color name before adding to table
+    const changeName = (e) => {
+        setColorName(e.target.value);
+    }
+
     //changes color, updates color name
     const onChange = (updatedColor) => {
         setCurrentColor(updatedColor);
@@ -171,7 +176,7 @@ export default function NewProduct() {
 
                     <article className="size-quantity">
                         <span className="newName">Color Name</span>
-                            <input type="text" id="newName" value={colorName} placeholder="Enter Color"/>
+                            <input type="text" id="newName" value={colorName} onChange={changeName} placeholder="Enter Color"/>
                         <br/>
                         <span className="newPrice">Price</span>
                             <input type="text" id="newPrice" placeholder="Enter Price"/>
