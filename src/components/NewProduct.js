@@ -11,43 +11,66 @@ export default function NewProduct() {
     const [color, setColor] = useState([]);
     const [size, setSize] = useState([]);
     const [colorName, setColorName] = useState("Turquoise");
+    const [tempPrice, setTempPrice] = useState("$0.00");
     var tempSizes = "";
     var tempQuant = "";
     const [currentColor, setCurrentColor] = useState("#3cd6bf");
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
+    const [formInfo, setFormInfo] = useState({});
 
-    //module for color-namer
+    // module for color-namer
     var namer = require('color-namer');
 
-    //opens/closes color picker
+    // opens/closes color picker
     const handleClick = () => {
         setDisplayColorPicker(!displayColorPicker);
     };
 
-    //closes color picker
+    // closes color picker
     const handleClose = () => {
         setDisplayColorPicker(false);
     };
 
-    //change color name before adding to table
+    // change color name before adding to table
     const changeName = (e) => {
         setColorName(e.target.value);
     }
 
-    //changes color, updates color name
+    // change price for color
+    const changePrice = (e) => {
+        setTempPrice(e.target.value);
+    }
+
+    // changes/saves values in form
+    const changeValue = (e) => {
+        e.preventDefault();
+        if(e.target.name == "name") {
+            setFormInfo({...formInfo, name: e.target.value});
+        } else if(e.target.name == "SKU") {
+            setFormInfo({...formInfo, sku: e.target.value});
+        } else if(e.target.name == "category") {
+            setFormInfo({...formInfo, cat: e.target.value});
+        } else if(e.target.name == "description") {
+            setFormInfo({...formInfo, desc: e.target.value});
+        } else if(e.target.name == "gender") {
+            setFormInfo({...formInfo, gender: e.target.value});
+        }
+    }
+
+    // changes color, updates color name
     const onChange = (updatedColor) => {
         setCurrentColor(updatedColor);
         var names = namer(updatedColor.hex, { pick: ['ntc'] });
         setColorName(names.ntc[0].name);
     };
 
-    //adds new size item to sizes div.
+    // adds new size item to sizes div.
     const AddSize = () => {
         var newSize = document.getElementById("newSize").value;
         setSize([...size, newSize]);
     };
 
-    //sees what sizes and quantities were selected and available when adding a color then adds them to the table
+    // sees what sizes and quantities were selected and available when adding a color then adds them to the table
     const addColor = () => {
         var checkboxes = document.getElementsByName("sizes");
         var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
@@ -84,7 +107,7 @@ export default function NewProduct() {
         console.log(data);
     };
 
-    //layout for size item
+    // layout for size item
     const SizeItem = (props) => {
         return (
             <div className="size-quantity-item">
@@ -94,25 +117,25 @@ export default function NewProduct() {
             </div>);
     };
 
-    //capitalized first letter in word
+    // capitalized first letter in word
     const capitalize = (s) => {
         if (typeof s !== 'string') return ''
         return s.charAt(0).toUpperCase() + s.slice(1)
     };
 
-    //basic input
+    // basic input
     const InputItem = (props) => {
         return (
             <article className="InputItem">
                 <label htmlFor={props.name}>
                     <span>{capitalize(props.name)}</span>
                 </label>
-                <input className="InputText" type="text" id={props.name} name={props.name} ref={register({ required: true })} />
+                <input className="InputText" type="text" id={props.name} name={props.name} key={props.key} value={props.info} onChange={changeValue} ref={register({ required: true })} />
             </article>
         );
     };
 
-    //used for drop down inputs
+    // used for drop down inputs
     const SelectItem = (props) => {
 
         return (
@@ -120,7 +143,7 @@ export default function NewProduct() {
                 <label htmlFor={props.name}>
                     <span>{capitalize(props.name)}</span>
                 </label>
-                <select className="inputDropdown" id={props.name} name={props.name} ref={register({ required: true })}>
+                <select className="inputDropdown" id={props.name} name={props.name} value={props.info} key={props.key} onChange={changeValue} ref={register({ required: true })}>
                     <option value={props.select1}>{capitalize(props.select1 === 'U' ? 'Unisex' : props.select1)}</option>
                     <option value={props.select2}>{capitalize(props.select2 === 'W' ? 'Womens' : props.select2)}</option>
                     <option value={props.select3}>{capitalize(props.select3 === 'M' ? 'Mens' : props.select3)}</option>
@@ -129,7 +152,7 @@ export default function NewProduct() {
         );
     };
 
-    //if a color is added then the create item button is displayed
+    // if a color is added then the create item button is displayed
     const CreateItem = () => {
         if (color.length > 0) {
             return (
@@ -141,7 +164,7 @@ export default function NewProduct() {
         } else { return (null); }
     };
 
-    //deletes table row from table
+    // deletes table row from table
     const deleteColor = (e) => {
         const name = e.target.getAttribute("name");
         setColor(color.filter(color => color.hex !== name));
@@ -150,11 +173,11 @@ export default function NewProduct() {
     return (
         <form className="NewProductForm" onSubmit={handleSubmit(onSubmit)}>
             <section className="NewInfo">
-                <InputItem name="name" />
-                <InputItem name="SKU" />
-                <SelectItem name="category" select1="tops" select2="bottoms" select3="accessories" />
-                <InputItem name="description" />
-                <SelectItem name="gender" select1="U" select2="W" select3="M" />
+                <InputItem name="name" info={formInfo.name} key={0}/>
+                <InputItem name="SKU" info={formInfo.sku} key={1}/>
+                <SelectItem name="category" select1="tops" select2="bottoms" select3="accessories" info={formInfo.cat} key={2}/>
+                <InputItem name="description" info={formInfo.desc} key={3}/>
+                <SelectItem name="gender" select1="U" select2="W" select3="M" info={formInfo.gender} key={4}/>
                 <article className="InputItem">
                     <label htmlFor="img">
                         <span>Photo</span>
@@ -179,7 +202,7 @@ export default function NewProduct() {
                             <input type="text" id="newName" value={colorName} onChange={changeName} placeholder="Enter Color"/>
                         <br/>
                         <span className="newPrice">Price</span>
-                            <input type="text" id="newPrice" placeholder="Enter Price"/>
+                            <input type="text" id="newPrice" placeholder="$0.00" value={tempPrice} onChange={changePrice}/>
                         <br/>
                         <span>Sizes</span><span>Quantity</span>
                         <div id="sizes">
