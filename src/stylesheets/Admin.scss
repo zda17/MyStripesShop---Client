@@ -78,6 +78,11 @@ $color:  #1f7bc5;
 
         .order-item {
             margin: 5px 10px;
+
+            span {
+                display: inline-block;
+                margin: 20px;
+            }
         }
     }
 }
