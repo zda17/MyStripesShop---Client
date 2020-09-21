@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../stylesheets/Orders.scss';
 
+
 // Axios
 import axios from '../utils/axios';
 
@@ -35,10 +36,11 @@ export default function Orders() {
                             <article className="order-item" key={index}>
                                 <span>{order.email}</span><br />
                                 <span>{new Date(order.created_at).toLocaleDateString()}</span><span>{order.amount_cents}</span><br />
-                                <span>Order # </span><br />
+                                <span>Order # {order.id}</span><br />
                                 <span>{order.address + ', ' + order.state}</span><br />
                                 <span>Shipping: Standard</span><br />
                                 <span>{order.product_skus_and_quantity}</span><br />
+                                <button>Fullfill</button>
                             </article>
                         ))}
                 </>
