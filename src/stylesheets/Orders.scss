@@ -1,0 +1,44 @@
+$font: "ITC Avant Garde Gothic",sans-serif;
+
+
+.orders-list {
+    margin-top: 50px;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    align-items: center;
+    display: relative;
+
+    .order-item {
+        display: inline-block;
+        width: 80%;
+        max-width: 510px;
+        padding: 10px;
+        border-bottom: solid 1px rgb(95, 95, 95);
+
+
+        .order-item-left {
+            float: left;
+            width: 66%;
+            text-align: left;
+        }
+
+        .order-item-right {
+            text-align: right;
+            float: left;
+            width: 33%;
+        }
+
+        span {
+            font-weight: bold;
+            font-size: 18px;
+            font-family: $font;
+            margin: 10px;
+        }
+
+        span.date {
+            color: rgb(95, 95, 95);
+        }
+
+    }
+}
