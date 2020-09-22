@@ -28,6 +28,37 @@ $color:  #1f7bc5;
         }
     }
 
+    .order-product-item {
+
+        width: 100%;
+        height: auto;
+        display: inline-block;
+        align-items: center;
+
+        img {
+            width: auto;
+            height: 15vh;
+            max-height: 150px;
+            display: flex;
+            float: left;
+        }
+
+        .image-container {
+            width: 50%;
+            height: auto;
+        }
+
+        span {
+            margin: 20px 0px !important;
+            width: 50%;
+            position: relative;
+            display: flex;
+            float: left;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+    }
+
     .order-item {
         display: inline-block;
         width: 80%;
