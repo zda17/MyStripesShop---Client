@@ -26,23 +26,30 @@ export default function Orders() {
 
     }
 
+    const SelectedItem = () => {
+        const selectedOrder = orders.filter(order => order.uuid == selected);
+
+        return (
+                selectedOrder.map((order, index) => (
+                    <article className="order-item" key={index}>
+                        <span>{order.email}</span><br />
+                        <span>{new Date(order.created_at).toLocaleDateString()}</span><span>{order.amount_cents}</span><br />
+                        <span>Order # {order.id}</span><br />
+                        <span>{order.address + ', ' + order.state}</span><br />
+                        <span>Shipping: Standard</span><br />
+                        <span>{order.product_skus_and_quantity}</span><br />
+                        <button>Fullfill</button>
+                    </article>
+                ))
+            
+        )
+    }
+
     return (
         <div className="orders-list">
             {activeSection === selected ?
                 <>
-                    {orders.filter(order => order.uuid == selected),
-                        console.log(orders),
-                        orders.map((order, index) => (
-                            <article className="order-item" key={index}>
-                                <span>{order.email}</span><br />
-                                <span>{new Date(order.created_at).toLocaleDateString()}</span><span>{order.amount_cents}</span><br />
-                                <span>Order # {order.id}</span><br />
-                                <span>{order.address + ', ' + order.state}</span><br />
-                                <span>Shipping: Standard</span><br />
-                                <span>{order.product_skus_and_quantity}</span><br />
-                                <button>Fullfill</button>
-                            </article>
-                        ))}
+                    <SelectedItem />
                 </>
                 :
                 <>
