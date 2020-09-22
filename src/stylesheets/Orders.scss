@@ -1,5 +1,5 @@
-$font: "ITC Avant Garde Gothic",sans-serif;
-$color:  #1f7bc5;
+$font: "ITC Avant Garde Gothic", sans-serif;
+$color: #1f7bc5;
 
 .orders-list {
     margin-top: 50px;
@@ -29,7 +29,6 @@ $color:  #1f7bc5;
     }
 
     .order-product-item {
-
         width: 100%;
         height: auto;
         display: inline-block;
@@ -66,17 +65,16 @@ $color:  #1f7bc5;
         padding: 10px;
         border-bottom: solid 1px rgb(95, 95, 95);
 
-
         .order-item-left {
             float: left;
-            width: 66%;
+            width: 55%;
             text-align: left;
         }
 
         .order-item-right {
             text-align: right;
             float: left;
-            width: 33%;
+            width: 45%;
         }
 
         span {
@@ -89,6 +87,28 @@ $color:  #1f7bc5;
         span.date {
             color: rgb(95, 95, 95);
         }
+    }
 
+    .order-item:hover {
+
+        .order-item-left, .order-item-right {
+            background-color: rgba(175, 175, 175, 0.212);
+        }
+    }
+}
+
+@media screen and (max-width: 282px) {
+    .order-item {
+        display: block;
+
+        .order-item-left {
+            width: 100%;
+        }
+
+        .order-item-right {
+            position: relative;
+            margin-top: 20px;
+            width: 100%;
+        }
     }
 }
