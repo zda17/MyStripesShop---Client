@@ -4,7 +4,7 @@ $dark-blue: rgb(0, 38, 72);
 
 .NewProductForm {
     margin-top: 20px;
-    width: 100%;
+    width: 100vw;
     max-width: 100% !important;
     height: auto;
     display: flex;
@@ -120,7 +120,7 @@ $dark-blue: rgb(0, 38, 72);
     }
 
     table {
-        overflow: visible;
+        overflow-x: scroll;
         border: 1px solid black;
         border-collapse: collapse;
 
@@ -188,4 +188,11 @@ $dark-blue: rgb(0, 38, 72);
 //swatches row
 .sketch-picker > div + div + div + .flexbox-fix {
     display: none !important;
+}
+
+@media screen and (max-width: 570px) {
+    table {
+        width: 100vw;
+    }
+
 }

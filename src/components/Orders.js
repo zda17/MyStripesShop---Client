@@ -41,7 +41,7 @@ export default function Orders() {
 
         return (
             selectedOrder.map((order, index) => (
-                <article className="order-item" key={index}>
+                <article className="order-item" key={index} style={{borderTop: 'solid 1px rgb(95, 95, 95)', margin: '15px 0px 20px'}}>
                     <span>{order.email}</span><br />
                     <span>{new Date(order.created_at).toLocaleDateString()}</span><span>{'$' + (order.amount_cents / 100).toFixed(2)}</span><br />
                     <span>Order # {order.id}</span><br />
