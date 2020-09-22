@@ -22,7 +22,7 @@ export default function Orders() {
     }, []);
 
     const handleClick = (e) => {
-        const index = e.target.key;
+        setActiveSection('all');
 
     }
 
@@ -30,18 +30,35 @@ export default function Orders() {
         const selectedOrder = orders.filter(order => order.uuid == selected);
 
         return (
-                selectedOrder.map((order, index) => (
-                    <article className="order-item" key={index}>
-                        <span>{order.email}</span><br />
-                        <span>{new Date(order.created_at).toLocaleDateString()}</span><span>{order.amount_cents}</span><br />
-                        <span>Order # {order.id}</span><br />
-                        <span>{order.address + ', ' + order.state}</span><br />
-                        <span>Shipping: Standard</span><br />
-                        <span>{order.product_skus_and_quantity}</span><br />
-                        <button>Fullfill</button>
-                    </article>
-                ))
-            
+            selectedOrder.map((order, index) => (
+                <article className="order-item" key={index}>
+                    <span>{order.email}</span><br />
+                    <span>{new Date(order.created_at).toLocaleDateString()}</span><span>{order.amount_cents}</span><br />
+                    <span>Order # {order.id}</span><br />
+                    <span>{order.address + ', ' + order.state}</span><br />
+                    <span>Shipping: Standard</span><br />
+                    <span>{order.product_skus_and_quantity}</span><br />
+                    <button>Fullfill</button>
+                </article>
+            ))
+
+        )
+    }
+
+    const OrderItem = () => {
+        return (
+            orders.map((order, index) => (
+                <article className="order-item" onClick={() => { setSelected(order.uuid); setActiveSection(order.uuid); console.log(selected) }} key={index}>
+                    <div className="order-item-left">
+                        <span>{order.email}</span><br /><br />
+                        <span className="date">{new Date(order.created_at).toLocaleDateString()}</span>
+                    </div>
+                    <div className="order-item-right">
+                        <span>{order.amount_cents}</span><br /><br />
+                        <span>></span>
+                    </div>
+                </article>
+            ))
         )
     }
 
@@ -49,22 +66,12 @@ export default function Orders() {
         <div className="orders-list">
             {activeSection === selected ?
                 <>
+                    <button onClick={handleClick}>Back</button>
                     <SelectedItem />
                 </>
                 :
                 <>
-                    {orders.map((order, index) => (
-                        <article className="order-item" onClick={() => { setSelected(order.uuid); setActiveSection(order.uuid); console.log(selected) }} key={index}>
-                            <div className="order-item-left">
-                                <span>{order.email}</span><br /><br />
-                                <span className="date">{new Date(order.created_at).toLocaleDateString()}</span>
-                            </div>
-                            <div className="order-item-right">
-                                <span>{order.amount_cents}</span><br /><br />
-                                <span>></span>
-                            </div>
-                        </article>
-                    ))}
+                    <OrderItem />
                 </>
             }
 

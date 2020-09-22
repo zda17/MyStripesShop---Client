@@ -9,6 +9,25 @@ $color:  #1f7bc5;
     align-items: center;
     display: relative;
 
+    button {
+        width: fit-content;
+        height: 4vh;
+        min-height: 30px;
+        display: block;
+        border: none;
+        border-radius: 5px;
+        background-color: $color;
+        color: white;
+        margin: 6px auto 12px;
+        padding: 0px 15px;
+        cursor: pointer;
+
+        font: {
+            size: 16px;
+            weight: bold;
+        }
+    }
+
     .order-item {
         display: inline-block;
         width: 80%;
@@ -38,25 +57,6 @@ $color:  #1f7bc5;
 
         span.date {
             color: rgb(95, 95, 95);
-        }
-
-        button {
-            width: fit-content;
-            height: 4vh;
-            min-height: 30px;
-            display: block;
-            border: none;
-            border-radius: 5px;
-            background-color: $color;
-            color: white;
-            margin: 6px auto 12px;
-            padding: 0px 15px;
-            cursor: pointer;
-    
-            font: {
-                size: 16px;
-                weight: bold;
-            }
         }
 
     }
