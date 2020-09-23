@@ -17,6 +17,7 @@ export default function NewProduct() {
     const [currentColor, setCurrentColor] = useState("#3cd6bf");
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
     const [formInfo, setFormInfo] = useState({});
+    const [pName, setPName] = useState("");
 
     // module for color-namer
     var namer = require('color-namer');
@@ -31,6 +32,22 @@ export default function NewProduct() {
         setDisplayColorPicker(false);
     };
 
+    // changes/saves values in form
+    const changeValue = (e) => {
+        e.preventDefault();
+        if (e.target.name == "name") {
+            setFormInfo({ ...formInfo, name: e.target.value });
+        } else if (e.target.name == "SKU") {
+            setFormInfo({ ...formInfo, sku: e.target.value });
+        } else if (e.target.name == "category") {
+            setFormInfo({ ...formInfo, cat: e.target.value });
+        } else if (e.target.name == "description") {
+            setFormInfo({ ...formInfo, desc: e.target.value });
+        } else if (e.target.name == "gender") {
+            setFormInfo({ ...formInfo, gender: e.target.value });
+        }
+    }
+
     // change color name before adding to table
     const changeName = (e) => {
         setColorName(e.target.value);
@@ -39,22 +56,6 @@ export default function NewProduct() {
     // change price for color
     const changePrice = (e) => {
         setTempPrice(e.target.value);
-    }
-
-    // changes/saves values in form
-    const changeValue = (e) => {
-        e.preventDefault();
-        if(e.target.name == "name") {
-            setFormInfo({...formInfo, name: e.target.value});
-        } else if(e.target.name == "SKU") {
-            setFormInfo({...formInfo, sku: e.target.value});
-        } else if(e.target.name == "category") {
-            setFormInfo({...formInfo, cat: e.target.value});
-        } else if(e.target.name == "description") {
-            setFormInfo({...formInfo, desc: e.target.value});
-        } else if(e.target.name == "gender") {
-            setFormInfo({...formInfo, gender: e.target.value});
-        }
     }
 
     // changes color, updates color name
@@ -87,7 +88,7 @@ export default function NewProduct() {
         if (displayColorPicker == false) {
             setDisplayColorPicker(!displayColorPicker);
         } else {
-            if(name != null && price != null) {
+            if (name != null && price != null) {
                 setColor([...color, {
                     name: name.value,
                     hex: currentColor.hex,
@@ -123,18 +124,6 @@ export default function NewProduct() {
         return s.charAt(0).toUpperCase() + s.slice(1)
     };
 
-    // basic input
-    const InputItem = (props) => {
-        return (
-            <article className="InputItem">
-                <label htmlFor={props.name}>
-                    <span>{capitalize(props.name)}</span>
-                </label>
-                <input className="InputText" type="text" id={props.name} name={props.name} key={props.key} value={props.info} onChange={changeValue} ref={register({ required: true })} />
-            </article>
-        );
-    };
-
     // used for drop down inputs
     const SelectItem = (props) => {
 
@@ -143,7 +132,7 @@ export default function NewProduct() {
                 <label htmlFor={props.name}>
                     <span>{capitalize(props.name)}</span>
                 </label>
-                <select className="inputDropdown" id={props.name} name={props.name} value={props.info} key={props.key} onChange={changeValue} ref={register({ required: true })}>
+                <select className="inputDropdown" id={props.name} name={props.name} value={props.info} key={props.name} onChange={changeValue} ref={register({ required: true })}>
                     <option value={props.select1}>{capitalize(props.select1 === 'U' ? 'Unisex' : props.select1)}</option>
                     <option value={props.select2}>{capitalize(props.select2 === 'W' ? 'Womens' : props.select2)}</option>
                     <option value={props.select3}>{capitalize(props.select3 === 'M' ? 'Mens' : props.select3)}</option>
@@ -173,11 +162,26 @@ export default function NewProduct() {
     return (
         <form className="NewProductForm" onSubmit={handleSubmit(onSubmit)}>
             <section className="NewInfo">
-                <InputItem name="name" info={formInfo.name} key={0}/>
-                <InputItem name="SKU" info={formInfo.sku} key={1}/>
-                <SelectItem name="category" select1="tops" select2="bottoms" select3="accessories" info={formInfo.cat} key={2}/>
-                <InputItem name="description" info={formInfo.desc} key={3}/>
-                <SelectItem name="gender" select1="U" select2="W" select3="M" info={formInfo.gender} key={4}/>
+                <article className="InputItem">
+                    <label htmlFor="name">
+                        <span>Name</span>
+                    </label>
+                    <input className="InputText" type="text" name="name" key={0} value={formInfo.name} onChange={changeValue} ref={register({ required: true })} />
+                </article>
+                <article className="InputItem">
+                    <label htmlFor="sku">
+                        <span>SKU</span>
+                    </label>
+                    <input className="InputText" type="text" name="sku" key={1} value={formInfo.sku} onChange={changeValue} ref={register({ required: true })} />
+                </article>
+                <SelectItem name="category" select1="tops" select2="bottoms" select3="accessories" info={formInfo.cat} key={2} />
+                <article className="InputItem">
+                    <label htmlFor="description">
+                        <span>Description</span>
+                    </label>
+                    <input className="InputText" type="text" name="description" key={3} value={formInfo.desc} onChange={changeValue} ref={register({ required: true })} />
+                </article>
+                <SelectItem name="gender" select1="U" select2="W" select3="M" info={formInfo.gender} key={4} />
                 <article className="InputItem">
                     <label htmlFor="img">
                         <span>Photo</span>
@@ -199,11 +203,11 @@ export default function NewProduct() {
 
                     <article className="size-quantity">
                         <span className="newName">Color Name</span>
-                            <input type="text" id="newName" value={colorName} onChange={changeName} placeholder="Enter Color"/>
-                        <br/>
+                        <input type="text" id="newName" value={colorName} onChange={changeName} placeholder="Enter Color" />
+                        <br />
                         <span className="newPrice">Price</span>
-                            <input type="text" id="newPrice" placeholder="$0.00" value={tempPrice} onChange={changePrice}/>
-                        <br/>
+                        <input type="text" id="newPrice" placeholder="$0.00" value={tempPrice} onChange={changePrice} />
+                        <br />
                         <span>Sizes</span><span>Quantity</span>
                         <div id="sizes">
                             {size.map((size, index) => {
@@ -237,31 +241,31 @@ export default function NewProduct() {
                 </thead>
                 <tbody>
                     {color.map((color, index) => (
-                            <tr key={index} >
-                                <td><input contentEditable={true} type="text" name={"cName" + index} placeholder="Color Name" value={color.name} ref={register({ required: true })} /></td>
-                                <td><label htmlFor={"hex" + index}>
-                                        <span
-                                            className="Selector-Block"
-                                            style={{
-                                                background: color.hex,
-                                                width: '39px',
-                                                height: '39px',
-                                                display: 'block'
-                                            }} />
-                                    </label>
-                                </td>
-                                <td><input contentEditable={true} type="text" name={"cSizes" + index} placeholder="e.g. XS, S, L" value={color.sizes} ref={register({ required: true })} /></td>
-                                <td><input contentEditable={true} type="text" name={"cPrice" + index} placeholder="e.g. $25.99" value={color.price} ref={register({ required: true })} /></td>
-                                <td><input contentEditable={true} type="text" name={"cQuantity" + index} placeholder="e.g. XS: 6, S: 8, L: 10" value={color.quantity} ref={register({ required: true })} /></td>
-                                <td>
-                                    <button name={color.hex} onClick={deleteColor} key={index}>-</button>
-                                </td>
-                            </tr>
+                        <tr key={index} >
+                            <td><input contentEditable={true} type="text" name={"cName" + index} placeholder="Color Name" value={color.name} ref={register({ required: true })} /></td>
+                            <td><label htmlFor={"hex" + index}>
+                                <span
+                                    className="Selector-Block"
+                                    style={{
+                                        background: color.hex,
+                                        width: '39px',
+                                        height: '39px',
+                                        display: 'block'
+                                    }} />
+                            </label>
+                            </td>
+                            <td><input contentEditable={true} type="text" name={"cSizes" + index} placeholder="e.g. XS, S, L" value={color.sizes} ref={register({ required: true })} /></td>
+                            <td><input contentEditable={true} type="text" name={"cPrice" + index} placeholder="e.g. $25.99" value={color.price} ref={register({ required: true })} /></td>
+                            <td><input contentEditable={true} type="text" name={"cQuantity" + index} placeholder="e.g. XS: 6, S: 8, L: 10" value={color.quantity} ref={register({ required: true })} /></td>
+                            <td>
+                                <button name={color.hex} onClick={deleteColor} key={index}>-</button>
+                            </td>
+                        </tr>
                     ))}
                 </tbody>
             </table>
-                {/*ADDS TO CART*/}
-                <CreateItem />
+            {/*ADDS TO CART*/}
+            <CreateItem />
 
         </form>
     )
