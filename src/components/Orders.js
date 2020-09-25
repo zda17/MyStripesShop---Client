@@ -84,7 +84,7 @@ export default function Orders() {
                             <span>{"QTY: " + item[1] + "\u000A\u000A" + "SIZE: " + getSecondPart(item[0])}</span>
                         </section>
                     ))}
-                    <button>FULLFILLED</button>
+                    <button>FULFILLED</button>
                 </article>
             ))
 
