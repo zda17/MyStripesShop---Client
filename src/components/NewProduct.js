@@ -227,7 +227,7 @@ export default function NewProduct() {
                     </article>
                 </>
                 : null}
-            <button onClick={addColor}>ADD COLOR</button>
+            <button className="add-color" onClick={addColor}>ADD COLOR</button>
             <table>
                 <thead>
                     <tr>

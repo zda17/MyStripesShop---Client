@@ -87,12 +87,28 @@ $color: #1f7bc5;
         span.date {
             color: rgb(95, 95, 95);
         }
+
     }
 
     .order-item:hover {
-
-        .order-item-left, .order-item-right {
+        .order-item-left,
+        .order-item-right {
             background-color: rgba(175, 175, 175, 0.212);
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .orders-list {
+        article {
+            button {
+                position: absolute;
+                left: 0%;
+                width: 100vw;
+                margin: 20px 0px 10px;
+                border-radius: 0;
+                
+            }
         }
     }
 }
@@ -103,11 +119,12 @@ $color: #1f7bc5;
 
         .order-item-left {
             width: 100%;
+            padding-bottom: 20px;
         }
 
         .order-item-right {
             position: relative;
-            margin-top: 20px;
+            padding-top: 20px;
             width: 100%;
         }
     }
