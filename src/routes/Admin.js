@@ -12,6 +12,7 @@ import Header from '../components/Header';
 import Add1 from '../utils/images/add 1.png';
 import NewProduct from '../components/NewProduct';
 import Orders from '../components/Orders';
+import Fulfilled from '../components/Fulfilled';
 
 const Admin = () => {
 
@@ -52,7 +53,7 @@ const Admin = () => {
                     </>
                 : activeSection === 'fulfilled' ?
                     <>
-                        <p>Fulfilled</p>
+                        <Fulfilled />
                     </>
                 :
                 <>
