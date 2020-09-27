@@ -1,0 +1,131 @@
+$font: "ITC Avant Garde Gothic", sans-serif;
+$color: #1f7bc5;
+
+.orders-list {
+    margin-top: 50px;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    align-items: center;
+    display: relative;
+
+    button {
+        width: fit-content;
+        height: 4vh;
+        min-height: 30px;
+        display: block;
+        border: none;
+        border-radius: 5px;
+        background-color: $color;
+        color: white;
+        margin: 6px auto 12px;
+        padding: 0px 15px;
+        cursor: pointer;
+
+        font: {
+            size: 16px;
+            weight: bold;
+        }
+    }
+
+    .order-product-item {
+        width: 100%;
+        height: auto;
+        display: inline-block;
+        align-items: center;
+
+        img {
+            width: auto;
+            height: 15vh;
+            max-height: 150px;
+            display: flex;
+            float: left;
+        }
+
+        .image-container {
+            width: 50%;
+            height: auto;
+        }
+
+        span {
+            margin: 20px 0px !important;
+            width: 50%;
+            position: relative;
+            display: flex;
+            float: left;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+    }
+
+    .order-item {
+        display: inline-block;
+        width: 80%;
+        max-width: 510px;
+        padding: 10px;
+        border-bottom: solid 1px rgb(95, 95, 95);
+
+        .order-item-left {
+            float: left;
+            width: 55%;
+            text-align: left;
+        }
+
+        .order-item-right {
+            text-align: right;
+            float: left;
+            width: 45%;
+        }
+
+        span {
+            font-weight: bold;
+            font-size: 18px;
+            font-family: $font;
+            margin: 10px;
+        }
+
+        span.date {
+            color: rgb(95, 95, 95);
+        }
+
+    }
+
+    .order-item:hover {
+        .order-item-left,
+        .order-item-right {
+            background-color: rgba(175, 175, 175, 0.212);
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .orders-list {
+        article {
+            button {
+                position: absolute;
+                left: 0%;
+                width: 100vw;
+                margin: 20px 0px 10px;
+                border-radius: 0;
+                
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .order-item {
+        display: block;
+
+        .order-item-left {
+            width: 100%;
+            padding-bottom: 20px;
+        }
+
+        .order-item-right {
+            position: relative;
+            padding-top: 20px;
+            width: 100%;
+        }
+    }
+}

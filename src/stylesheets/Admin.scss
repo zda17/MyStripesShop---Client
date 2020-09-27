@@ -3,7 +3,7 @@ $color:  #1f7bc5;
 .Admin-Panel {
     width: 100%;
     height: auto;
-    margin: 10px 0px;
+    margin: 10px 0px 0px;
 }
 
 .admin-tab-container {
@@ -71,4 +71,33 @@ $color:  #1f7bc5;
 	.admin-tab-item.is-active {
 		border-radius: 25px;
 	}
+}
+
+.Admin-Component {
+    .orders-list {
+
+        .order-item {
+            margin: 5px 10px;
+
+            span {
+                display: inline-block;
+                margin: 20px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 335px) {
+.admin-tab-container {
+    .admin-tab-item {
+        width: 66px;
+        height: 80px;
+
+        img {
+            right: 22.5%;
+            bottom: 35%;
+        }
+    }
+}
+
 }
