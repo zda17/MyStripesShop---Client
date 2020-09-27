@@ -58,6 +58,22 @@ const CheckoutForm = ({ success, fail, loading, complete }) => {
             })
     }
 
+    const addToOrdersTable = code => {
+        const data = {
+            userInfo,
+            cart,
+            confCode: code,
+            cartUUID
+        }
+        axios.post('/orders', data)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setDisableForm('disabled');
@@ -76,6 +92,7 @@ const CheckoutForm = ({ success, fail, loading, complete }) => {
                 success();
                 complete();
                 sendEmail(data.confirm);
+                addToOrdersTable(data.confirm);
             } catch (error) {
                 console.log(error.message);
                 fail();
@@ -120,7 +137,6 @@ const Payment = () => {
         }
     }, [status])
 
-        
     useEffect(() => {
         if (paid) {
             history.push('/Paid');
