@@ -14,7 +14,7 @@ export default function Fulfill() {
     const [fulfill, setFulfill] = useState([]);
 
     useEffect(() => {
-        axios.get(`/orders/`)
+        axios.get(`/orders/fulfilled`)
             .then(res => {
                 const order = res.data;
                 setFulfill(order);
