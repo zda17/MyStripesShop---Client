@@ -69,14 +69,13 @@ export default function Fulfill() {
         const selectedOrder = fulfill.filter(order => order.uuid == selected);
 
         return (
-            selectedOrder.map((order, index) => (
-                <article className="order-item" key={index} style={{ borderTop: 'solid 1px rgb(95, 95, 95)', margin: '15px 0px 20px', borderBottom: 'none' }}>
-                    <span>{order.email}</span><br />
-                    <span style={{ color: 'rgb(95, 95, 95)' }}>{new Date(order.created_at).toLocaleDateString()}</span><span>{'$' + (order.amount_cents / 100).toFixed(2)}</span><br />
-                    <span>Order # {order.id}</span><br />
-                    <span>{order.address + ", " + order.state}</span><br />
+                <article className="order-item" style={{ borderTop: 'solid 1px rgb(95, 95, 95)', margin: '15px 0px 20px', borderBottom: 'none' }}>
+                    <span>{selectedOrder[0].email}</span><br />
+                    <span style={{ color: 'rgb(95, 95, 95)' }}>{new Date(selectedOrder[0].created_at).toLocaleDateString()}</span><span>{'$' + (selectedOrder[0].amount_cents / 100).toFixed(2)}</span><br />
+                    <span>Order # {selectedOrder[0].id}</span><br />
+                    <span>{selectedOrder[0].address}</span><br />
                     <span>Shipping: Standard</span><br />
-                    {order.product_skus_and_quantity.map((item, index) => (
+                    {selectedOrder[0].product_skus_and_quantity.map((item, index) => (
                         <section className="order-product-item" key={index}>
                             <div className="img-container">
                                 <img src="https://i.imgur.com/Gn9PPb3.png"></img>
@@ -85,12 +84,12 @@ export default function Fulfill() {
                         </section>
                     ))}
                 </article>
-            ))
 
         )
     }
 
     const OrderItem = () => {
+        console.log(fulfill);
         return (
             fulfill.map((order, index) => (
                 <article className="order-item" onClick={() => { setSelected(order.uuid); setActiveSection(order.uuid); console.log(selected) }} key={index}>
