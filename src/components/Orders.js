@@ -65,6 +65,18 @@ export default function Orders() {
 
     }
 
+    //passes the selected orders id to find and update.
+    const handleSubmit = async (e) => {
+        console.log(e.target.id);
+        axios.post('/fulfilled', e.target.id)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     const SelectedItem = () => {
         const selectedOrder = orders.filter(order => order.uuid == selected);
 
@@ -83,7 +95,9 @@ export default function Orders() {
                             <span>{"QTY: " + item[1] + "\u000A\u000A" + "SIZE: " + getSecondPart(item[0])}</span>
                         </section>
                     ))}
-                    <button>FULFILLED</button>
+                    <form onSubmit={handleSubmit} >
+                        <button id={selectedOrder[0].id} type={"submit"}>FULFILLED</button>
+                    </form>
                 </article>
         )
     }
@@ -99,7 +113,7 @@ export default function Orders() {
                     </div>
                     <div className="order-item-right">
                         <span>{'$' + (order.amount_cents / 100).toFixed(2)}</span><br /><br />
-                        <span>></span>
+                        <span>{'>'}</span>
                     </div>
                 </article>
             ))

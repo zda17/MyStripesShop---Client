@@ -99,7 +99,7 @@ export default function Fulfill() {
                     </div>
                     <div className="order-item-right">
                         <span>{'$' + (order.amount_cents / 100).toFixed(2)}</span><br /><br />
-                        <span>></span>
+                        <span>{'>'}</span>
                     </div>
                 </article>
             ))
