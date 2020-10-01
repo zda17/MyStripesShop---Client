@@ -6,18 +6,18 @@ import '../stylesheets/Orders.scss';
 import axios from '../utils/axios';
 
 
-//want to map all orders
-export default function Orders() {
+//want to map all Fulfill
+export default function Fulfill() {
 
     const [activeSection, setActiveSection] = useState('all');
     const [selected, setSelected] = useState('');
-    const [orders, setOrders] = useState([]);
+    const [fulfill, setFulfill] = useState([]);
 
     useEffect(() => {
-        axios.get(`/orders/`)
+        axios.get(`/orders/fulfilled`)
             .then(res => {
                 const order = res.data;
-                setOrders(order);
+                setFulfill(order);
             });
     }, []);
 
@@ -65,20 +65,8 @@ export default function Orders() {
 
     }
 
-    //passes the selected orders id to find and update.
-    const handleSubmit = async (e) => {
-        console.log(e.target.id);
-        axios.post('/fulfilled', e.target.id)
-            .then(res => {
-                console.log(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
-
     const SelectedItem = () => {
-        const selectedOrder = orders.filter(order => order.uuid == selected);
+        const selectedOrder = fulfill.filter(order => order.uuid == selected);
 
         return (
                 <article className="order-item" style={{ borderTop: 'solid 1px rgb(95, 95, 95)', margin: '15px 0px 20px', borderBottom: 'none' }}>
@@ -95,17 +83,15 @@ export default function Orders() {
                             <span>{"QTY: " + item[1] + "\u000A\u000A" + "SIZE: " + getSecondPart(item[0])}</span>
                         </section>
                     ))}
-                    <form onSubmit={handleSubmit} >
-                        <button id={selectedOrder[0].id} type={"submit"}>FULFILLED</button>
-                    </form>
                 </article>
+
         )
     }
 
     const OrderItem = () => {
-        console.log(orders);
+        console.log(fulfill);
         return (
-            orders.map((order, index) => (
+            fulfill.map((order, index) => (
                 <article className="order-item" onClick={() => { setSelected(order.uuid); setActiveSection(order.uuid); console.log(selected) }} key={index}>
                     <div className="order-item-left">
                         <span>{order.email}</span><br /><br />
