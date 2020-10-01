@@ -5,8 +5,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	// Provocative Picture Background
-	background-image: url(https://cdn.shopify.com/s/files/1/0258/6132/4905/files/hangten-newarrivals-home-750x1100_x800.jpg?v=1591751340);
+	background-image: url(../utils/images/mystripesphoto3-desktop.jpeg);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -14,6 +13,7 @@
 	.banner-content {
 		padding: 0 24px;
 		text-align: center;
+		margin-top: 150px;
 		h2 {
 			color: #ffefca;
 			margin-top: -0.325em;
@@ -40,5 +40,11 @@
 		justify-content: center;
 		align-items: center;
 		margin-top: 20px;
+	}
+}
+
+@media screen and (max-width: 1199px) {
+	#Banner {
+		background-image: url(../utils/images/mystripesphoto3-mobile.jpg)
 	}
 }
