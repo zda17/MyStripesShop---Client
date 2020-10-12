@@ -16,6 +16,9 @@ const localStorage = {
 	clearItem() {
 	  window.localStorage.removeItem('UUID');
 	},
+	clearCart() {
+		window.localStorage.removeItem('userCart');
+	},
 	hasUUID() {
 	  return !!localStorage.getItem();
 	},
