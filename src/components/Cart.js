@@ -11,6 +11,7 @@ import { MyContext } from '../utils/Context';
 
 //components
 import Image from "../components/Image";
+import Search from "../components/Search";
 
 //stlye
 import "react-sliding-pane/dist/react-sliding-pane.css";
@@ -308,8 +309,9 @@ export const Cart = () => {
   return (
     <>
       <div className="cart-wrapper nav-cart-wrapper">
+        {/*search feature*/}
+        <Search />
         {/*cart button*/}
-        <i className="fa fa-search search"></i>
         <i className="fa fa-shopping-cart cart" aria-hidden="true" onClick={location.pathname !== '/Paid' && openCart}></i>
       </div>
 
