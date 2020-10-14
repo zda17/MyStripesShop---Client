@@ -48,6 +48,7 @@ const Search = () => {
         setSearchedState();
         if (location.pathname !== '/Products/Mens') {
             history.push('/Products/Mens');
+            // if women's clothes become available in the future, consider that here for the search
         }
     }
 
