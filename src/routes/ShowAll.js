@@ -3,11 +3,11 @@ import React from 'react';
 import { BannerSlim } from '../components/Banner';
 import ShopSection from '../components/ShopSection';
 
-function ShowAll() {
+function ShowAll({ path, activeSection }) {
     return (
         <div className="ShopSection" >
             <BannerSlim />
-            <ShopSection path='all' />
+            <ShopSection path={path} activeSection={activeSection} />
         </div>
     );
 }
