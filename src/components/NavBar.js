@@ -53,7 +53,7 @@ const NoBurger = () => {
 
 // Navbar
 const NavBar = () => {
-    const { windowWidth, setWindowWidth } = useContext(MyContext);
+    const { windowWidth, setWindowWidth, showSearch } = useContext(MyContext);
 
     let resizeWindow = () => {
         setWindowWidth(window.innerWidth);
@@ -73,7 +73,7 @@ const NavBar = () => {
                     :
                     <NoBurger />
                 }
-                <Link to='/' className={windowWidth <= 1199 ? "logo-wrapper-mobile" : "logo-wrapper-desktop"}>
+                <Link to='/' className={windowWidth <= 1199 ? "logo-wrapper-mobile" : "logo-wrapper-desktop"} style={{marginRight: showSearch ? '62px' : ''}}>
                     <img className='logo' src={logo} alt='My Stripes Logo' />
                 </Link>
                 <Cart />
