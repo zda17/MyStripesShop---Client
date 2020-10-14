@@ -1,0 +1,40 @@
+.search-form {
+    margin-right: 40px;
+    position: absolute;
+    top: 27px;
+    right: 100px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    font-size: 24px;
+    padding: 12px;
+}
+
+#search {
+	width: 100%;
+    padding: 12px;
+    padding-left: 40px;
+	font-size: 18px;
+	font-style: italic;
+	color: #444;
+	box-sizing: border-box;
+	outline: none;
+}
+
+.fa-times {
+    font-size: 11px;
+    position: absolute;
+    right: -9px;
+    top: 16px;
+}
+
+.fa-times:hover, .search-icon:hover {
+    cursor: pointer;
+}
+
+.search-enter {
+    display: none;
+}
