@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { BannerSlim } from '../components/Banner';
 import ShopSection from '../components/ShopSection';
+import { MyContext } from '../utils/Context';
 
 function Mens() {
+
+    const { searched } = useContext(MyContext);
+
     return (
         <div className="content-wrap" >
             <BannerSlim />
-            <ShopSection path='mens' />
+            <ShopSection path='mens' activeSection={searched || 'all'} />
         </div>
     );
 }
