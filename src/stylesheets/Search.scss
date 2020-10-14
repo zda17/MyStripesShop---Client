@@ -38,3 +38,10 @@
 .search-enter {
     display: none;
 }
+
+@media screen and (max-width: 1199px) {
+    .search-form {
+        top: 0px;
+        right: 140px;
+    }
+}
