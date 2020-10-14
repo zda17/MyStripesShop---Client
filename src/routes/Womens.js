@@ -7,7 +7,7 @@ function Womens() {
     return (
         <div className="content-wrap" >
             <BannerSlim />
-            <ShopSection path='womens' />
+            <ShopSection path='womens' activeSection='all' />
         </div>
     );
 }

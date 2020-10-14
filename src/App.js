@@ -54,7 +54,7 @@ function App() {
                             <Home />
                         </Route>
                         <Route exact path="/Products/All">
-                            <ShowAll />
+                            <ShowAll path='all' activeSection='all' />
                         </Route>
                         <Route exact path="/Products/Mens">
                             <Mens />

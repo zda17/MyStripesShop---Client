@@ -2,19 +2,31 @@ import React, { useContext, useEffect } from 'react';
 import '../stylesheets/Checkout.scss';
 import { CartItem } from '../components/Cart';
 import { CartContext } from '../utils/CartContext';
+import { useHistory } from 'react-router-dom';
+import localStorage from '../utils/localStorage';
 
 
 const Paid = () => {
-    const { setCart, total, paid, setPaid, userInfo, confCode } = useContext(CartContext);
+    const { cart, setCart, total, paid, setPaid, userInfo, confCode } = useContext(CartContext);
 
     const clearCart = () => {
         setCart([]);
         setPaid(false);
     }
 
+    const history = useHistory();
+
     useEffect(() => {
-        return () => clearCart();
+        return () => {
+            clearCart();
+            localStorage.clearCart();
+            localStorage.clearItem();
+        };
     }, [])
+
+    useEffect(() => {
+        return () => { history.push('/') };
+    }, [cart])
 
     return (
         <section className='completed-order'>
@@ -28,15 +40,15 @@ const Paid = () => {
                             <h5>A confirmation email has been sent to <strong>{userInfo.email}</strong>.</h5>
                         </div>
                         <hr className='horizontal-line'></hr>
+                        <CartItem
+                            open={true}
+                            displayRemove={false}
+                            displayQuantity={false}
+                            displayTotalProdPrice={true}
+                            numBub={true}
+                        />
                     </>
                 }
-                <CartItem
-                    open={true}
-                    displayRemove={false}
-                    displayQuantity={false}
-                    displayTotalProdPrice={true}
-                    numBub={true}
-                />
             </section>
         </section>
     )
