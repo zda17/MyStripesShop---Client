@@ -46,7 +46,7 @@ function ShopSection(props) {
             </header>
             <section className='products'>
                 {error ?
-                    <div style={{ textAlign: 'center', margin: '50px auto 75px', color: '#b20000' }}>{error}</div>
+                    <div className='error-msg'>{error}</div>
                     :
                     activeSection === 'tops' ?
                         <>
