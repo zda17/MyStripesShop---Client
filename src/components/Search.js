@@ -6,7 +6,7 @@ import { MyContext } from '../utils/Context';
 const Search = () => {
 
     const [searchInput, setSearchInput] = useState();
-    const { setSearched, searched, setError, showSearch, setShowSearch } = useContext(MyContext);
+    const { setSearched, setError, showSearch, setShowSearch } = useContext(MyContext);
 
     const history = useHistory();
     const location = useLocation();

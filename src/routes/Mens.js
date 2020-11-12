@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { BannerSlim } from '../components/Banner';
 import ShopSection from '../components/ShopSection';

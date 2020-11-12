@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { CartContext } from '../utils/CartContext';
 import { MyContext } from '../utils/Context';
 import { CartItem, HandleQuantity, EmptyCart } from '../components/Cart';
@@ -6,7 +6,6 @@ import '../stylesheets/CartPage.scss';
 import '../stylesheets/Checkout.scss';
 import '../stylesheets/UserInfoForm.scss';
 import { useHistory } from 'react-router-dom';
-import localStorage from '../utils/localStorage';
 
 export default function CartPage() {
     const { cart } = useContext(CartContext);
