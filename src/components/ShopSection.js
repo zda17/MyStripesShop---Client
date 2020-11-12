@@ -14,7 +14,7 @@ function ShopSection(props) {
     const [bottomsProduct, setBottomsProduct] = useState([]);
     const [miscProduct, setMiscProduct] = useState([]);
     const [allProduct, setAllProduct] = useState([]);
-    const { searched } = useContext(MyContext);
+    const { searched, error } = useContext(MyContext);
 
     useEffect(() => {
         axios.get(`/products/${props.path}`)
@@ -45,26 +45,12 @@ function ShopSection(props) {
                 </div>
             </header>
             <section className='products'>
-                {activeSection === 'tops' ?
-                    <>
-                        {topsProduct.map((product, index) => (
-                            <article key={index}>
-                                <Image
-                                    to={`/Products/${product.base_sku}`}
-                                    imgDivClass='img-div-home'
-                                    imgClass='product-img-home'
-                                    product={product}
-                                />
-                                <section className='name-and-price'>
-                                    <h3>{product.name}</h3>
-                                    <h4>${(product.price_cents / 100).toFixed(2)}</h4>
-                                </section>
-                            </article>
-                        ))}
-                    </>
-                    : activeSection === 'bottoms' ?
+                {error ?
+                    <div style={{ textAlign: 'center', margin: '50px auto 75px', color: '#b20000' }}>{error}</div>
+                    :
+                    activeSection === 'tops' ?
                         <>
-                            {bottomsProduct.map((product, index) => (
+                            {topsProduct.map((product, index) => (
                                 <article key={index}>
                                     <Image
                                         to={`/Products/${product.base_sku}`}
@@ -79,9 +65,9 @@ function ShopSection(props) {
                                 </article>
                             ))}
                         </>
-                        : activeSection === 'accessories' ?
+                        : activeSection === 'bottoms' ?
                             <>
-                                {miscProduct.map((product, index) => (
+                                {bottomsProduct.map((product, index) => (
                                     <article key={index}>
                                         <Image
                                             to={`/Products/${product.base_sku}`}
@@ -96,23 +82,40 @@ function ShopSection(props) {
                                     </article>
                                 ))}
                             </>
-                            :
-                            <>
-                                {allProduct.map((product, index) => (
-                                    <article key={index}>
-                                        <Image
-                                            to={`/Products/${product.base_sku}`}
-                                            imgDivClass='img-div-home'
-                                            imgClass='product-img-home'
-                                            product={product}
-                                        />
-                                        <section className='name-and-price'>
-                                            <h3>{product.name}</h3>
-                                            <h4>${(product.price_cents / 100).toFixed(2)}</h4>
-                                        </section>
-                                    </article>
-                                ))}
-                            </>
+                            : activeSection === 'accessories' ?
+                                <>
+                                    {miscProduct.map((product, index) => (
+                                        <article key={index}>
+                                            <Image
+                                                to={`/Products/${product.base_sku}`}
+                                                imgDivClass='img-div-home'
+                                                imgClass='product-img-home'
+                                                product={product}
+                                            />
+                                            <section className='name-and-price'>
+                                                <h3>{product.name}</h3>
+                                                <h4>${(product.price_cents / 100).toFixed(2)}</h4>
+                                            </section>
+                                        </article>
+                                    ))}
+                                </>
+                                :
+                                <>
+                                    {allProduct.map((product, index) => (
+                                        <article key={index}>
+                                            <Image
+                                                to={`/Products/${product.base_sku}`}
+                                                imgDivClass='img-div-home'
+                                                imgClass='product-img-home'
+                                                product={product}
+                                            />
+                                            <section className='name-and-price'>
+                                                <h3>{product.name}</h3>
+                                                <h4>${(product.price_cents / 100).toFixed(2)}</h4>
+                                            </section>
+                                        </article>
+                                    ))}
+                                </>
                 }
             </section>
         </section>
