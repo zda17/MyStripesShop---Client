@@ -10,10 +10,11 @@ export default ({ children }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [searched, setSearched] = useState();
     const [showSearch, setShowSearch] = useState();
+    const [error, setError] = useState();
 
     return (
         <MyContext.Provider
-            value={{ menuOpenState, setMenuOpenState, stateChangeHandler: (newState) => setMenuOpenState(newState.isOpen), activeBurger, setActiveBurger, windowWidth, setWindowWidth, searched, setSearched, showSearch, setShowSearch }}
+            value={{ menuOpenState, setMenuOpenState, stateChangeHandler: (newState) => setMenuOpenState(newState.isOpen), activeBurger, setActiveBurger, windowWidth, setWindowWidth, searched, setSearched, showSearch, setShowSearch, error, setError }}
         >
             {children}
         </MyContext.Provider>
