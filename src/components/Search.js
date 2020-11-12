@@ -6,7 +6,7 @@ import { MyContext } from '../utils/Context';
 const Search = () => {
 
     const [searchInput, setSearchInput] = useState();
-    const { setSearched, setError, showSearch, setShowSearch } = useContext(MyContext);
+    const { setSearched, setError, showSearch, setShowSearch, windowWidth } = useContext(MyContext);
 
     const history = useHistory();
     const location = useLocation();
@@ -60,7 +60,7 @@ const Search = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setSearchedState();
-        if (!setSearchedState()) {
+        if (searchInput && !setSearchedState()) {
             setError('Sorry, we couldn\'t find results for that. Try a different search!');
         }
         if (location.pathname !== '/Products/Mens') {
@@ -76,7 +76,7 @@ const Search = () => {
                 <form className='search-form' onSubmit={handleSubmit}>
                     <i className="fa fa-search search-icon" onClick={handleSubmit} />
                     <label className='search-field' htmlFor='search'>
-                        <input type='text' name='search' id='search' onChange={handleInputChange} placeholder='Try "pants" or "shirts"'></input>
+                        <input type='text' name='search' id='search' style={{ border: windowWidth < 400 && location.pathname == '/Products/Mens' ? '1px solid black' : ''}} onChange={handleInputChange} placeholder='Try "pants" or "shirts"'></input>
                         <input type='submit' value='' className='search-enter' />
                     </label>
                     <i onClick={() => setShowSearch(false)} className="fas fa-times"></i>

@@ -45,3 +45,12 @@
         right: 140px;
     }
 }
+
+@media screen and (max-width: 400px) {
+    .search-form {
+        top: 126px;
+        right: -20px;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
