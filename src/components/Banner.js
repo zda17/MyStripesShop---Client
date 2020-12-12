@@ -1,9 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../stylesheets/Banner.scss';
 
 export const Banner = () => {
-    return(
+    return (
         <section id="Banner">
             <div className="banner-content">
                 <h2 className="banner-header">NEW ARRIVALS</h2>
@@ -16,9 +16,9 @@ export const Banner = () => {
     );
 };
 
-export const BannerSlim = () => {
-    return(
-        <section id="BannerSlim">
+export const BannerSlim = ({ style }) => {
+    return (
+        <section style={{ marginTop: style }} id="BannerSlim">
             <div className="banner-content">
                 <div className="button-container">
                     <Link to="/Products/All" className="Button Button_Banner">SHOP ALL</Link>
